@@ -14,5 +14,23 @@ class Merchant < ApplicationRecord
     return merchant  
   end
   
-end
+  def orders_of_status(status)
+    # something goes here
+    end
+  
+    def revenue_of_status(status)
+      #some logic goes here for sum and total price
+  
+    end
+  
+    def order_count(status)
+      #logic goes here
+    end
+  
+    def total_revenue
+      return revenue_of_status(:pending) + revenue_of_status(:shipped)
+    end
+
+  
+  end
 
