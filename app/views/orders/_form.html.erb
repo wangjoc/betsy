@@ -1,0 +1,59 @@
+<% if @order.errors.any? %>
+  <ul class="errors">
+    <% @order.errors.each do |column, message| %>
+      <div class="alert alert-danger" role="alert">
+        <%= "Order #{column} #{message}. Please enter a valid #{column}." %>
+      </div>
+    <% end %>
+  </ul>
+<% end %>
+
+<h2><%= "#{action_name}" %> Order</h2>
+
+<div class="container-sm">
+  <h3>Please confirm purchase order</h3>
+    <% Order.first.order_items.each do |order_item| %>
+      <%= order_item.product.name %><br>
+      <%= order_item.product.description %><br>
+      <%= "Price: #{order_item.product.price}" %><br>
+      <%= "Quantity: #{order_item.quantity}" %><br>
+      <%= button_to "Reduce Quantity", order_path(order_item.id), method: :post %><br>
+    <% end %>
+</div>
+
+<div class="container-sm">
+  <h3>Please enter the following information:</h3>
+
+  <%= form_with model: @order, class: 'user-form' do |f| %>
+   
+    <div class="form-group">
+      <%= f.label :name %><br>
+      <%= f.text_field :buyer_name, class: "form-control-lg", placeholder: "Name on Credit Card"%>
+    </div>
+    <div class="form-group">
+      <%= f.label :mail_address %><br>
+      <%= f.text_field :mail_address, class: "form-control-lg", placeholder: "Mailing Address"%>
+    <div class="form-group">
+      <%= f.label :zip_code %><br>
+      <%= f.text_field :zip_code, class: "form-control-lg", placeholder: "Billing Zip Code" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :email_address %><br>
+      <%= f.text_field :email_address, class: "form-control-lg", placeholder: "Email Address"%>
+    </div>
+    <div class="form-group">
+      <%= f.label :Credit_Card_Number %><br>
+      <%= f.text_field :cc_num, class: "form-control-lg", placeholder: "Credit Card Number"%>
+    </div>
+    <div class="form-group">
+      <%= f.label :Credit_Card_Expiration %><br>
+      <%= f.text_field :cc_exp, class: "form-control-lg", placeholder: "Credit Card Expiration"%>
+    </div>
+    <div class="form-group">
+      <%= f.label :Credit_Card_CVV %><br>
+      <%= f.text_field :cc_cvv, class: "form-control-lg", placeholder: "Credit Card CVV (security code)"%>
+    </div>
+
+    <%= f.submit action_name == "New" ? "Add new order" : "#{action_name} order" , class: "order-button" %>
+  <% end %>
+</div>

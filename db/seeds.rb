@@ -31,5 +31,51 @@ CSV.foreach(PRODUCT_FILE, :headers => true) do |row|
   end
 end
 
-puts "Added #{product.count} media records"
+puts "Added #{Product.all.length} media records"
 puts "#{product_failures.length} media failed to save"
+
+
+
+CUSTOMER_FILE = Rails.root.join('db', 'customer_seeds.csv')
+puts "Loading raw media data from #{CUSTOMER_FILE}"
+
+order_failures = []
+CSV.foreach(CUSTOMER_FILE, :headers => true) do |row|
+  order = Order.new
+  # order.id = row['id']
+  order.buyer_name = row['buyer_name']
+  order.email_address = row['email_address']
+  order.mail_address = row['mail_address']
+  order.zip_code = row['zip_code']
+  order.cc_num = row['cc_num']
+  order.cc_exp = row['cc_exp']
+
+  successful = order.save
+  if !successful
+    order_failures << order
+    puts "Failed to save order: #{order.inspect}"
+  else
+    puts "Created order: #{order.inspect}"
+  end
+end
+
+puts "Added #{Order.all.length} order records"
+puts "#{order_failures.length} order failed to save"
+
+
+
+puts "Generating random OrderItems"
+
+10.times do |i|
+  current_order = rand(1..Order.all.length)
+  order = Order.find_by(id: current_order)
+
+  item_params = {quantity: rand(1..5),
+                 product_id: rand(1..Product.all.length),
+                 order_id: current_order}
+
+  new_order_item = OrderItem.create(item_params)
+  order.order_items << new_order_item
+end
+
+puts "Added #{OrderItem.all.length} order_item records"
