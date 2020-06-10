@@ -1,0 +1,36 @@
+<% if @product.errors.any? %>
+  <ul class="errors">
+    <% @product.errors.each do |column, message| %>
+      <div class="alert alert-danger" role="alert">
+        <%= "Order #{column} #{message}. Please enter a valid #{column}." %>
+      </div>
+    <% end %>
+  </ul>
+<% end %>
+
+<h2><%= "#{action_name}" %> Order</h2>
+
+<div class="container-sm">
+  <h3>Please enter the following information:</h3>
+
+  <%= form_with model: @product, class: 'user-form' do |f| %>
+   
+    <div class="form-group">
+      <%= f.label :name %><br>
+      <%= f.text_field :name, class: "form-control-lg", placeholder: "Product Name"%>
+    </div>
+    <div class="form-group">
+      <%= f.label :description %><br>
+      <%= f.text_field :description, class: "form-control-lg", placeholder: "Description"%>
+    <div class="form-group">
+      <%= f.label :price %><br>
+      <%= f.text_field :price, class: "form-control-lg", placeholder: "Price" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :photo_url %><br>
+      <%= f.text_field :photo_url, class: "form-control-lg", placeholder: "Photo URL"%>
+    </div>
+
+    <%= f.submit action_name == "New" ? "Add new product" : "#{action_name} product" , class: "order-button" %>
+  <% end %>
+</div>
