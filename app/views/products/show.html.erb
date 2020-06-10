@@ -1,5 +1,6 @@
-<div class='card' style="max-width: 1000px;">
+<div class='card horiz' style="max-width: 1000px;">
   <div class='row no-gutters'>
+  
   <div class='col-sm-5' style="background: #868e96;">
   <%= image_tag(@product.photo_url, class: "card-img-top h-100") %>
   </div>
@@ -9,11 +10,19 @@
           <p class="card-text"><%=@product.description%></p>
           <p class="card-text">Price: $<%=@product.price%></p>
           <p class="card-text">In Stock: <%=@product.stock%></p>
-          <a href="#" class="btn btn-primary stretched-link">Add to Cart</a>
+          <p class="card-text">Sold by: <%=@product.merchant.name%> (Merchant ID: <%=@product.merchant.id%>)</p>
+          <%#TODO: Add cart link here%>
+          <a href="#" class="btn btn-primary stretched-link">Add To Cart</a>
+          
+          <% if session[:merchant_id]%>
+          <span><%= link_to "Edit this Product", edit_product_path(@product.id), class: "btn btn-primary stretched-link" %></span>
+          <% end %>
+          
       </div>
     </div>
   </div>
 </div>
 
+<%#TODO: Add reviews for individual product here%>
 
 

@@ -8,31 +8,15 @@
 }
 
 // individual product - product show
-.container-sm {
-    padding-top: 30px;
+
+.horiz {
+    margin: 30px auto
 }
 
-.card-container {
-    padding-top: 30px;
-    justify-content: center;
+.title {
+    text-align: center;
+    background-color: #E5989B;
+    padding: 30px 0px 10px 0px;
+    margin-bottom: 30px;
+    font-family: 'La Belle Aurore', cursive;
 }
-
-// <div class='card-container'>
-// <div class="card mb-3">
-//   <%= image_tag(@product.photo_url, class: "card-img-top") %>
-//   <div class="card-body">
-//     <h5 class="card-title"><%=@product.name%></h5>
-//     <p class="card-text">Description: <%=@product.description%></p>
-//   </div>
-//   <ul class="list-group list-group-flush">
-//     <li class="list-group-item">Sold by: <%=@product.merchant.name%> (Merchant ID: <%=@product.merchant.id%>)</li>
-//     <li class="list-group-item">Price: <%=@product.price%></li>
-//     <li class="list-group-item">In Stock: <%=@product.stock%></li>
-//   </ul>
-
-//   <div class="card-body">
-//     <a href="#" class="card-link">Add To Cart</a>
-//     <a href="#" class="card-link">Edit</a>
-//   </div>
-// </div>
-// </div>
