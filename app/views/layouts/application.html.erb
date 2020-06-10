@@ -14,11 +14,12 @@
 
   <body>
     <nav class="navbar navbar-light bg-light">
-      <a href="" class="navbar-brand">regrEtsy</a>
+      <%= link_to root_path do%><li class="navbar-brand"><h1>regrEtsy</h1></li><%end%>
+
       <ul class="navbar-nav">
-        <li class='navbar-item'><a class='nav-link-'>PRODUCTS</a></li>
-        <li class='navbar-item'><a class='nav-link-'>SELLER LOGIN</a></li>
-        <li class='navbar-item'><a class='nav-link-'><i class="fas fa-shopping-cart">CART ICON HERRRE</i></a></li>
+        <%= link_to products_path do%><li>PRODUCTS</li><%end%>
+        <%= link_to github_login_path do%><li>SELLER LOGIN</li><%end%> 
+        <%= link_to root_path do%><li>CART ICON HEREEEE</li><%end%>
       </ul>
     </nav>
     <%= yield %>
