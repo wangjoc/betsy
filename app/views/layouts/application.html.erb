@@ -1,15 +1,33 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title>Betsy</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+</head>
 
-  <body>
+<body>
+    <header class="app-header-background">
+        <h1>
+            <%= link_to "RegrEtsy:", root_path %>
+            <small>Products we regret you need today!</small>
+        </h1>
+        <div class="navbar">
+            <ul class="ullist nav " , style="list-style: none;">
+                <li class="m-3">
+                    <%= link_to "View All Products", root_path%>
+                </li>
+
+                <li class="m-3">
+                    <%= link_to "View All Merchants", products_path%>
+                </li>
+            </ul>
+    </header>
     <%= yield %>
-  </body>
+</body>
+
 </html>
