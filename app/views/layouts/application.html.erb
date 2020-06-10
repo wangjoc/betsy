@@ -9,80 +9,83 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 
-    <link href="https://fonts.googleapis.com/css2?family=La+Belle+Aurore&family=Roboto&display=swap" rel="stylesheet"> 
-  </head>
+    <link href="https://fonts.googleapis.com/css2?family=La+Belle+Aurore&family=Roboto&display=swap" rel="stylesheet">
+</head>
 
-  <body>
+<body>
     <nav class="navbar navbar-light bg-light">
-      <a href="" class="navbar-brand">regrEtsy</a>
-      <ul class="navbar-nav">
-        <li class='navbar-item'><a class='nav-link-'>PRODUCTS</a></li>
-        <li class='navbar-item'><a class='nav-link-'>SELLER LOGIN</a></li>
-        <li class='navbar-item'><a class='nav-link-'><i class="fas fa-shopping-cart">CART ICON HERRRE</i></a></li>
-      </ul>
+        <a href="" class="navbar-brand">regrEtsy</a>
+        <ul class="navbar-nav">
+            <li class='navbar-item'><a class='nav-link-'>
+                    <%= link_to "PRODUCTS", products_path %></a>
+            </li>
+            <li class='navbar-item'><a class='nav-link-'>SELLER LOGIN</a></li>
+            <li class='navbar-item'><a class='nav-link-'><i class="fas fa-shopping-cart">CART ICON HERRRE</i></a></li>
+        </ul>
     </nav>
     <%= yield %>
 
-    
-    <footer class="page-footer font-small blue pt-4"> 
-      <div class="container-fluid text-center text-md-left">
-        <!-- Grid row -->
-        <div class="row">
-          <!-- Grid column -->
-          <div class="col-md-6 mt-md-0 mt-3">
-            <!-- Content -->
-            <h5 class="text-uppercase">regrEtsy</h5>
-            <p>A website filled with things you might regret buying!  Others certainly do!</p>
-          </div>
-          <!-- Grid column -->
-          <hr class="clearfix w-100 d-md-none pb-3">
-          <!-- Grid column -->
-          <div class="col-md-3 mb-md-0 mb-3">
-            <!-- Links -->
-            <h5 class="text-uppercase">About</h5>
 
-            <ul class="list-inline">
-              <li class="list-inline-item">
-                <a href="#!">Careers</a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#!">Contact Us</a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#!">Investors</a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#!">Impact</a>
-              </li>
-            </ul>
-          </div>
-          <!-- Grid column -->
+    <footer class="page-footer font-small blue pt-4">
+        <div class="container-fluid text-center text-md-left">
+            <!-- Grid row -->
+            <div class="row">
+                <!-- Grid column -->
+                <div class="col-md-6 mt-md-0 mt-3">
+                    <!-- Content -->
+                    <h5 class="text-uppercase">regrEtsy</h5>
+                    <p>A website filled with things you might regret buying! Others certainly do!</p>
+                </div>
+                <!-- Grid column -->
+                <hr class="clearfix w-100 d-md-none pb-3">
+                <!-- Grid column -->
+                <div class="col-md-3 mb-md-0 mb-3">
+                    <!-- Links -->
+                    <h5 class="text-uppercase">About</h5>
 
-          <!-- Grid column -->
-          <div class="col-md-3 mb-md-0 mb-3">
-            <!-- Links -->
-            <h5 class="text-uppercase">Meet the Team</h5>
+                    <ul class="list-inline">
+                        <li class="list-inline-item">
+                            <a href="#!">Careers</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#!">Contact Us</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#!">Investors</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#!">Impact</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Grid column -->
 
-            <ul class="list-inline">
-              <li class="list-inline-item">
-                <a href="#!">Hala</a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#!">Hannah</a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#!">Jocelyn</a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#!">Leah</a>
-              </li>
-            </ul>
-          </div>
-          <!-- Grid column -->
+                <!-- Grid column -->
+                <div class="col-md-3 mb-md-0 mb-3">
+                    <!-- Links -->
+                    <h5 class="text-uppercase">Meet the Team</h5>
+
+                    <ul class="list-inline">
+                        <li class="list-inline-item">
+                            <a href="#!">Hala</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#!">Hannah</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#!">Jocelyn</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#!">Leah</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Grid column -->
+            </div>
+            <!-- Grid row -->
         </div>
-        <!-- Grid row -->
-      </div>
-      <!-- Footer Links -->
+        <!-- Footer Links -->
     </footer>
-  </body>
+</body>
+
 </html>
