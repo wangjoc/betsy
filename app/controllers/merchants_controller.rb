@@ -1,11 +1,12 @@
 class MerchantsController < ApplicationController
+  before_action :find_merchant, only: [:show]
+
   def index
     @merchants = Merchant.all 
   end
 
-  # def show
-  #   @merchants = Merchant.find_by ... something
-  # end
+  def show  
+  end
 
   def create
     auth_hash = request.env["omniauth.auth"]
@@ -36,12 +37,18 @@ class MerchantsController < ApplicationController
   end
 
   def current
-    @current_merchant = Merchant.find_by(id: session[:merchant_id])
-    unless @current_merchant
+    unless @merchant
       flash[:error] = "You must be logged in to see this page"
       redirect_to root_path
       return
     end
   end
+
+  private
+
+  def find_merchant
+    @merchant = Merchant.find_by(id: session[:merchant_id])
+  end
+
 end
 
