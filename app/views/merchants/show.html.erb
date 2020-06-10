@@ -2,7 +2,9 @@
 
 <h2>My Products</h2>
 
-<%= link_to "Create New Product", new_product_path %>
+<div class="btn btn-info">
+  <%= link_to "Create New Product", new_product_path, :class => "btn" %>
+</div> </td>
 
 <div class="container-lg">
 
@@ -90,7 +92,11 @@
               <td><%= order_item.quantity %></td>
               <td><%= order.created_at %></td>
               <td><%= order.status %></td>
-              <td><%= button_to "Edit", order_path(order.id), method: :post %></td>
+              <td>
+                <div class="btn btn-info">
+                  <%= link_to "Edit Status", root_path, :class => "btn" %>
+                </div> </td>
+              </td>
             <% end %>
           </tr>
         <% end %>
@@ -99,7 +105,3 @@
   </table>
 
 </div>
-
-<h2></h2>
-
-<h2></h2>
