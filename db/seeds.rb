@@ -8,6 +8,29 @@
 
 require 'csv'
 
+MERCHANT_FILE = Rails.root.join('db', 'merchant_seeds.csv')
+puts "Loading raw merchant data from #{MERCHANT_FILE}"
+
+merchant_failures = []
+CSV.foreach(MERCHANT_FILE, :headers => true) do |row|
+  merchant = Merchant.new
+  merchant.name = row['name']
+  merchant.uid = row['uid']
+  merchant.provider = row['provider']
+  merchant.email = row['email']
+
+  successful = merchant.save
+  if !successful
+    merchant_failures << merchant
+    puts "Failed to save merchant: #{merchant.inspect}"
+  else
+    puts "Created merchant: #{merchant.inspect}"
+  end
+end
+
+puts "Added #{Merchant.all.length} merchant records"
+puts "#{merchant_failures.length} merchant failed to save"
+
 
 PRODUCT_FILE = Rails.root.join('db', 'products_seeds.csv')
 puts "Loading raw media data from #{PRODUCT_FILE}"
@@ -21,6 +44,7 @@ CSV.foreach(PRODUCT_FILE, :headers => true) do |row|
   product.price = row['price']
   product.photo_url = row['photo_url']
   product.stock = row['stock']
+  product.merchant_id = Merchant.first.id
 
   successful = product.save
   if !successful
@@ -37,7 +61,7 @@ puts "#{product_failures.length} media failed to save"
 
 
 CUSTOMER_FILE = Rails.root.join('db', 'customer_seeds.csv')
-puts "Loading raw media data from #{CUSTOMER_FILE}"
+puts "Loading raw customer data from #{CUSTOMER_FILE}"
 
 order_failures = []
 CSV.foreach(CUSTOMER_FILE, :headers => true) do |row|
