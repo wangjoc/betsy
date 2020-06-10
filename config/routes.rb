@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   resources :products
   resources :orders
+  resources :merchants
 
   get "/orders/:id/purchase", to: "orders#purchase", as: "purchase"
   patch "/orders/:id/complete", to: "orders#complete", as: "complete"
@@ -14,4 +15,5 @@ Rails.application.routes.draw do
 
   post "/logout", to: "merchants#logout", as: "logout"
   get "/merchants/current", to: "merchants#current", as: "current_merchant"
+  get "/merchants/dashboard", to: "merchants#dashboard", as: "dashboard"
 end
