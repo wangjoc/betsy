@@ -1,10 +1,21 @@
 class OrdersController < ApplicationController
+  before_action :find_work, only: [:show]
+
   def index
     @orders = Order.all
   end
 
   def new
     @order = Order.new
+  end
+
+  def show    
+    if @order.nil?
+      redirect_to orders_path
+      return
+    end
+
+    session[:return_to] = order_path(@order.id)
   end
 
   def create
@@ -28,6 +39,10 @@ class OrdersController < ApplicationController
 
   def order_params
     return params.require(:order).permit(:buyer_name, :mail_address, :zip_code, :email_address, :cc_num, :cc_exp)
+  end
+
+  def find_work
+    @order = Order.find_by(id: params[:id])
   end
 
 end
