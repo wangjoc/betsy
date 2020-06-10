@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :find_work, only: [:show]
+  before_action :find_work, only: [:show, :purchase]
 
   def index
     @orders = Order.all
@@ -22,17 +22,25 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params) 
 
     if @order.save 
-      Order.first.order_items.each do |order_items|
+      OrderItem.all.each do |order_items|
         @order.order_items << order_items
       end
 
-      redirect_to order_path(@order.id)
-      flash[:success] = "Successfully added new order: #{view_context.link_to "#Order ID: #{@order.id}", order_path(@order.id) }"
+      redirect_to purchase_path(@order.id)
+      flash[:success] = "Successfully added new order: #{view_context.link_to "#Order ID: #{@order.id}", purchase_path(@order.id) }"
       return
     else 
       render :new, status: :bad_request
       return
     end
+  end
+
+  def purchase
+
+  end
+
+  def complete
+
   end
 
   private

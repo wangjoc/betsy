@@ -1,3 +1,5 @@
+<h1>Confirm your purchase here!<h1>
+
 <h1>Order Details: Order <%= @order.id %></h1>
 
 <div class="container-sm">
@@ -19,6 +21,5 @@
     <% end %>
 </div>
 
-<%= button_to "Complete Order", orders_path, method: :get %><br>
-
+<%= button_to "Purchase Order", order_path(@order.id), method: :get %><br>
 <%= button_to "Cancel Order", order_path(@order.id), method: :get %><br>

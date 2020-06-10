@@ -5,4 +5,7 @@ Rails.application.routes.draw do
 
   resources :products
   resources :orders
+
+  get "/orders/:id/purchase", to: "orders#purchase", as: "purchase"
+  patch "/orders/:id/complete", to: "orders#complete", as: "complete"
 end
