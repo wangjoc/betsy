@@ -1,0 +1,28 @@
+// Place all the styles related to the Homepages controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+.homepage-container {
+  position: relative;
+  text-align: center;
+}
+
+.homepage-img {
+  max-width: 100%;
+  filter: blur(3px);
+}
+
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #01161E;
+}
+
+.logo {
+  padding: 10px;
+  font-size: 15vw;
+  text-shadow: 3px 3px 3px #EFF6E0;
+  font-family: 'La Belle Aurore', cursive;
+}

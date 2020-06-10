@@ -16,3 +16,18 @@
 @import "bootstrap";
 
 @import "**/*";
+
+.navbar-brand {
+  font-family: 'La Belle Aurore', cursive;
+  padding-left: 20px;
+}
+
+.navbar-nav {
+  display: flex;
+  flex-direction: row;
+  padding: 20px;
+}
+
+.navbar-item {
+  padding: 0px 5px;
+}
