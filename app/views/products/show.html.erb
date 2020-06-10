@@ -1,20 +1,19 @@
-<h1>Product Details: Product <%= @product.id %></h1>
-
-<div class="container-sm">
-  <h2>Product Detail</h2>
-  <%= "Product Name: #{@product.name}" %><br>
-  <%= "Sold By: #{@product.merchant.name} (Merchant ID: #{@product.merchant.id})" %><br>
-  <%= "Description: #{@product.description}" %><br>
-  <%= "Price: $#{@product.price}" %><br>
-  <%= "Stock: #{@product.stock}" %><br>
-  <%= "Photo:" %><br>
-  <%= image_tag(@product.photo_url) %>
+<div class='card' style="max-width: 1000px;">
+  <div class='row no-gutters'>
+  <div class='col-sm-5' style="background: #868e96;">
+  <%= image_tag(@product.photo_url, class: "card-img-top h-100") %>
+  </div>
+    <div class="col-sm-7">
+      <div class="card-body">
+        <h2 class="card-title"><%=@product.name%></h5>
+          <p class="card-text"><%=@product.description%></p>
+          <p class="card-text">Price: $<%=@product.price%></p>
+          <p class="card-text">In Stock: <%=@product.stock%></p>
+          <a href="#" class="btn btn-primary stretched-link">Add to Cart</a>
+      </div>
+    </div>
+  </div>
 </div>
 
-<%= button_to "Add to Cart", products_path, method: :get %><br>
 
-<% if session[:merchant_id] == @product.merchant.id %>
-  <div class="btn btn-info">
-    <%= link_to "Edit", edit_product_path(@product.id), method: :get, :class => "btn" %>
-  </div>
-<% end %>
+

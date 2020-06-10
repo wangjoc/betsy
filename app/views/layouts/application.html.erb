@@ -10,24 +10,25 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 
     <link href="https://fonts.googleapis.com/css2?family=La+Belle+Aurore&family=Roboto&display=swap" rel="stylesheet"> 
+    <script src="https://kit.fontawesome.com/c6d0da2fbf.js" crossorigin="anonymous"></script>
+
   </head>
 
   <body>
-    <nav class="navbar navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <%= link_to root_path do%><li class="navbar-brand"><h1>regrEtsy</h1></li><%end%>
+      <span class="navbar-text">Does anyone even want this stuff??</span>
 
       <ul class="navbar-nav">
-        <%= link_to products_path do%><li>PRODUCTS</li><%end%>
-
+        <li class='nav-item'><%= link_to 'ALL PRODUCTS', products_path, class: "nav-link" %></li>
+        <li class='nav-item'><%= link_to 'SHOP BY CATEGORY', root_path, class: "nav-link" %></li>
         <% if session[:merchant_id].nil? %>
-          <%= link_to github_login_path do%><li>MERCHANT LOGIN</li><%end%> 
+          <li class='nav-item'><%= link_to 'MERCHANT LOGIN', github_login_path, class: "nav-link" %> </li>
         <% else %>
-          <%= link_to logout_path, method: :post do%><li>MERCHANT LOGOUT</li><%end%> 
-          <%= link_to dashboard_path, method: :get do%><li>MERCHANT DASHBOARD</li><%end%> 
-         
+          <li class='nav-item'><%= link_to 'MERCHANT LOGOUT', logout_path, class: "nav-link" %></li>
+          <li class='nav-item'><%= link_to 'MY DASHBOARD', dashboard_path, class: "nav-link" %></li>
         <% end %>
-
-        <%= link_to new_order_path do%><li>CART ICON HEREEEE</li><%end%>
+          <li class='nav-item'><%= link_to new_order_path, class: "nav-link" do %><i class="fas fa-shopping-cart"></i> Cart </li><%end%>
       </ul>
     </nav>
     <%= yield %>

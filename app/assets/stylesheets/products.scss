@@ -2,21 +2,37 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
-.sora {
-    float: left;
-    width:  100px;
-    height: 100px;
-    background-size: cover;
+// all products - product index
+.card-deck {
+    padding: 20px;
 }
 
-.sora2 {
-    height: 300px;
-    width: 400px;
-    overflow: hidden;
-   }
+// individual product - product show
+.container-sm {
+    padding-top: 30px;
+}
 
-.img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-  }
+.card-container {
+    padding-top: 30px;
+    justify-content: center;
+}
+
+// <div class='card-container'>
+// <div class="card mb-3">
+//   <%= image_tag(@product.photo_url, class: "card-img-top") %>
+//   <div class="card-body">
+//     <h5 class="card-title"><%=@product.name%></h5>
+//     <p class="card-text">Description: <%=@product.description%></p>
+//   </div>
+//   <ul class="list-group list-group-flush">
+//     <li class="list-group-item">Sold by: <%=@product.merchant.name%> (Merchant ID: <%=@product.merchant.id%>)</li>
+//     <li class="list-group-item">Price: <%=@product.price%></li>
+//     <li class="list-group-item">In Stock: <%=@product.stock%></li>
+//   </ul>
+
+//   <div class="card-body">
+//     <a href="#" class="card-link">Add To Cart</a>
+//     <a href="#" class="card-link">Edit</a>
+//   </div>
+// </div>
+// </div>

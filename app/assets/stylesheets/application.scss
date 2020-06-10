@@ -26,12 +26,21 @@
   text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #FF69B4, 0 0 20px #FF69B4, 0 0 25px #FF69B4, 0 0 30px #FF69B4, 0 0 35px #FF69B4;
 }
 
-.navbar-nav {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 20px;
+.navbar {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 3fr;
 }
 
-.navbar-item {
+.navbar-text {
+  grid-column-start: span 2;
+}
+
+.navbar-nav {
+  grid-column-start: 4;
+  justify-items: end;
+}
+
+.nav-link {
   padding: 0px 5px;
+  text-align: center;
 }
