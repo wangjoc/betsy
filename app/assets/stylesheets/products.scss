@@ -1,0 +1,22 @@
+// Place all the styles related to the products controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+.sora {
+    float: left;
+    width:  100px;
+    height: 100px;
+    background-size: cover;
+}
+
+.sora2 {
+    height: 300px;
+    width: 400px;
+    overflow: hidden;
+   }
+
+.img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
