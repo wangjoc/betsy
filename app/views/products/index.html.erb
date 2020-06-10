@@ -1,0 +1,15 @@
+<div>
+    <% @products.each do |product| %> <div class="card">
+
+        <div class="card-body">
+            <p class="card-text"><%= product.name %></p>
+        </div>
+        <div class=" img"><%= image_tag product.photo_url %></div>
+        <div class="card-body">
+            <p class="card-text">Description: <%= product.description %></p>
+            <p class="card-text">Price: <%= product.price %></p>
+            <p class="card-text">Stock: <%= product.stock %></p>
+        </div>
+    </div>
+    <% end %>
+</div>
