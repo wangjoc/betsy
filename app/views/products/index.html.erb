@@ -1,15 +1,17 @@
-<div>
-    <% @products.each do |product| %> <div class="card">
-
-        <div class="card-body">
-            <p class="card-text"><%= product.name %></p>
+<%# DISPLAYS ALL PRODUCTS, REGARDLESS OF MERCHANT%>
+<div class='card-deck'>
+    <% @products.each do |product| %>
+        <div class="card">
+        <div class=".card-img-top-container">
+            <%= image_tag(product.photo_url, class: "card-img-top") %> </div>
+            <div class="card-body">
+                <h4 class="card-title"><%= link_to product.name, product_path(product.id) %></h4>
+                <p class="card-text"><%= product.description %></p>
+                <p class='card-text'>Price: $<%= product.price %></p>
+                <p class='card-text'>In Stock: <%= product.stock %></p>
+                <%#TODO: Add cart link here%>
+                <a href="#!" class="btn btn-primary">Add to cart</a>
+            </div>
         </div>
-        <div class=" img"><%= image_tag product.photo_url %></div>
-        <div class="card-body">
-            <p class="card-text">Description: <%= product.description %></p>
-            <p class="card-text">Price: <%= product.price %></p>
-            <p class="card-text">Stock: <%= product.stock %></p>
-        </div>
-    </div>
     <% end %>
 </div>

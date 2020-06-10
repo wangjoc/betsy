@@ -21,7 +21,7 @@ class ProductsController < ApplicationController
 
     if @product.save 
       redirect_to product_path(@product.id)
-      flash[:success] = "Successfully added new work: #{view_context.link_to "##{@product.id} #{@product.name}", product_path(@product.id) }"
+      flash[:success] = "Successfully added new product: #{view_context.link_to "##{@product.id} #{@product.name}", product_path(@product.id) }"
       return
     else 
       render :new, status: :bad_request

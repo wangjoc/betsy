@@ -2,21 +2,21 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
-.sora {
-    float: left;
-    width:  100px;
-    height: 100px;
-    background-size: cover;
+// all products - product index
+.card-deck {
+    padding: 20px;
 }
 
-.sora2 {
-    height: 300px;
-    width: 400px;
-    overflow: hidden;
-   }
+// individual product - product show
 
-.img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-  }
+.horiz {
+    margin: 30px auto
+}
+
+.title {
+    text-align: center;
+    background-color: #E5989B;
+    padding: 30px 0px 10px 0px;
+    margin-bottom: 30px;
+    font-family: 'La Belle Aurore', cursive;
+}
