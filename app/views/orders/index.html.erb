@@ -1,0 +1,32 @@
+<h2>List of Orders</h2><br>
+
+<div class="container-lg">
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <%# <th>Buyer</th> %>
+        <th>Number of Products</th>
+        <th>Order Date</th>
+        <th>Status</th>
+        <th>Edit</th>
+      </tr>
+    <thead>
+
+    <tbody>
+      <% Order.all.each do |order| %>
+        <tr class="clickable-tr" data-path="<%= order_path(order.id)%>" >
+          <td><%= order.id %></td>
+          <%# <td><%= order.buyer %>
+          <td><%= order.order_items.length %></td>
+          <td><%= order.created_at %></td>
+          <td><%= order.status %></td>
+          <td><%= button_to "Edit", order_path(order.id), method: :post %> </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>
+
