@@ -27,10 +27,15 @@
       <%= f.text_field :price, class: "form-control-lg", placeholder: "Price" %>
     </div>
     <div class="form-group">
+      <%= f.label :stock %><br>
+      <%= f.text_field :stock, class: "form-control-lg", placeholder: "Quantity to sell"%>
+    </div>
+    <div class="form-group">
       <%= f.label :photo_url %><br>
       <%= f.text_field :photo_url, class: "form-control-lg", placeholder: "Photo URL"%>
     </div>
 
+    <%# TODO: Can I change this to "update" rather than action_name? %>
     <%= f.submit action_name == "New" ? "Add new product" : "#{action_name} product" , class: "order-button" %>
   <% end %>
 </div>

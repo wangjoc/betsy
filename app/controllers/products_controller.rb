@@ -53,7 +53,7 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-    complete_params = params.require(:product).permit(:name, :description, :price, :photo_url)
+    complete_params = params.require(:product).permit(:name, :description, :price, :stock, :photo_url)
     complete_params[:merchant_id] = session[:merchant_id]
     return complete_params
   end
