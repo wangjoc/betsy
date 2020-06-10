@@ -18,4 +18,23 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  def perform_login(merchant = nil)
+  #   merchant ||= Merchant.first
+
+  #   login_data = {
+  #     merchant: {
+  #       name: "Harry Potter",
+  #       uid: "123456",
+  #       provider: "github",
+  #       email: "harrypotter@hogwarts.com"
+  #     },
+  #   }
+  #   post github_login_path, params: login_data
+
+  #   # Verify the user ID was saved - if that didn't work, this test is invalid
+  #   binding.pry
+  #   expect(session[:merchant_id]).must_equal merchant.id
+
+  #   return merchant
+  end
 end
