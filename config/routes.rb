@@ -8,4 +8,10 @@ Rails.application.routes.draw do
 
   get "/orders/:id/purchase", to: "orders#purchase", as: "purchase"
   patch "/orders/:id/complete", to: "orders#complete", as: "complete"
+
+  get "/auth/github", as: "github_login"
+  get "/auth/:provider/callback", to: "merchants#create"
+
+  post "/logout", to: "merchants#logout", as: "logout"
+  get "/merchants/current", to: "merchants#current", as: "current_merchant"
 end
