@@ -32,7 +32,13 @@ ActiveRecord::Schema.define(version: 2020_06_10_042023) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.string "status"
+    t.string "status", default: "pending"
+    t.string "buyer_name"
+    t.string "email_address"
+    t.string "mail_address"
+    t.string "zip_code"
+    t.integer "cc_num"
+    t.integer "cc_exp"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
