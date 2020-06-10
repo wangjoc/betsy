@@ -44,7 +44,7 @@ CSV.foreach(PRODUCT_FILE, :headers => true) do |row|
   product.price = row['price']
   product.photo_url = row['photo_url']
   product.stock = row['stock']
-  product.merchant_id = Merchant.first.id
+  product.merchant_id = rand(1..Merchant.all.length)
 
   successful = product.save
   if !successful
