@@ -18,7 +18,13 @@
 
       <ul class="navbar-nav">
         <%= link_to products_path do%><li>PRODUCTS</li><%end%>
-        <%= link_to github_login_path do%><li>SELLER LOGIN</li><%end%> 
+
+        <% if session[:merchant_id].nil? %>
+          <%= link_to github_login_path do%><li>MERCHANT LOGIN</li><%end%> 
+        <% else %>
+          <%= link_to logout_path, method: :post do%><li>MERCHANT LOGOUT</li><%end%> 
+        <% end %>
+
         <%= link_to root_path do%><li>CART ICON HEREEEE</li><%end%>
       </ul>
     </nav>
