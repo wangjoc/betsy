@@ -26,15 +26,12 @@
       <%= "Quantity: #{quantity}" %><br>
       <%= "Subtotal: #{subtotal}" %><br>
 
-      <%# TODO Can we do a "change" instead of just reduce? %>
       <%# JW - Made a +/- sign instead %>
       <%= button_to " - ", remove_from_cart_path(product.id), method: :patch, class: "btn btn-info" %><br>
       <%= button_to " + ", add_to_cart_path(product.id), method: :patch, class: "btn btn-info" %><br>
     <% end %>
 </div>
-
-<%# TODO: Add TOTAL ORDER PRICE to this card%>
-<%# JW - Done, subtotals included above %>
+<%#TODO Leah will get at this total and put it somewhere meaningful :)%>
 <div>
   <%= "Total: #{total}"%>
 </div>

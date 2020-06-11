@@ -32,9 +32,9 @@
         <% else %>
         <li class='nav-item'><%= link_to dashboard_path, class: "nav-link" do %><i class="fas fa-icons"></i> MY DASHBOARD</li><%end%>
           <li class='nav-item'><%= link_to logout_path, method: :post, class: "nav-link" do %><i class="fas fa-sign-out-alt"></i> MERCHANT LOGOUT</li><%end%>
-          
         <% end %>
-          <li class='nav-item'><%= link_to new_order_path, class: "nav-link" do %><i class="fas fa-shopping-cart"></i> CART <%= cart_num_items %> </li><%end%>
+          <li class='nav-item'><%= link_to new_order_path, class: "nav-link" do %><i class="fas fa-shopping-cart"></i> CART 
+          <% if cart_num_items > 0 %><%= cart_num_items %><%end%> </li><%end%>
       </ul>
     </nav>
     <%= yield %>

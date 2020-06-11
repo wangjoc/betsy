@@ -1,6 +1,6 @@
+<h1 class='title'>You might regret this...</h1>
 <div class='card horiz' style="max-width: 1000px;">
   <div class='row no-gutters'>
-  
   <div class='col-sm-5' style="background: #868e96;">
   <%= image_tag(@product.photo_url, class: "card-img-top h-100") %>
   </div>
@@ -19,6 +19,7 @@
 
           <%= link_to "Add to Cart", add_to_cart_path(@product.id), method: :patch, class: "btn btn-primary " %>
           
+          <%# TODO: This needs to be refactored show show edit product ONLY if the product's merchant id matches the session merchant id %>
           <% if session[:merchant_id]%>
           <%= link_to "Edit this Product", edit_product_path(@product.id), class: "btn btn-primary " %>
           <% end %>
