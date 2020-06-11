@@ -21,13 +21,6 @@ ActiveRecord::Schema.define(version: 2020_06_11_065127) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "categories_products", force: :cascade do |t|
-    t.bigint "category_id"
-    t.bigint "product_id"
-    t.index ["category_id"], name: "index_categories_products_on_category_id"
-    t.index ["product_id"], name: "index_categories_products_on_product_id"
-  end
-
   create_table "merchants", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -41,10 +34,10 @@ ActiveRecord::Schema.define(version: 2020_06_11_065127) do
     t.integer "quantity"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "product_id"
+    t.bigint "product"
     t.bigint "order_id"
     t.index ["order_id"], name: "index_order_items_on_order_id"
-    t.index ["product_id"], name: "index_order_items_on_product_id"
+    t.index ["product"], name: "index_order_items_on_product"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -74,11 +67,12 @@ ActiveRecord::Schema.define(version: 2020_06_11_065127) do
   create_table "reviews", force: :cascade do |t|
     t.integer "rating"
     t.string "review_text"
-    t.bigint "product_id", null: false
+    t.bigint "product", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["product_id"], name: "index_reviews_on_product_id"
+    t.index ["product"], name: "index_reviews_on_product"
   end
 
+  add_foreign_key "categories", "products"
   add_foreign_key "reviews", "products"
 end
