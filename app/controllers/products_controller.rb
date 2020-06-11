@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :find_product, only: [:show, :edit, :update]
+  before_action :find_product, only: [:show, :edit, :update, :add_to_cart]
   
   def index
     @products = Product.where('stock > ?', 0)
@@ -49,6 +49,31 @@ class ProductsController < ApplicationController
       render :edit, status: :bad_request 
       return
     end
+  end
+
+  def add_to_cart
+    if @product.nil? 
+      head :not_found
+      return
+    end
+
+    if session[:shopping_cart].nil?
+      session[:shopping_cart] = Hash.new()
+    end
+
+    if @product.stock > 0
+      if session[:shopping_cart][@product.id.to_s] 
+        session[:shopping_cart][@product.id.to_s] += 1
+      else
+        session[:shopping_cart][@product.id.to_s] = 1
+      end
+      flash[:success] = "You have successfully added on to the cart!"
+    else
+      flash[:warning] = "Sorry, this product is currently out of stock!"
+    end
+
+    redirect_to products_path
+    return
   end
 
   private

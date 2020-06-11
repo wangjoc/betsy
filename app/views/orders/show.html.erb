@@ -1,5 +1,5 @@
-<h1>Order Details: Order <%= @order.id %></h1>
-
+<h1 class='title'>Order Details: Order <%= @order.id %></h1>
+<%# TODO Leah will update this view %>
 <div class="container-sm">
   <h2>Customer Detail</h2>
   <%= "Customer Name: #{@order.buyer_name}" %><br>
@@ -20,5 +20,4 @@
 </div>
 
 <%= button_to "Complete Order", orders_path, method: :get %><br>
-
 <%= button_to "Cancel Order", order_path(@order.id), method: :get %><br>
