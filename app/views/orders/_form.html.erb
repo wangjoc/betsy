@@ -13,13 +13,16 @@
 <%# TODO: Add TOTAL ORDER PRICE to this card%>
 <div class="container-sm">
   <h3><i class="fas fa-shopping-cart"></i> Items in Your Cart</h3>
-    <% Order.first.order_items.each do |order_item| %>
-      <%= order_item.product.name %><br>
-      <%= order_item.product.description %>
-      <%= "Price: #{order_item.product.price}" %><br>
-      <%= "Quantity: #{order_item.quantity}" %><br>
+    <% session[:shopping_cart].each do |product_id, quantity| %>
+      <% product = Product.find_by(id: product_id) %>
+      <%= product.name %><br>
+      <%= product.description %>
+      <%= "Price: #{product.price}" %><br>
+      <%= "Quantity: #{quantity}" %><br>
       <%# TODO Can we do a "change" instead of just reduce? %>
-      <%= button_to "Reduce Quantity", order_path(order_item.id), method: :post %><br>
+      <%# RESPONSE Made a +/- sign instead %>
+      <%= button_to " - ", remove_from_cart_path(product.id), method: :patch, class: "btn btn-info" %><br>
+      <%= button_to " + ", add_to_cart_path(product.id), method: :patch, class: "btn btn-info" %><br>
     <% end %>
 </div>
 

@@ -7,6 +7,7 @@ class OrdersController < ApplicationController
 
   def new
     @order = Order.new
+    session[:return_to] = new_order_path
   end
 
   def show    
