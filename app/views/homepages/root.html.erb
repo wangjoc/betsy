@@ -1,6 +1,6 @@
 <div class='total-home-container'>
   <div class='homepage-container' w-100>
-      <%= image_tag("https://i.imgur.com/gHHtd3m.jpg", class: 'homepage-img', alt: 'a person walking away on the railroad tracks') %>
+      <%= image_tag("https://i.imgur.com/gHHtd3m.jpg", class: 'homepage-img') %> 
     
     <div class='text-container'>
       <div class='centered'>
@@ -17,7 +17,7 @@
       <h3>Featured by Best Reviews!</h3>
         <%= render partial: "shared/card", locals: { product_set: @featured_products } %>
       <h3>Featured Merchants!</h3>
-      <%#TODO Optional refactor - add photo, change to top selling item%>
+      <% #TODO Optional refactor - add photo, change to top selling item %>
         <%= render partial: "shared/merchants", locals: { merchant_set: @featured_merchants } %>
     </div>
   </div>
