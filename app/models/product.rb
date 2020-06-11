@@ -19,6 +19,23 @@ class Product < ApplicationRecord
     return cat_by_merchant
   end
 
+  # TODO - there might be a way to get the data through a query (more  efficient). Might need to reset the relationship between the two tables
+  def self.by_category(id)
+    products = []
+    Product.all.each do |product|
+      products << product if product.category_ids.include? id 
+    end
+    return products
+  end
+
+  def self.categorize_by_category
+    cat_by_category = {}
+    Category.all.each do |category|
+      cat_by_category[category.id] = by_category(category.id)
+    end
+    return cat_by_category
+  end
+
   def reduce_stock
     @product = Product.find(params[:id])
     
