@@ -44,3 +44,18 @@
   padding: 0px 5px;
   text-align: center;
 }
+
+.btn {
+  margin: 5px;
+}
+
+.btn-info {
+  background-color: #6D6875;
+  border: #6D6875;
+}
+
+.btn-info:hover {
+  background-color: #B5838D;
+  border: #B5838D;
+  box-shadow: 0px 0px 15px 1px #FFCDB2;
+}
