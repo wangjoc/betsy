@@ -2,7 +2,8 @@ class ProductsController < ApplicationController
   before_action :find_product, only: [:show, :edit, :update, :add_to_cart]
   
   def index
-    @products = Product.all
+    @products = Product.where('stock > ?', 0)
+    @products_by_merchant = Product.by_merchant(params[:merchant_id])
   end
 
   def show    
