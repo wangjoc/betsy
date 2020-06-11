@@ -1,5 +1,5 @@
 class MerchantsController < ApplicationController
-  before_action :find_merchant, only: [:show]
+  before_action :find_merchant, only: [:show, :dashboard]
 
   def index
     @merchants = Merchant.all 
@@ -8,6 +8,9 @@ class MerchantsController < ApplicationController
   def show  
     # @merchant = Merchant.find_by(id: params[:id])
     # check_merchant
+  end
+
+  def dashboard
   end
 
   def create
@@ -42,12 +45,6 @@ class MerchantsController < ApplicationController
     flash[:message] = "Successfully logged out"
 
     redirect_to merchant_path
-  end
-
-  def dashboard
-    # @merchant = current_merchant
-
-    # check_merchant
   end
 
   def confirmation

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   # # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   get "/products/by_merchant", to: "products#by_merchant", as: "by_merchant"
+  get "/merchants/dashboard", to: "merchants#dashboard", as: "dashboard"
 
   resources :products do
     resources :categories
@@ -26,5 +27,5 @@ Rails.application.routes.draw do
   post "/logout", to: "merchants#logout", as: "logout"
 
   get "/merchants/current", to: "merchants#current", as: "current_merchant"
-  get "/merchants/dashboard", to: "merchants#dashboard", as: "dashboard"
+
 end
