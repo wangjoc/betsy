@@ -32,7 +32,7 @@
           <li class='nav-item'><%= link_to logout_path, method: :post, class: "nav-link" do %><i class="fas fa-sign-out-alt"></i> MERCHANT LOGOUT</li><%end%>
           
         <% end %>
-          <li class='nav-item'><%= link_to new_order_path, class: "nav-link" do %><i class="fas fa-shopping-cart"></i> CART </li><%end%>
+          <li class='nav-item'><%= link_to new_order_path, class: "nav-link" do %><i class="fas fa-shopping-cart"></i> CART <%= cart_num_items %> </li><%end%>
       </ul>
     </nav>
     <%= yield %>
