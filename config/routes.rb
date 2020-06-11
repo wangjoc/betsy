@@ -3,7 +3,6 @@ Rails.application.routes.draw do
   
   # # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
-  get "/products/by_merchant", to: "products#by_merchant", as: "by_merchant"
   get "/merchants/dashboard", to: "merchants#dashboard", as: "dashboard"
 
   resources :products do
@@ -11,6 +10,7 @@ Rails.application.routes.draw do
     resources :reviews
   end
 
+  resources :categories, only: [:index, :show]
   resources :orders, except: [:index]
   resources :merchants
 
