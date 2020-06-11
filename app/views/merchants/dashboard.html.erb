@@ -52,7 +52,8 @@
         <th>Quanitity</th>
         <th>Order Date</th>
         <th>Status</th>
-        <th>Edit</th>
+        <th>Complete Order</th>
+        <th>Cancel Order</th>
       </tr>
     <thead>
 
@@ -68,7 +69,8 @@
               <td><%= order_item.quantity %></td>
               <td><%= order.created_at %></td>
               <td><%= order.status %></td>
-              <td><%= link_to "Edit Status", root_path, class: "btn btn-info" %></td>
+              <td><%= link_to "Complete Order", root_path, class: "btn btn-info" %></td>
+              <td><%= link_to "Cancel Order", root_path, class: "btn btn-info" %></td>
               </td>
             <% end %>
           </tr>
