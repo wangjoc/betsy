@@ -8,21 +8,23 @@
   </ul>
 <% end %>
 
-<h2><%= "#{action_name}" %> Order</h2>
-
+<h2 class='title'><%= "#{action_name}" %> Order</h2>
+<%# TODO Leah will make these into cards - the horizontal ones or something like that %>
+<%# TODO: Add TOTAL ORDER PRICE to this card%>
 <div class="container-sm">
-  <h3>Please confirm purchase order</h3>
+  <h3><i class="fas fa-shopping-cart"></i> Items in Your Cart</h3>
     <% Order.first.order_items.each do |order_item| %>
       <%= order_item.product.name %><br>
-      <%= order_item.product.description %><br>
+      <%= order_item.product.description %>
       <%= "Price: #{order_item.product.price}" %><br>
       <%= "Quantity: #{order_item.quantity}" %><br>
+      <%# TODO Can we do a "change" instead of just reduce? %>
       <%= button_to "Reduce Quantity", order_path(order_item.id), method: :post %><br>
     <% end %>
 </div>
 
 <div class="container-sm">
-  <h3>Please enter the following information:</h3>
+  <h3>Please enter your information:</h3>
 
   <%= form_with model: @order, class: 'user-form' do |f| %>
    
@@ -33,6 +35,7 @@
     <div class="form-group">
       <%= f.label :mail_address %><br>
       <%= f.text_field :mail_address, class: "form-control-lg", placeholder: "Mailing Address"%>
+    </div>
     <div class="form-group">
       <%= f.label :zip_code %><br>
       <%= f.text_field :zip_code, class: "form-control-lg", placeholder: "Billing Zip Code" %>
@@ -54,6 +57,6 @@
       <%= f.text_field :cc_cvv, class: "form-control-lg", placeholder: "Credit Card CVV (security code)"%>
     </div>
 
-    <%= f.submit action_name == "New" ? "Add new order" : "#{action_name} order" , class: "order-button" %>
+    <%= f.submit action_name == "New" ? "Place Order" : "Update Order" , class: "order-button" %>
   <% end %>
 </div>
