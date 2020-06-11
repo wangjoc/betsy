@@ -37,4 +37,13 @@ class ActiveSupport::TestCase
 
   #   return merchant
   end
+
+  def populate_cart
+    # Go to products_path to get a return_to session key
+    get products_path
+
+    # Look for product to add to cart
+    @product = products(:lion)
+    patch add_to_cart_path(@product.id)
+  end
 end
