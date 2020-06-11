@@ -1,0 +1,12 @@
+<div class='card-deck'>
+    <% merchant_set.each do |merchant| %>
+        <div class="card">
+          <div class="card-body">
+              <p class="card-text">Name: <%= link_to "#{merchant.name}", merchant_path(merchant.id) %></p>
+              <p class='card-text'>UID: <%= merchant.uid %></p>
+              <p class='card-text'>Products Sold: #### </p>
+              <p class='card-text'>Orders Fulfilled: #### </p>
+          </div>
+        </div>
+    <% end %>
+</div>

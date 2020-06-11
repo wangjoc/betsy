@@ -7,6 +7,8 @@ class MerchantsController < ApplicationController
   end
 
   def show  
+    # diff than the merchant session for login
+    @merchant = Merchant.find_by(id: params[:id])
     @products = Product.by_merchant(@merchant.id)
     session[:return_to] = merchant_path(@merchant.id)
   end
