@@ -147,7 +147,7 @@ puts "#{order_failures.length} order failed to save"
 
 puts "Generating random OrderItems"
 
-10.times do |i|
+25.times do |i|
   current_order = rand(1..Order.all.length)
   order = Order.find_by(id: current_order)
 
