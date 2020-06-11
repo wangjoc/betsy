@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     resources :reviews
   end
 
-  resources :orders
+  resources :orders, except: [:index]
   resources :merchants
 
   patch "/orders/:id/purchase", to: "orders#purchase", as: "purchase"

@@ -1,15 +1,12 @@
 class OrdersController < ApplicationController
   before_action :find_order, only: [:show, :purchase, :cancel, :complete, :add_to_cart]
 
-  def index
-    @orders = Order.all
-  end
-
   def new
     @order = Order.new
     session[:return_to] = new_order_path
   end
 
+  # TODO - JW to figure out how to prevent people from seeing this page after order path has been submitted (something to do with session again?)
   def show    
     if @order.nil?
       redirect_to orders_path
