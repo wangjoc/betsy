@@ -17,6 +17,8 @@ class ProductsController < ApplicationController
       redirect_to products_path
       return
     end
+
+    session[:return_to] = product_path(@product.id)
   end
 
   def new
