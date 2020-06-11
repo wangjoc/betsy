@@ -28,7 +28,8 @@ end
 puts "Added #{Category.all.length} category records"
 puts "#{category_failures.length} category failed to save"
 
-
+###########################################################
+###########################################################
 
 MERCHANT_FILE = Rails.root.join('db', 'merchant_seeds.csv')
 puts "Loading raw merchant data from #{MERCHANT_FILE}"
@@ -53,6 +54,8 @@ end
 puts "Added #{Merchant.all.length} merchant records"
 puts "#{merchant_failures.length} merchant failed to save"
 
+###########################################################
+###########################################################
 
 PRODUCT_FILE = Rails.root.join('db', 'products_seeds.csv')
 puts "Loading raw product data from #{PRODUCT_FILE}"
@@ -86,6 +89,33 @@ end
 puts "Added #{Product.all.length} product records"
 puts "#{product_failures.length} products failed to save"
 
+###########################################################
+###########################################################
+
+REVIEW_FILE = Rails.root.join('db', 'review_seeds.csv')
+puts "Loading raw review data from #{REVIEW_FILE}"
+
+review_failures = []
+CSV.foreach(REVIEW_FILE, :headers => true) do |row|
+  review = Review.new
+  review.rating = row['rating']
+  review.review_text = row['review_text']
+  review.product_id = rand(1..Product.all.length)
+
+  successful = review.save
+  if !successful
+    review_failures << review
+    puts "Failed to save review: #{review.inspect}"
+  else
+    puts "Created review: #{review.inspect}"
+  end
+end
+
+puts "Added #{Review.all.length} review records"
+puts "#{review_failures.length} reviews failed to save"
+
+###########################################################
+###########################################################
 
 CUSTOMER_FILE = Rails.root.join('db', 'customer_seeds.csv')
 puts "Loading raw customer data from #{CUSTOMER_FILE}"
@@ -112,10 +142,12 @@ end
 puts "Added #{Order.all.length} order records"
 puts "#{order_failures.length} order failed to save"
 
+###########################################################
+###########################################################
 
 puts "Generating random OrderItems"
 
-10.times do |i|
+25.times do |i|
   current_order = rand(1..Order.all.length)
   order = Order.find_by(id: current_order)
 

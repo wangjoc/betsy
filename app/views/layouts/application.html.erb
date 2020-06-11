@@ -24,9 +24,11 @@
         <ul class="navbar-nav">
             <li class='nav-item'><%= link_to products_path, class: "nav-link" do %><i class="far fa-meh"></i> ALL PRODUCTS</li><%end%>
             <%#TODO: Add categories link%>
-            <li class='nav-item'><%= link_to root_path, class: "nav-link" do %><i class="fas fa-boxes"></i> SHOP BY CATEGORY</li><%end%>
+            <%# JW - Added in link; for now directs to an index like page with all products by category, can eventually get rid of to directly go to category page%>
+            <li class='nav-item'><%= link_to categories_path, class: "nav-link" do %><i class="fas fa-boxes"></i> SHOP BY CATEGORY</li><%end%>
             <%#TODO: Add merchants link%>
-            <li class='nav-item'><%= link_to root_path, class: "nav-link" do %><i class="fas fa-users"></i> SHOP BY MERCHANT</li><%end%>
+            <%# JW - Added in link; for now directs to an index like page with all products by merchant, can eventually get rid of to directly go to merch page%>
+            <li class='nav-item'><%= link_to merchants_path, method: :get, class: "nav-link" do %><i class="fas fa-users"></i> SHOP BY MERCHANT</li><%end%>
             <% if session[:merchant_id].nil? %>
             <li class='nav-item'><%= link_to github_login_path, class: "nav-link" do %> <i class="fas fa-sign-in-alt"></i> MERCHANT LOGIN</li><%end%>
             <% else %>
@@ -36,101 +38,107 @@
             <% end %>
             <li class='nav-item'><%= link_to new_order_path, class: "nav-link" do %><i class="fas fa-shopping-cart"></i> CART <%= cart_num_items %> </li><%end%>
         </ul>
-        <link href="https://fonts.googleapis.com/css2?family=La+Belle+Aurore&family=Roboto&display=swap" rel="stylesheet">
-        </head>
+    </nav>
+    <%= yield %>
 
-        <body>
-            <nav class="navbar navbar-light bg-light">
-                <a href="" class="navbar-brand">regrEtsy</a>
-                <ul class="navbar-nav">
-                    <li class='navbar-item'><a class='nav-link-'>
-                            <%= link_to "PRODUCTS", products_path %></a>
-                    </li>
-                    <li class='navbar-item'><a class='nav-link-'>SELLER LOGIN</a></li>
-                    <li class='navbar-item'><a class='nav-link-'><i class="fas fa-shopping-cart">CART ICON HERRRE</i></a></li>
-                </ul>
-            </nav>
-            <%= yield %>
+    <% end %>
+    <li class='nav-item'><%= link_to new_order_path, class: "nav-link" do %><i class="fas fa-shopping-cart"></i> CART <%= cart_num_items %> </li><%end%>
+    </ul>
+    <link href="https://fonts.googleapis.com/css2?family=La+Belle+Aurore&family=Roboto&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+        <nav class="navbar navbar-light bg-light">
+            <a href="" class="navbar-brand">regrEtsy</a>
+            <ul class="navbar-nav">
+                <li class='navbar-item'><a class='nav-link-'>
+                        <%= link_to "PRODUCTS", products_path %></a>
+                </li>
+                <li class='navbar-item'><a class='nav-link-'>SELLER LOGIN</a></li>
+                <li class='navbar-item'><a class='nav-link-'><i class="fas fa-shopping-cart">CART ICON HERRRE</i></a></li>
+            </ul>
+        </nav>
+        <%= yield %>
 
 
-            <footer class="page-footer font-small blue pt-4">
-                <div class="container-fluid text-center text-md-left">
-                    <!-- Grid row -->
-                    <div class="row">
-                        <!-- Grid column -->
-                        <div class="col-md-6 mt-md-0 mt-3">
-                            <!-- Content -->
-                            <h5 class="text-uppercase">regrEtsy</h5>
-                            <p>A website filled with things you might regret buying! Others certainly do!</p>
-                        </div>
-                        <!-- Grid column -->
-                        <hr class="clearfix w-100 d-md-none pb-3">
-                        <!-- Grid column -->
-                        <div class="col-md-3 mb-md-0 mb-3">
-                            <!-- Links -->
-                            <h5 class="text-uppercase">About</h5>
-
-                            <ul class="list-inline">
-                                <li class="list-inline-item">
-                                    <a href="#!">Careers</a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="#!">Contact Us</a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="#!">Investors</a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="#!">Impact</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- Grid column -->
-
-                        <<<<<<< HEAD <ul class="list-inline">
-                            <li class="list-inline-item">
-                                <a href="#!">Hala</a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#!">Hannah</a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="https://gist.github.com/wangjoc/b169305cce842d35aff19f1e3ddf4fab">Jocelyn</a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="https://www.linkedin.com/in/leahwhughes/">Leah</a>
-                            </li>
-                            </ul>
+        <footer class="page-footer font-small blue pt-4">
+            <div class="container-fluid text-center text-md-left">
+                <!-- Grid row -->
+                <div class="row">
+                    <!-- Grid column -->
+                    <div class="col-md-6 mt-md-0 mt-3">
+                        <!-- Content -->
+                        <h5 class="text-uppercase">regrEtsy</h5>
+                        <p>A website filled with things you might regret buying! Others certainly do!</p>
                     </div>
                     <!-- Grid column -->
-                    =======
+                    <hr class="clearfix w-100 d-md-none pb-3">
                     <!-- Grid column -->
                     <div class="col-md-3 mb-md-0 mb-3">
                         <!-- Links -->
-                        <h5 class="text-uppercase">Meet the Team</h5>
+                        <h5 class="text-uppercase">About</h5>
 
                         <ul class="list-inline">
                             <li class="list-inline-item">
-                                <a href="#!">Hala</a>
+                                <a href="#!">Careers</a>
                             </li>
                             <li class="list-inline-item">
-                                <a href="#!">Hannah</a>
+                                <a href="#!">Contact Us</a>
                             </li>
                             <li class="list-inline-item">
-                                <a href="#!">Jocelyn</a>
+                                <a href="#!">Investors</a>
                             </li>
                             <li class="list-inline-item">
-                                <a href="#!">Leah</a>
+                                <a href="#!">Impact</a>
                             </li>
                         </ul>
                     </div>
                     <!-- Grid column -->
+
+                    <<<<<<< HEAD <ul class="list-inline">
+                        <li class="list-inline-item">
+                            <a href="#!">Hala</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#!">Hannah</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://gist.github.com/wangjoc/b169305cce842d35aff19f1e3ddf4fab">Jocelyn</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://www.linkedin.com/in/leahwhughes/">Leah</a>
+                        </li>
+                        </ul>
                 </div>
-                <!-- Grid row -->
-                >>>>>>> reviews
+                <!-- Grid column -->
+                =======
+                <!-- Grid column -->
+                <div class="col-md-3 mb-md-0 mb-3">
+                    <!-- Links -->
+                    <h5 class="text-uppercase">Meet the Team</h5>
+
+                    <ul class="list-inline">
+                        <li class="list-inline-item">
+                            <a href="#!">Hala</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#!">Hannah</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#!">Jocelyn</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#!">Leah</a>
+                        </li>
+                    </ul>
                 </div>
-                <!-- Footer Links -->
-            </footer>
-        </body>
+                <!-- Grid column -->
+            </div>
+            <!-- Grid row -->
+            >>>>>>> reviews
+            </div>
+            <!-- Footer Links -->
+        </footer>
+    </body>
 
 </html>

@@ -34,6 +34,12 @@
       <%= f.label :photo_url %><br>
       <%= f.text_field :photo_url, class: "form-control-lg", placeholder: "Photo URL"%>
     </div>
+    <div class="form-group">
+      <%= f.label :categories %>
+      <%= collection_check_boxes(:product, :category_ids, 
+          Category.all, :id, :category) %>
+    </div>
+
 
     <%# TODO: Can I change this to "update" rather than action_name? %>
     <%= f.submit action_name == "New" ? "Add new product" : "#{action_name} product" , class: "order-button" %>

@@ -1,0 +1,3 @@
+<%# DISPLAYS ONLY ONE CATEGORY PRODUCTS%>
+<h1>Here is our selection of <%= "#{@category.category} (ID: #{@category.id})"%> products</h1>
+<%= render partial: "shared/card", locals: { product_set: @products } %>

@@ -10,9 +10,14 @@
           <p class="card-text"><%=@product.description%></p>
           <p class="card-text">Price: $<%=@product.price%></p>
           <p class="card-text">In Stock: <%=@product.stock%></p>
-          <p class="card-text">Sold by: <%=@product.merchant.name%> (Merchant ID: <%=@product.merchant.id%>)</p>
-          <%#TODO: Add cart link here%>
-          <%= link_to "Add to Cart", root_path, class: "btn btn-primary " %>
+          <p class="card-text">Sold by: <%= link_to "#{@product.merchant.name} (ID: #{@product.merchant.uid})", merchant_path(@product.merchant.id) %> </p>
+          <p>Category: </p>
+            <% @product.category_ids.each do |category_id| %>
+                <% category = Category.find_by(id: category_id) %>
+                <div class="card-text"><%= link_to "#{category.category} (ID: #{category.id})", category_path(category.id) %> </div>
+            <% end %>
+
+          <%= link_to "Add to Cart", add_to_cart_path(@product.id), method: :patch, class: "btn btn-primary " %>
           
           <% if session[:merchant_id]%>
           <%= link_to "Edit this Product", edit_product_path(@product.id), class: "btn btn-primary " %>
@@ -23,12 +28,16 @@
 </div>
 
 <%#TODO: Add reviews for individual product here%>
+<%# JW - Added in placeholder with dummy data %>
 <div class='reviews'>
-<h1>Reviews Placeholder!</h1>
+  <h1>Reviews!</h1>
+  <%= render partial: "shared/reviews", locals: { review_set: @reviews } %>
 </div>
 
 <%#TODO: Consider adding other things you may be interested in buying:  by category and/or merchant %>
+<%# JW - Added in placeholder for now. Using the standard partial for product cards; may want to create secondary partial that shows limited data instead of so much detail %>
 <div class='reviews'>
-<h1>Other Products You May Regret Buying Placeholder</h1>
+<h1>Other Products You May Regret Buying!</h1>
+  <%= render partial: "shared/card", locals: { product_set: @featured_products } %>
 </div>
 

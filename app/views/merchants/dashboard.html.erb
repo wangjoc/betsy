@@ -1,0 +1,116 @@
+<h1 class='title'>Welcome to your Merchant Dashboard, <%= @merchant.name %>!</h1>
+
+<div class="jumbotron">
+  <h1 class="display-4">The Nitty Gritty</h1>
+  <p class="lead">Here are some details about your current earnings and orders.</p>
+  <hr class="my-4">
+  
+  <div class='card-deck'>
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+          <h5 class="card-title">Total Revenue</h5>
+          <p class="card-text">Total Overall Revenue: $$$</p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Pending: $$$</li>
+        <li class="list-group-item">Paid: $$$</li>
+        <li class="list-group-item">Complete: $$$</li>
+        <li class="list-group-item">Cancelled: $$$</li>
+      </ul>
+    </div>
+
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+          <h5 class="card-title">Total Orders</h5>
+          <p class="card-text">Total Overall Orders: ###</p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Pending: ###</li>
+        <li class="list-group-item">Paid: ###</li>
+        <li class="list-group-item">Complete: ###</li>
+        <li class="list-group-item">Cancelled: ###</li>
+      </ul>
+    </div>
+
+  </div> <%# end deck %>
+  <div class='btn-container'>
+    <%= link_to "Go To My Store", merchant_path(@merchant.id), class: "btn btn-info" %>
+    <%= link_to "Add New Product", new_product_path, class: "btn btn-info" %>
+    <%= link_to "Add New Category", new_category_path, class: "btn btn-info" %>
+  </div>
+  
+</div> <%# end jumbotron%>
+
+<div class="jumbotron">
+<h3 class='subtitle'>Current Orders</h3>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Buyer</th>
+        <th>Product Name</th>
+        <th>Price</th>
+        <th>Quanitity</th>
+        <th>Order Date</th>
+        <th>Status</th>
+        <th>Complete Order</th>
+        <th>Cancel Order</th>
+      </tr>
+    <thead>
+
+    <tbody>
+      <% Order.all.each do |order| %>
+        <% order.order_items.each do |order_item| %>
+          <tr class="clickable-tr" data-path="<%= order_path(order.id)%>" >
+            <% if order_item.product.merchant.id == @merchant.id %>
+              <td><%= order.id %></td>
+              <td><%= order.buyer_name %></td>
+              <td><%= order_item.product.name %></td>
+              <td><%= order_item.product.price %></td>
+              <td><%= order_item.quantity %></td>
+              <td><%= order.created_at %></td>
+              <td><%= order.status %></td>
+              <td><%= link_to "Complete Order", root_path, class: "btn btn-info" %></td>
+              <td><%= link_to "Cancel Order", root_path, class: "btn btn-info" %></td>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="jumbotron">
+<h2 class='subtitle'>Current Products For Sale</h2>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Stock</th>
+        <th>Image</th>
+        <th>Edit</th>
+        <th>Remove</th>
+      </tr>
+    <thead>
+
+    <tbody>
+      <% @merchant.products.each do |product| %>
+        <tr class="clickable-tr" >
+          <td><%= link_to product_path(product.id) do%><%= product.name %><%end%></td>
+          <td><%= product.description %></td>
+          <td><%= product.price %></td>
+          <td><%= product.stock %></td>
+          <td><%= image_tag(product.photo_url, :size => "260x180") %></td>
+          <td>
+            <%= link_to "Edit", edit_product_path(product.id), method: :get, class: "btn btn-info" %>
+            </td>
+            <td><%= link_to "Remove", product_path(product.id), method: :destroy, class: "btn btn-info" %>
+            </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -7,7 +7,15 @@
     </div>
   </div>
 
+  <%# TODO: Leah - JW screwed it up so the logo looks funny :(%>
+  <%# TODO: logic for choosing featured products is not complete, need to replace with actual logic later on :(%>
   <div class='feature-products'>
-  <h1>FEATURED PRODUCTS COULD EVENTUALLY LIVE HERE!</h1>
+    <h1>FEATURED PRODUCTS HERE!</h1>
+    <h3>Most Recently Added!</h3>
+       <%= render partial: "shared/card", locals: { product_set: @featured_products } %>
+    <h3>Featured by Best Reviews!</h3>
+      <%= render partial: "shared/card", locals: { product_set: @featured_products } %>
+    <h3>Featured Merchants!</h3>
+      <%= render partial: "shared/merchants", locals: { merchant_set: @featured_merchants } %>
   </div>
 </div>

@@ -19,5 +19,5 @@
     <% end %>
 </div>
 
-<%= button_to "Complete Order", orders_path, method: :get %><br>
-<%= button_to "Cancel Order", order_path(@order.id), method: :get %><br>
+<%= button_to "Purchase Order", purchase_path(@order.id), method: :patch %><br>
+<%= button_to "Cancel Order", cancel_path(@order.id), method: :patch %><br>

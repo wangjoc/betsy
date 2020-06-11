@@ -1,9 +1,10 @@
 class ProductsController < ApplicationController
-  before_action :find_product, only: [:show, :edit, :update, :add_to_cart]
+  before_action :find_product, only: [:show, :edit, :update, :add_to_cart, :remove_from_cart]
   
   def index
     @products = Product.where('stock > ?', 0)
-    @products_by_merchant = Product.by_merchant(params[:merchant_id])
+    @products_by_merchant = Product.categorize_by_merchant
+    session[:return_to] = products_path
   end
 
   def show    
@@ -11,6 +12,11 @@ class ProductsController < ApplicationController
       redirect_to products_path
       return
     end
+
+    @reviews = Review.where(product_id: @product.id)
+    @featured_products = Product.featured_products
+
+    session[:return_to] = product_path(@product.id)
   end
 
   def new
@@ -72,7 +78,28 @@ class ProductsController < ApplicationController
       flash[:warning] = "Sorry, this product is currently out of stock!"
     end
 
-    redirect_to products_path
+    redirect_to session.delete(:return_to)
+    return
+  end
+
+  def remove_from_cart
+    if @product.nil? 
+      head :not_found
+      return
+    end
+
+    if session[:shopping_cart].nil?
+      session[:shopping_cart] = Hash.new()
+    end
+
+    if session[:shopping_cart][@product.id.to_s] > 0
+      session[:shopping_cart][@product.id.to_s] -= 1
+      flash[:success] = "You have successfully removed on to the cart!"
+    else
+      flash[:warning] = "Item has been fully removed from cart."
+    end
+
+    redirect_to session.delete(:return_to)
     return
   end
 

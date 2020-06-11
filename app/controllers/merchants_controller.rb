@@ -1,13 +1,19 @@
 class MerchantsController < ApplicationController
-  before_action :find_merchant, only: [:show]
+  before_action :find_merchant, only: [:show, :dashboard]
 
   def index
-    @merchants = Merchant.all 
+    @products_by_merchant = Product.categorize_by_merchant
+    session[:return_to] = merchants_path
   end
 
   def show  
-    # @merchant = Merchant.find_by(id: params[:id])
-    # check_merchant
+    # diff than the merchant session for login
+    @merchant = Merchant.find_by(id: params[:id])
+    @products = Product.by_merchant(@merchant.id)
+    session[:return_to] = merchant_path(@merchant.id)
+  end
+
+  def dashboard
   end
 
   def create
@@ -42,12 +48,6 @@ class MerchantsController < ApplicationController
     flash[:message] = "Successfully logged out"
 
     redirect_to merchant_path
-  end
-
-  def dashboard
-    # @merchant = current_merchant
-
-    # check_merchant
   end
 
   def confirmation
