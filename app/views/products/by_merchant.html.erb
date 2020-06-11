@@ -4,5 +4,5 @@
 <% @products_by_merchant.each do |merchant_id, products| %>
   <% merchant = Merchant.find_by(id: merchant_id) %>
   <h3><%= "Sold By #{merchant.name} (ID: #{merchant.uid})" %> </h3>
-  <%= render partial: "card", locals: { product_set: products } %>
+  <%= render partial: "shared/card", locals: { product_set: products } %>
 <% end %>
