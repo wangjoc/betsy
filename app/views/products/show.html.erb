@@ -10,9 +10,9 @@
           <p class="card-text"><%=@product.description%></p>
           <p class="card-text">Price: $<%=@product.price%></p>
           <p class="card-text">In Stock: <%=@product.stock%></p>
-          <p class="card-text">Sold by: <%=@product.merchant.name%> (Merchant ID: <%=@product.merchant.id%>)</p>
-          <%#TODO: Add cart link here%>
-          <%= link_to "Add to Cart", root_path, class: "btn btn-primary " %>
+          <p class="card-text">Sold by: <%= link_to "#{@product.merchant.name} (ID: #{@product.merchant.uid})", merchant_path(@product.merchant.id) %> </p>
+
+          <%= link_to "Add to Cart", add_to_cart_path(@product.id), method: :patch, class: "btn btn-primary " %>
           
           <% if session[:merchant_id]%>
           <%= link_to "Edit this Product", edit_product_path(@product.id), class: "btn btn-primary " %>
