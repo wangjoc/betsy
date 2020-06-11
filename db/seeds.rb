@@ -33,7 +33,7 @@ puts "#{merchant_failures.length} merchant failed to save"
 
 
 PRODUCT_FILE = Rails.root.join('db', 'products_seeds.csv')
-puts "Loading raw media data from #{PRODUCT_FILE}"
+puts "Loading raw product data from #{PRODUCT_FILE}"
 
 product_failures = []
 CSV.foreach(PRODUCT_FILE, :headers => true) do |row|
@@ -55,8 +55,8 @@ CSV.foreach(PRODUCT_FILE, :headers => true) do |row|
   end
 end
 
-puts "Added #{Product.all.length} media records"
-puts "#{product_failures.length} media failed to save"
+puts "Added #{Product.all.length} product records"
+puts "#{product_failures.length} products failed to save"
 
 
 
