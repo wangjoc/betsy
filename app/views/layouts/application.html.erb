@@ -29,7 +29,7 @@
           <li class='nav-item'><%= link_to github_login_path, class: "nav-link" do %> <i class="fas fa-sign-in-alt"></i> MERCHANT LOGIN</li><%end%>
         <% else %>
         <li class='nav-item'><%= link_to dashboard_path, class: "nav-link" do %><i class="fas fa-icons"></i> MY DASHBOARD</li><%end%>
-          <li class='nav-item'><%= link_to logout_path, class: "nav-link" do %><i class="fas fa-sign-out-alt"></i> MERCHANT LOGOUT</li><%end%>
+          <li class='nav-item'><%= link_to logout_path, method: :post, class: "nav-link" do %><i class="fas fa-sign-out-alt"></i> MERCHANT LOGOUT</li><%end%>
           
         <% end %>
           <li class='nav-item'><%= link_to new_order_path, class: "nav-link" do %><i class="fas fa-shopping-cart"></i> CART </li><%end%>
