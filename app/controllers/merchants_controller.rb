@@ -6,8 +6,8 @@ class MerchantsController < ApplicationController
   end
 
   def show  
-    # @merchant = Merchant.find_by(id: params[:id])
-    # check_merchant
+    @products = Product.by_merchant(@merchant.id)
+    session[:return_to] = merchant_path(@merchant.id)
   end
 
   def dashboard
