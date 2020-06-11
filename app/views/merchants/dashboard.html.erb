@@ -34,8 +34,7 @@
 
   </div> <%# end deck %>
   <div class='btn-container'>
-    <%# TODO: Add products by merchant link here%>
-    <%= link_to "Go To My Store", root_path, class: "btn btn-info" %>
+    <%= link_to "Go To My Store", merchant_path(@merchant.id), class: "btn btn-info" %>
     <%= link_to "Add New Product", new_product_path, class: "btn btn-info" %>
   </div>
   
