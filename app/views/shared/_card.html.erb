@@ -9,6 +9,11 @@
                 <p class='card-text'>Price: $<%= product.price %></p>
                 <p class='card-text'>In Stock: <%= product.stock %></p>
                 <p class="card-text">Sold by: <%= link_to "#{product.merchant.name} (ID: #{product.merchant.uid})", merchant_path(product.merchant.id) %> </p>
+                <p>Category: </p>
+                <% product.category_ids.each do |category_id| %>
+                    <% category = Category.find_by(id: category_id) %>
+                    <div class="card-text"><%= link_to "#{category.category} (ID: #{category.id})", category_path(category.id) %> </div>
+                <% end %>
                 <%= button_to "Add to Cart", add_to_cart_path(product.id), method: :patch, class: "btn btn-info" %>
             </div>
         </div>
