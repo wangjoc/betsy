@@ -7,14 +7,16 @@ class Product < ApplicationRecord
   validates :name, presence: true, uniqueness: true
 
   def self.by_merchant(id)
-    products = Product.where("id > ?", 1) 
-    m_products = []
-    products.each do |product|
-      if Product.find_by(id: product.id).merchant_id == id.to_i
-        m_products << product
-      end
+    # products = Product.where("id > ?", 1) 
+    return Product.where(merchant_id: id)
+  end
+
+  def self.categorize_by_merchant
+    cat_by_merchant = {}
+    Merchant.all.each do |merchant|
+      cat_by_merchant[merchant.id] = by_merchant(merchant.id)
     end
-    return m_products
+    return cat_by_merchant
   end
 
   def reduce_stock
