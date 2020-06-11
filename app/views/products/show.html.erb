@@ -1,9 +1,11 @@
 <h1 class='title'>You might regret this...</h1>
+<div class='single-product-container'>
 <div class='card horiz' style="max-width: 1000px;">
   <div class='row no-gutters'>
   <div class='col-sm-5' style="background: #868e96;">
   <%= image_tag(@product.photo_url, class: "card-img-top h-100") %>
   </div>
+  
     <div class="col-sm-7">
       <div class="card-body">
         <h2 class="card-title"><%=@product.name%></h5>
@@ -11,10 +13,12 @@
           <p class="card-text">Price: $<%=@product.price%></p>
           <p class="card-text">In Stock: <%=@product.stock%></p>
           <p class="card-text">Sold by: <%= link_to "#{@product.merchant.name} (ID: #{@product.merchant.uid})", merchant_path(@product.merchant.id) %> </p>
-          <p>Category: </p>
+          Category:
             <% @product.category_ids.each do |category_id| %>
                 <% category = Category.find_by(id: category_id) %>
-                <div class="card-text"><%= link_to "#{category.category} (ID: #{category.id})", category_path(category.id) %> </div>
+                <div class="card-text">
+                <%= link_to "#{category.category} (ID: #{category.id})", category_path(category.id) %> 
+                </div>
             <% end %>
 
           <%= link_to "Add to Cart", add_to_cart_path(@product.id), method: :patch, class: "btn btn-primary " %>
@@ -27,18 +31,19 @@
     </div>
   </div>
 </div>
+</div>
 
-<%#TODO: Add reviews for individual product here%>
-<%# JW - Added in placeholder with dummy data %>
+<hr/>
+
 <div class='reviews'>
-  <h1>Reviews!</h1>
+  <h1 class='subtitle2'>Product Reviews</h1>
   <%= render partial: "shared/reviews", locals: { review_set: @reviews } %>
 </div>
 
-<%#TODO: Consider adding other things you may be interested in buying:  by category and/or merchant %>
-<%# JW - Added in placeholder for now. Using the standard partial for product cards; may want to create secondary partial that shows limited data instead of so much detail %>
+<hr/>
+
 <div class='reviews'>
-<h1>Other Products You May Regret Buying!</h1>
+<h1 class='subtitle2'>Other Products You May Regret Buying!</h1>
   <%= render partial: "shared/card", locals: { product_set: @featured_products } %>
 </div>
 
