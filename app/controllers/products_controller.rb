@@ -3,9 +3,13 @@ class ProductsController < ApplicationController
   
   def index
     @products = Product.where('stock > ?', 0)
-    @products_by_merchant = Product.by_merchant(params[:merchant_id])
-
+    @products_by_merchant = Product.categorize_by_merchant
     session[:return_to] = products_path
+  end
+
+  def by_merchant
+    @products_by_merchant = Product.categorize_by_merchant
+    session[:return_to] = by_merchant_path
   end
 
   def show    

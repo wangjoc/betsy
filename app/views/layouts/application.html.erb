@@ -24,7 +24,7 @@
         <%#TODO: Add categories link%>
         <li class='nav-item'><%= link_to root_path, class: "nav-link" do %><i class="fas fa-boxes"></i> SHOP BY CATEGORY</li><%end%>
         <%#TODO: Add merchants link%>
-        <li class='nav-item'><%= link_to root_path, class: "nav-link" do %><i class="fas fa-users"></i> SHOP BY MERCHANT</li><%end%>
+        <li class='nav-item'><%= link_to by_merchant_path, method: :get, class: "nav-link" do %><i class="fas fa-users"></i> SHOP BY MERCHANT</li><%end%>
         <% if session[:merchant_id].nil? %>
           <li class='nav-item'><%= link_to github_login_path, class: "nav-link" do %> <i class="fas fa-sign-in-alt"></i> MERCHANT LOGIN</li><%end%>
         <% else %>

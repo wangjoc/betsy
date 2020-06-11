@@ -1,0 +1,8 @@
+<%# DISPLAYS ALL PRODUCTS, REGARDLESS OF MERCHANT%>
+
+<h1> SHOP BY MERCHANT </h1>
+<% @products_by_merchant.each do |merchant_id, products| %>
+  <% merchant = Merchant.find_by(id: merchant_id) %>
+  <h3><%= "Sold By #{merchant.name} (ID: #{merchant.uid})" %> </h3>
+  <%= render partial: "card", locals: { product_set: products } %>
+<% end %>
