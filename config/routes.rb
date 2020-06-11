@@ -11,7 +11,8 @@ Rails.application.routes.draw do
   resources :orders
   resources :merchants
 
-  get "/orders/:id/purchase", to: "orders#purchase", as: "purchase"
+  patch "/orders/:id/purchase", to: "orders#purchase", as: "purchase"
+  patch "/orders/:id/cancel", to: "orders#cancel", as: "cancel"
   patch "/orders/:id/complete", to: "orders#complete", as: "complete"
   patch "/products/:id/add_to_cart", to: "products#add_to_cart", as: "add_to_cart"
   patch "/products/:id/remove_from_cart", to: "products#remove_from_cart", as: "remove_from_cart"
