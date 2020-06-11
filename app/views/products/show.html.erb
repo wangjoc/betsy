@@ -23,12 +23,15 @@
 </div>
 
 <%#TODO: Add reviews for individual product here%>
+<%# JW - Added in placeholder with dummy data %>
 <div class='reviews'>
-<h1>Reviews Placeholder!</h1>
+  <h1>Reviews!</h1>
+  <%= render partial: "shared/reviews", locals: { review_set: @reviews } %>
 </div>
 
 <%#TODO: Consider adding other things you may be interested in buying:  by category and/or merchant %>
 <div class='reviews'>
-<h1>Other Products You May Regret Buying Placeholder</h1>
+<h1>Other Products You May Regret Buying!</h1>
+  <%= render partial: "shared/card", locals: { product_set: @featured_products } %>
 </div>
 

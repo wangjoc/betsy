@@ -13,6 +13,9 @@ class ProductsController < ApplicationController
       return
     end
 
+    @reviews = Review.where(product_id: @product.id)
+    @featured_products = Product.featured_products
+
     session[:return_to] = product_path(@product.id)
   end
 

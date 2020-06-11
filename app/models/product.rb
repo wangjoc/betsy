@@ -36,6 +36,11 @@ class Product < ApplicationRecord
     return cat_by_category
   end
 
+  def self.featured_products
+    # TODO: just taking the bottom three off the list for now, can implement other logic later
+    return Product.order('id DESC')[0..2]
+  end
+
   def reduce_stock
     @product = Product.find(params[:id])
     
