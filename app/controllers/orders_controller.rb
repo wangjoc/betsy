@@ -1,19 +1,25 @@
 class OrdersController < ApplicationController
   before_action :find_order, only: [:show, :purchase, :cancel, :complete, :add_to_cart]
 
-  def new
-    @order = Order.new
-    session[:return_to] = new_order_path
-  end
-
   # TODO - JW to figure out how to prevent people from seeing this page after order path has been submitted (something to do with session again?)
   def show    
     if @order.nil?
       redirect_to orders_path
+      flash[:warning] = "Nothing in cart, let's do some shopping first!"
       return
     end
 
     session[:return_to] = order_path(@order.id)
+  end
+
+  def new
+    if session[:shopping_cart].nil?
+      redirect_to products_path
+      return
+    end
+    
+    @order = Order.new
+    session[:return_to] = new_order_path
   end
 
   def create
