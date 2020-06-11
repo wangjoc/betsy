@@ -5,14 +5,14 @@ Rails.application.routes.draw do
 
   get "/merchants/dashboard", to: "merchants#dashboard", as: "dashboard"
 
+  resources :categories, only: [:index, :show, :new, :create]
+  resources :orders, except: [:index]
+  resources :merchants
+
   resources :products do
     resources :categories
     resources :reviews
   end
-
-  resources :categories, only: [:index, :show]
-  resources :orders, except: [:index]
-  resources :merchants
 
   patch "/orders/:id/purchase", to: "orders#purchase", as: "purchase"
   patch "/orders/:id/cancel", to: "orders#cancel", as: "cancel"

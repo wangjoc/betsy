@@ -16,7 +16,7 @@ class Merchant < ApplicationRecord
 
   def self.featured_merchants
     # TODO: just taking the bottom three off the list for now, can implement other logic later
-    return Merchant.order('id DESC')[0..1]
+    return Merchant.order('id DESC')[0..2]
   end
   
   def orders_of_status(status)

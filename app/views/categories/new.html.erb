@@ -1,0 +1,26 @@
+<% if @category.errors.any? %>
+  <ul class="errors">
+    <% @category.errors.each do |column, message| %>
+      <div class="alert alert-danger" role="alert">
+        <%= "Order #{column} #{message}. Please enter a valid #{column}." %>
+      </div>
+    <% end %>
+  </ul>
+<% end %>
+
+<h1 class='title'>Create new Category</h1>
+
+<div class="container-sm">
+  <h3>Please enter the following information:</h3>
+
+  <%= form_with model: @category, class: 'user-form' do |f| %>
+   
+    <div class="form-group">
+      <%= f.label :category %><br>
+      <%= f.text_field :category, class: "form-control-lg", placeholder: "Product Name"%>
+    </div>
+
+    <%= f.submit "Create New Category", class: "order-button" %>
+  <% end %>
+</div>
+
