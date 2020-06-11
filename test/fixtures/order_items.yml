@@ -1,0 +1,12 @@
+item_one:
+  quantity: 5
+  product: toliet
+  order: order_one
+item_one:
+  quantity: 1
+  product: lion
+  order: order_one
+item_two:
+  quantity: 2
+  product: lion
+  order: order_two

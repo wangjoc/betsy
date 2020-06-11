@@ -1,0 +1,10 @@
+faker:
+  name: faker
+  uid: 1111111
+  provider: github
+  email: facker@lol.com
+greentye:
+  name: greentye
+  uid: 2222222
+  provider: github
+  email: greentye@lol.com
