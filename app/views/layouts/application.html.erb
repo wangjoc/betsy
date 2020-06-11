@@ -20,18 +20,19 @@
       <span class="navbar-text">Does anyone even want this stuff??</span>
 
       <ul class="navbar-nav">
-        <li class='nav-item'><%= link_to 'ALL PRODUCTS', products_path, class: "nav-link" %></li>
+        <li class='nav-item'><%= link_to products_path, class: "nav-link" do %><i class="far fa-meh"></i> ALL PRODUCTS</li><%end%>
         <%#TODO: Add categories link%>
-        <li class='nav-item'><%= link_to 'SHOP BY CATEGORY', root_path, class: "nav-link" %></li>
+        <li class='nav-item'><%= link_to root_path, class: "nav-link" do %><i class="fas fa-boxes"></i> SHOP BY CATEGORY</li><%end%>
         <%#TODO: Add merchants link%>
-        <li class='nav-item'><%= link_to 'SHOP BY MERCHANT', root_path, class: "nav-link" %></li>
+        <li class='nav-item'><%= link_to root_path, class: "nav-link" do %><i class="fas fa-users"></i> SHOP BY MERCHANT</li><%end%>
         <% if session[:merchant_id].nil? %>
-          <li class='nav-item'><%= link_to 'MERCHANT LOGIN', github_login_path, class: "nav-link" %> </li>
+          <li class='nav-item'><%= link_to github_login_path, class: "nav-link" do %> <i class="fas fa-sign-in-alt"></i> MERCHANT LOGIN</li><%end%>
         <% else %>
-          <li class='nav-item'><%= link_to 'MERCHANT LOGOUT', logout_path, class: "nav-link" %></li>
-          <li class='nav-item'><%= link_to 'MY DASHBOARD', dashboard_path, class: "nav-link" %></li>
+        <li class='nav-item'><%= link_to dashboard_path, class: "nav-link" do %><i class="fas fa-icons"></i> MY DASHBOARD</li><%end%>
+          <li class='nav-item'><%= link_to logout_path, method: :post, class: "nav-link" do %><i class="fas fa-sign-out-alt"></i> MERCHANT LOGOUT</li><%end%>
+          
         <% end %>
-          <li class='nav-item'><%= link_to new_order_path, class: "nav-link" do %><i class="fas fa-shopping-cart"></i> Cart </li><%end%>
+          <li class='nav-item'><%= link_to new_order_path, class: "nav-link" do %><i class="fas fa-shopping-cart"></i> CART </li><%end%>
       </ul>
     </nav>
     <%= yield %>

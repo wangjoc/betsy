@@ -1,71 +1,48 @@
-<h1>Welcome to your Dashboard, <%= @merchant.name %>!</h1>
+<h1 class='title'>Welcome to your Merchant Dashboard, <%= @merchant.name %>!</h1>
 
-<h2>My Products</h2>
-
-<div class="btn btn-info">
-  <%= link_to "Create New Product", new_product_path, :class => "btn" %>
-</div> </td>
-
-<div class="container-lg">
-
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Price</th>
-        <th>Stock</th>
-        <th>Image</th>
-        <th>Edit</th>
-      </tr>
-    <thead>
-
-    <tbody>
-      <% @merchant.products.each do |product| %>
-        <tr class="clickable-tr" >
-          <td><%= link_to product_path(product.id) do%><%= product.name %><%end%></td>
-          <td><%= product.description %></td>
-          <td><%= product.price %></td>
-          <td><%= product.stock %></td>
-          <td><%= image_tag(product.photo_url, :size => "260x180") %></td>
-          <td>
-            <div class="btn btn-info">
-              <%= link_to "Edit", edit_product_path(product.id), method: :get, :class => "btn" %>
-            </div> </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-
-</div>
+<div class="jumbotron">
+  <h1 class="display-4">The Nitty Gritty</h1>
+  <p class="lead">Here are some details about your current earnings and orders.</p>
+  <hr class="my-4">
   
+  <div class='card-deck'>
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+          <h5 class="card-title">Total Revenue</h5>
+          <p class="card-text">Total Overall Revenue: $$$</p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Pending: $$$</li>
+        <li class="list-group-item">Paid: $$$</li>
+        <li class="list-group-item">Complete: $$$</li>
+        <li class="list-group-item">Cancelled: $$$</li>
+      </ul>
+    </div>
 
-<h2>My Order Fullfillment</h2>
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+          <h5 class="card-title">Total Orders</h5>
+          <p class="card-text">Total Overall Orders: ###</p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Pending: ###</li>
+        <li class="list-group-item">Paid: ###</li>
+        <li class="list-group-item">Complete: ###</li>
+        <li class="list-group-item">Cancelled: ###</li>
+      </ul>
+    </div>
 
-<h3>By the Numbers</h3>
+  </div> <%# end deck %>
+  <div class='btn-container'>
+    <%# TODO: Add products by merchant link here%>
+    <%= link_to "Go To My Store", root_path, class: "btn btn-info" %>
+    <%= link_to "Add New Product", new_product_path, class: "btn btn-info" %>
+  </div>
+  
+</div> <%# end jumbotron%>
 
-<div class="container-lg">
-
-  <h4>Total Revenue: $$$$</h4>
-  <h4>Total Revenue by Status:</h4>
-  <p>Pending: $$$</p>
-  <p>Paid: $$$</p>
-  <p>Complete: $$$</p>
-  <p>Cancelled: $$$</p>
-
-  <h4>Total Number of Orders by Status:</h4>
-  <p>Pending: ###</p>
-  <p>Paid: ###</p>
-  <p>Complete: ###</p>
-  <p>Cancelled: ###</p>
-
-  <p>
-</div>
-
-<h3>Orders</h3>
-
-<div class="container-lg">
-
+<div class="jumbotron">
+<h3 class='subtitle'>Current Orders</h3>
   <table class="table table-hover">
     <thead>
       <tr>
@@ -92,10 +69,7 @@
               <td><%= order_item.quantity %></td>
               <td><%= order.created_at %></td>
               <td><%= order.status %></td>
-              <td>
-                <div class="btn btn-info">
-                  <%= link_to "Edit Status", root_path, :class => "btn" %>
-                </div> </td>
+              <td><%= link_to "Edit Status", root_path, class: "btn btn-info" %></td>
               </td>
             <% end %>
           </tr>
@@ -103,5 +77,38 @@
       <% end %>
     </tbody>
   </table>
+</div>
 
+<div class="jumbotron">
+<h2 class='subtitle'>Current Products For Sale</h2>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Stock</th>
+        <th>Image</th>
+        <th>Edit</th>
+        <th>Remove</th>
+      </tr>
+    <thead>
+
+    <tbody>
+      <% @merchant.products.each do |product| %>
+        <tr class="clickable-tr" >
+          <td><%= link_to product_path(product.id) do%><%= product.name %><%end%></td>
+          <td><%= product.description %></td>
+          <td><%= product.price %></td>
+          <td><%= product.stock %></td>
+          <td><%= image_tag(product.photo_url, :size => "260x180") %></td>
+          <td>
+            <%= link_to "Edit", edit_product_path(product.id), method: :get, class: "btn btn-info" %>
+            </td>
+            <td><%= link_to "Remove", product_path(product.id), method: :destroy, class: "btn btn-info" %>
+            </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
