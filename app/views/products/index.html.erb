@@ -11,9 +11,7 @@
                 <p class="card-text"><%= product.description %></p>
                 <p class='card-text'>Price: $<%= product.price %></p>
                 <p class='card-text'>In Stock: <%= product.stock %></p>
-                <%#TODO: Add cart link here%> 
                 <%= button_to "Add to Cart", add_to_cart_path(product.id), method: :patch, class: "btn btn-info" %>
-                <a href="#!" class="btn btn-primary">Add to cart</a>
             </div>
         </div>
     <% end %>
