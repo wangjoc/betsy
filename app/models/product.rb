@@ -11,7 +11,7 @@ class Product < ApplicationRecord
     m_products = []
     products.each do |product|
       if Product.find_by(id: product.id).merchant_id == id.to_i
-        result << product
+        m_products << product
       end
     end
     return m_products
@@ -30,6 +30,5 @@ class Product < ApplicationRecord
         return
     end
   end
-
 
 end
