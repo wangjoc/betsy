@@ -2,7 +2,8 @@ class MerchantsController < ApplicationController
   before_action :find_merchant, only: [:show, :dashboard]
 
   def index
-    @merchants = Merchant.all 
+    @products_by_merchant = Product.categorize_by_merchant
+    session[:return_to] = merchants_path
   end
 
   def show  

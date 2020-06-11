@@ -7,11 +7,6 @@ class ProductsController < ApplicationController
     session[:return_to] = products_path
   end
 
-  def by_merchant
-    @products_by_merchant = Product.categorize_by_merchant
-    session[:return_to] = by_merchant_path
-  end
-
   def show    
     if @product.nil?
       redirect_to products_path
