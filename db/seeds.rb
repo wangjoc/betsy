@@ -8,6 +8,28 @@
 
 require 'csv'
 
+CATEGORY_FILE = Rails.root.join('db', 'category_seeds.csv')
+puts "Loading raw category data from #{CATEGORY_FILE}"
+
+category_failures = []
+CSV.foreach(CATEGORY_FILE, :headers => true) do |row|
+  category = Category.new
+  category.category = row['category']
+
+  successful = category.save
+  if !successful
+    category_failures << category
+    puts "Failed to save category: #{category.inspect}"
+  else
+    puts "Created category: #{category.inspect}"
+  end
+end
+
+puts "Added #{Category.all.length} category records"
+puts "#{category_failures.length} category failed to save"
+
+
+
 MERCHANT_FILE = Rails.root.join('db', 'merchant_seeds.csv')
 puts "Loading raw merchant data from #{MERCHANT_FILE}"
 
@@ -38,13 +60,19 @@ puts "Loading raw media data from #{PRODUCT_FILE}"
 product_failures = []
 CSV.foreach(PRODUCT_FILE, :headers => true) do |row|
   product = Product.new
-  product.id = row['id']
   product.name = row['name']
   product.description= row['description']
   product.price = row['price']
   product.photo_url = row['photo_url']
   product.stock = row['stock']
   product.merchant_id = rand(1..Merchant.all.length)
+
+  if product.price > 25
+    product.categories << Category.first
+  else 
+    product.categories << Category.first
+    product.categories << Category.last
+  end
 
   successful = product.save
   if !successful
@@ -59,14 +87,12 @@ puts "Added #{Product.all.length} media records"
 puts "#{product_failures.length} media failed to save"
 
 
-
 CUSTOMER_FILE = Rails.root.join('db', 'customer_seeds.csv')
 puts "Loading raw customer data from #{CUSTOMER_FILE}"
 
 order_failures = []
 CSV.foreach(CUSTOMER_FILE, :headers => true) do |row|
   order = Order.new
-  # order.id = row['id']
   order.buyer_name = row['buyer_name']
   order.email_address = row['email_address']
   order.mail_address = row['mail_address']
@@ -85,7 +111,6 @@ end
 
 puts "Added #{Order.all.length} order records"
 puts "#{order_failures.length} order failed to save"
-
 
 
 puts "Generating random OrderItems"
