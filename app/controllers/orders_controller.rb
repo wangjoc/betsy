@@ -67,7 +67,13 @@ class OrdersController < ApplicationController
   end
 
   def purchase
-    @order.status = "paid"
+    if @order.status == "pending"
+      @order.status = "paid"
+    else
+      flash[:warning] = "Order already completed/cancelled, cannot change status"
+      render :new, status: :bad_request
+      return
+    end
 
     if @order.save
       flash[:success] = "Thank you for your purchase!"
