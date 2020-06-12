@@ -32,8 +32,7 @@
 
 <%#TODO: Leah will make these buttons bigger %>
 <%#TODO: The link to complete order is broken - also should redirect to a confirmation page (which we can put in the application controller and I can style tomorrow %>
-<%= button_to "Complete Order", orders_path, method: :get %><br>
-
+<%= button_to "Purchase Order", purchase_path, method: :patch %><br>
 <%# TODO: Maybe the cancel order path should clear the cart and redirect to the root? %>
 <%= button_to "Cancel Order", order_path(@order.id), method: :get %><br>
 </div>
