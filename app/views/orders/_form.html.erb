@@ -24,8 +24,10 @@
         <div class="card-body">
           <h5 class="card-title"><%= product.name %></h5>
           <p class="card-text"><%= "Quantity: #{quantity}" %></p>
+          
           <%= button_to " + Add Quantity", add_to_cart_path(product.id), method: :patch, class: "btn btn-light inline" %>
           <%= button_to " - Decrease Quantity", remove_from_cart_path(product.id), method: :patch, class: "btn btn-light inline" %>
+          <%#TODO: Need a remove product from cart button%>
         </div>
         <h5 class="card-header text-right"><%= "Subtotal for this product: $#{subtotal}" %></h5>
       </div>
@@ -74,6 +76,6 @@
       <%= f.text_field :cc_cvv, class: "form-control-lg", placeholder: "Credit Card CVV (security code)"%>
     </div>
 
-    <%= f.submit action_name == "New" ? "Place Order" : "Update Order" , class: "order-button" %>
+    <%= f.submit action_name == "New" ? "Review Order" : "Update Order" , class: "order-button" %>
   <% end %>
 </div>

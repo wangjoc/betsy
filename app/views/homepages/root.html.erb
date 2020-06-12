@@ -1,6 +1,6 @@
 <div class='total-home-container'>
-  <div class='homepage-container' w-100>
-      <%= image_tag("https://i.imgur.com/gHHtd3m.jpg", class: 'homepage-img') %> 
+  <div class='homepage-container'>
+      <%= image_tag("https://i.imgur.com/gHHtd3m.jpg", class: 'homepage-img', alt: 'a dog with his head through a pink lougechair') %> 
     
     <div class='text-container'>
       <div class='centered'>
@@ -11,13 +11,17 @@
 
   <%# TODO: logic for choosing featured products is not complete, need to replace with actual logic later on :(%>
   <div class='feature-products'>
-      <h1>Featured Regrets:</h1>
-      <h3>Most Recently Added!</h3>
+  <hr/>
+      <h1 class='subtitle2'>Featured Regrets:</h1>
+      <h3 class='subtitle3'>Most Recent Regrets!</h3>
         <%= render partial: "shared/card", locals: { product_set: @featured_products } %>
-      <h3>Featured by Best Reviews!</h3>
+        <hr/>
+      <h3 class='subtitle3'>Top Reviewed Regrets!</h3>
         <%= render partial: "shared/card", locals: { product_set: @featured_products } %>
-      <h3>Featured Merchants!</h3>
-      <% #TODO Optional refactor - add photo, change to top selling item %>
+        <hr/>
+      <h3 class='subtitle3'>Featured Merchants!</h3>
+      <% #TODO Optional refactor - add photo, change to top selling item - THIS IS PIE IN THE SKY NOT NECESSARY %>
         <%= render partial: "shared/merchants", locals: { merchant_set: @featured_merchants } %>
+        <hr/>
     </div>
   </div>
