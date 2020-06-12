@@ -71,7 +71,7 @@ class OrdersController < ApplicationController
       @order.status = "paid"
     else
       flash[:warning] = "Order already completed/cancelled, cannot change status"
-      render :new, status: :bad_request
+      redirect_to order_path(@order.id)
       return
     end
 

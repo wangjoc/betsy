@@ -249,6 +249,49 @@ describe OrdersController do
       post orders_path, params: customer_info
     end
 
+    describe "purchase without login (guest)" do
+      it "changes status of pending order to paid" do 
+        expect(Order.last.status).must_equal "pending"
+        patch purchase_path(Order.last.id)
+
+        expect(Order.last.status).must_equal "paid"
+        must_respond_with :redirect
+        must_redirect_to receipt_path
+      end
+
+      it "cannot change status of complete order to paid" do
+        order = Order.last
+        order.status = "complete"
+        order.save
+
+        expect(Order.last.status).must_equal "complete"
+        patch purchase_path(Order.last.id)
+
+        expect(Order.last.status).must_equal "complete"
+        must_respond_with :redirect
+        must_redirect_to order_path(order.id)
+      end
+
+      it "cannot change status of cancelled order to paid" do
+        order = Order.last
+        order.status = "cancelled"
+        order.save
+
+        expect(Order.last.status).must_equal "cancelled"
+        patch purchase_path(Order.last.id)
+
+        expect(Order.last.status).must_equal "cancelled"
+        must_respond_with :redirect
+        must_redirect_to order_path(order.id)
+      end
+    end
+  end
+
+  describe "purchase with login as merchant" do
+    before do 
+      perform_login
+    end
+
     it "changes status of pending order to paid" do 
       expect(Order.last.status).must_equal "pending"
       patch purchase_path(Order.last.id)
@@ -267,7 +310,8 @@ describe OrdersController do
       patch purchase_path(Order.last.id)
 
       expect(Order.last.status).must_equal "complete"
-      must_respond_with :bad_request
+      must_respond_with :redirect
+      must_redirect_to order_path(order.id)
     end
 
     it "cannot change status of cancelled order to paid" do
@@ -279,8 +323,16 @@ describe OrdersController do
       patch purchase_path(Order.last.id)
 
       expect(Order.last.status).must_equal "cancelled"
-      must_respond_with :bad_request
+      must_respond_with :redirect
+      must_redirect_to order_path(order.id)
     end
+  end
+
+
+  describe "complete" do
+    # TODO can only be done by merchant logged in for their orders
+    # TODO need to add status to OrderItems so that they can actually be fulfilled... can this just be done with boolean? either fufilled or not?
+    # TODO test should be on ORderItem instead, and function to change to complete should also be ORderITem as well
   end
 
   # describe "shopping cart" do
