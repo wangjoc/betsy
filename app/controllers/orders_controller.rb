@@ -21,12 +21,6 @@ class OrdersController < ApplicationController
     end
   end
 
-  def receipt
-    @order = Order.find_by(id: session[:order_id])
-    session[:order_id] = nil
-    session[:return_to] = products_path
-  end
-
   def new
     if session[:shopping_cart].nil?
       redirect_to products_path
@@ -57,6 +51,7 @@ class OrdersController < ApplicationController
       end
 
       session[:order_id] = @order.id
+      session[:return_to] = products_path
 
       redirect_to order_path(@order.id)
       flash[:success] = "Successfully added new order: #{view_context.link_to "#Order ID: #{@order.id}", purchase_path(@order.id) }"
@@ -78,8 +73,8 @@ class OrdersController < ApplicationController
 
     if @order.save
       flash[:success] = "Thank you for your purchase!"
-      # session[:order_id] = nil
-      session[:shopping_cart] = nil
+      session[:order_id] = @order.id
+      session[:return_to] = products_path
       redirect_to receipt_path
       return
     else
@@ -102,8 +97,27 @@ class OrdersController < ApplicationController
     end
   end
 
-  def complete
+  def receipt
+    if session[:order_id].nil?
+      redirect_to products_path
+      flash[:warning] = "No payment, no receipt!"
+      return
+    end
 
+    @order = Order.find_by(id: session[:order_id])
+
+    if @order.status == "paid"
+      session[:order_id] = nil
+      session[:return_to] = products_path
+    else
+      redirect_to session.delete(:return_to)
+      flash[:warning] = "No payment, no receipt!"
+      return
+    end
+  end
+
+  def complete
+    #TODO - change to a OrderItem action
   end
 
   private
