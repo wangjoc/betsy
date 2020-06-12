@@ -42,23 +42,22 @@ class Product < ApplicationRecord
   end
 
   def self.featured_products
-    # TODO: just taking the bottom three off the list for now, can implement other logic later
-    # added this method, please test it out to see if it makes sense
-    # return Product.order('id DESC')[0..2]
-      product_list = Product.order(rating: :desc)
+  #   # TODO: just taking the bottom three off the list for now, can implement other logic later
+  #   # added this method, please test it out to see if it makes sense
+     return Product.order('id DESC')[0..2]
+  #     product_list = Product.order(rating: :desc)
       
-      featured_products_list = []
+  #     featured_products_list = []
       
-      while featured_products_list.length < 5 && !product_list.empty?
-        product = product_list.pop()
+  #     while featured_products_list.length < 5 && !product_list.empty?
+  #       product = product_list.last
         
-        if product.available == true
-          featured_products_list << product
-        end
-      end
+  #       if product == true
+  #         featured_products_list << product
+  #       end
+  #     end
       
-      return featured_products_list
-    end
+  #     return featured_products_list
   end
 
   def reduce_stock
@@ -84,7 +83,5 @@ class Product < ApplicationRecord
   def self.sort_products
     return Product.order(name: :asc)
   end
-
-end
 
 end
