@@ -21,9 +21,10 @@ class OrdersController < ApplicationController
     end
   end
 
-  def confirmation
+  def receipt
     @order = Order.find_by(id: session[:order_id])
     session[:order_id] = nil
+    session[:return_to] = products_path
   end
 
   def new
@@ -93,7 +94,7 @@ class OrdersController < ApplicationController
     if @order.save
       flash[:success] = "We're sorry to see you cancel. Please call ###.###.### if there is anything we can help with"
       session[:order_id] = nil
-      redirect_to products_path
+      redirect_to session.delete(:return_to)
       return
     else
       render :new, status: :bad_request
