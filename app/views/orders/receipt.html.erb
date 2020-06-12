@@ -1,4 +1,4 @@
-<h1 class='title'>Order Details: Order <%= @order.id %></h1>
+<h1 class='title'>RECEIPT <%= @order.id %></h1>
 <%# TODO Leah will update this view %>
 <div class="container-sm">
   <h2>Customer Detail</h2>
@@ -19,5 +19,4 @@
     <% end %>
 </div>
 
-<%= button_to "Return to Browsing", root_path %><br>
-<%= button_to "Cancel Order", cancel_path(@order.id), method: :patch %><br>
+<%= button_to "Return to Browsing", products_path, method: :get %><br>
