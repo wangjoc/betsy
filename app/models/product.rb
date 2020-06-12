@@ -5,6 +5,11 @@ class Product < ApplicationRecord
   has_and_belongs_to_many :categories
 
   validates :name, presence: true, uniqueness: true
+  validates :description, presence: true
+  validates :price, presence: true, numericality: { greater_than: 0 }
+  validates :photo_url, presence: true
+  validates :stock, presence: true, numericality: { only_integer: true, greater_than: -1 }
+  validates :merchant_id, presence: true
 
   def self.by_merchant(id)
     # products = Product.where("id > ?", 1) 
@@ -39,6 +44,21 @@ class Product < ApplicationRecord
   def self.featured_products
     # TODO: just taking the bottom three off the list for now, can implement other logic later
     return Product.order('id DESC')[0..2]
+    def self.sample_products_for_homepage()
+      product_list = Product.order(Arel.sql("RANDOM()")).to_a
+      
+      sample_products_list = []
+      
+      while sample_products_list.length < 5 && !product_list.empty?
+        product = product_list.pop()
+        
+        if product.available == true
+          sample_products_list << product
+        end
+      end
+      
+      return sample_products_list
+    end
   end
 
   def reduce_stock
@@ -54,5 +74,17 @@ class Product < ApplicationRecord
         return
     end
   end
+
+  def rating_average
+    if self.reviews.count > 0
+      (self.reviews.map{ |review| review.rating }.sum / self.reviews.count.to_f).round(1)
+    end
+  end
+
+  def self.sort_products
+    return Product.order(name: :asc)
+  end
+
+end
 
 end
