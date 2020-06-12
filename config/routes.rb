@@ -5,8 +5,11 @@ Rails.application.routes.draw do
 
   get "/merchants/dashboard", to: "merchants#dashboard", as: "dashboard"
   get "/orders/receipt", to: "orders#receipt", as: "receipt"
+  # get "/products/:id/review_product", to: "products#review_product", as: "review_product"
+  get "/reviews/:id/review_product", to: "reviews#review_product", as: "review_product"
 
   resources :categories, only: [:index, :show, :new, :create]
+  resources :reviews, only: [:new, :create]
   resources :orders, except: [:index]
   resources :merchants
 
@@ -19,9 +22,9 @@ Rails.application.routes.draw do
   patch "/orders/:id/cancel", to: "orders#cancel", as: "cancel"
   patch "/orders/:id/complete", to: "orders#complete", as: "complete"
 
- 
   patch "/products/:id/add_to_cart", to: "products#add_to_cart", as: "add_to_cart"
   patch "/products/:id/remove_from_cart", to: "products#remove_from_cart", as: "remove_from_cart"
+
 
   get "/auth/github", as: "github_login"
   get "/auth/:provider/callback", to: "merchants#create", as: "omniauth_callback"
