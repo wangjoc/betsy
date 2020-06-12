@@ -1,5 +1,4 @@
 class HomepagesController < ApplicationController
-
   def root
     @featured_products = Product.featured_products
     @featured_merchants = Merchant.featured_merchants
@@ -16,5 +15,4 @@ class HomepagesController < ApplicationController
 
   def impact
   end
-  
 end

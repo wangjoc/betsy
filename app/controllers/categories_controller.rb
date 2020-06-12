@@ -4,7 +4,7 @@ class CategoriesController < ApplicationController
     session[:return_to] = categories_path
   end
 
-  def show  
+  def show
     @category = Category.find_by(id: params[:id])
     @products = Product.by_category(@category.id)
     session[:return_to] = category_path(@category.id)
@@ -15,13 +15,13 @@ class CategoriesController < ApplicationController
   end
 
   def create
-    @category = Category.new(category_params) 
+    @category = Category.new(category_params)
 
-    if @category.save 
+    if @category.save
       redirect_to dashboard_path
       # flash[:success] = "Successfully created new category"
       return
-    else 
+    else
       render :new, status: :bad_request
       return
     end
@@ -32,5 +32,4 @@ class CategoriesController < ApplicationController
   def category_params
     return params.require(:category).permit(:category)
   end
-
 end

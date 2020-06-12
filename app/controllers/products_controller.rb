@@ -1,13 +1,13 @@
 class ProductsController < ApplicationController
   before_action :find_product, only: [:show, :edit, :update, :add_to_cart, :remove_from_cart]
-  
+
   def index
-    @products = Product.where('stock > ?', 0)
+    @products = Product.where("stock > ?", 0)
     @products_by_merchant = Product.categorize_by_merchant
     session[:return_to] = products_path
   end
 
-  def show    
+  def show
     if @product.nil?
       redirect_to products_path
       return
@@ -24,13 +24,13 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.new(product_params) 
+    @product = Product.new(product_params)
 
-    if @product.save 
+    if @product.save
       redirect_to product_path(@product.id)
-      flash[:success] = "Successfully added new product: #{view_context.link_to "##{@product.id} #{@product.name}", product_path(@product.id) }"
+      flash[:success] = "Successfully added new product: #{view_context.link_to "##{@product.id} #{@product.name}", product_path(@product.id)}"
       return
-    else 
+    else
       render :new, status: :bad_request
       return
     end
@@ -48,17 +48,17 @@ class ProductsController < ApplicationController
       head :not_found
       return
     elsif @product.update(product_params)
-      flash[:success] = "Successfully edited #{view_context.link_to @product.name, product_path(@product.id)}" 
+      flash[:success] = "Successfully edited #{view_context.link_to @product.name, product_path(@product.id)}"
       redirect_to product_path(@product.id)
       return
-    else 
-      render :edit, status: :bad_request 
+    else
+      render :edit, status: :bad_request
       return
     end
   end
 
   def add_to_cart
-    if @product.nil? 
+    if @product.nil?
       head :not_found
       return
     end
@@ -68,7 +68,7 @@ class ProductsController < ApplicationController
     end
 
     if @product.stock > 0
-      if session[:shopping_cart][@product.id.to_s] 
+      if session[:shopping_cart][@product.id.to_s]
         session[:shopping_cart][@product.id.to_s] += 1
       else
         session[:shopping_cart][@product.id.to_s] = 1
@@ -83,7 +83,7 @@ class ProductsController < ApplicationController
   end
 
   def remove_from_cart
-    if @product.nil? 
+    if @product.nil?
       head :not_found
       return
     end
@@ -114,5 +114,4 @@ class ProductsController < ApplicationController
   def find_product
     @product = Product.find_by(id: params[:id])
   end
-
 end

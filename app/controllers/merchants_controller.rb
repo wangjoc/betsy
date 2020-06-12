@@ -6,7 +6,7 @@ class MerchantsController < ApplicationController
     session[:return_to] = merchants_path
   end
 
-  def show  
+  def show
     # diff than the merchant session for login
     @merchant = Merchant.find_by(id: params[:id])
     @products = Product.by_merchant(@merchant.id)
@@ -14,6 +14,8 @@ class MerchantsController < ApplicationController
   end
 
   def dashboard
+    @merchant = @current_merchant
+    check_merchant
   end
 
   def create
@@ -36,7 +38,7 @@ class MerchantsController < ApplicationController
         return redirect_to root_path
       end
     end
-    
+
     # If we get here, we have a valid user instance
     session[:merchant_id] = merchant.id
     return redirect_to root_path
@@ -83,6 +85,4 @@ class MerchantsController < ApplicationController
   def find_merchant
     @merchant = Merchant.find_by(id: session[:merchant_id])
   end
-
 end
-

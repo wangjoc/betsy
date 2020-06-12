@@ -32,14 +32,14 @@
       </ul>
     </div>
 
-  </div> <%# end deck %>
+  </div> <% # end deck %>
   <div class='btn-container'>
     <%= link_to "Go To My Store", merchant_path(@merchant.id), class: "btn btn-info" %>
     <%= link_to "Add New Product", new_product_path, class: "btn btn-info" %>
     <%= link_to "Add New Category", new_category_path, class: "btn btn-info" %>
   </div>
   
-</div> <%# end jumbotron%>
+</div> <% # end jumbotron %>
 
 <div class="jumbotron">
 <h3 class='subtitle'>Current Orders</h3>
@@ -61,7 +61,7 @@
     <tbody>
       <% Order.all.each do |order| %>
         <% order.order_items.each do |order_item| %>
-          <tr class="clickable-tr" data-path="<%= order_path(order.id)%>" >
+          <tr class="clickable-tr" data-path="<%= order_path(order.id) %>" >
             <% if order_item.product.merchant.id == @merchant.id %>
               <td><%= order.id %></td>
               <td><%= order.buyer_name %></td>
@@ -99,7 +99,7 @@
     <tbody>
       <% @merchant.products.each do |product| %>
         <tr class="clickable-tr" >
-          <td><%= link_to product_path(product.id) do%><%= product.name %><%end%></td>
+          <td><%= link_to product_path(product.id) do %><%= product.name %><% end %></td>
           <td><%= product.description %></td>
           <td><%= product.price %></td>
           <td><%= product.stock %></td>

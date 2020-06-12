@@ -7,7 +7,7 @@ class Product < ApplicationRecord
   validates :name, presence: true, uniqueness: true
 
   def self.by_merchant(id)
-    # products = Product.where("id > ?", 1) 
+    # products = Product.where("id > ?", 1)
     return Product.where(merchant_id: id)
   end
 
@@ -23,7 +23,7 @@ class Product < ApplicationRecord
   def self.by_category(id)
     products = []
     Product.all.each do |product|
-      products << product if product.category_ids.include? id 
+      products << product if product.category_ids.include? id
     end
     return products
   end
@@ -38,21 +38,20 @@ class Product < ApplicationRecord
 
   def self.featured_products
     # TODO: just taking the bottom three off the list for now, can implement other logic later
-    return Product.order('id DESC')[0..2]
+    return Product.order("id DESC")[0..2]
   end
 
   def reduce_stock
     @product = Product.find(params[:id])
-    
-    if @product.stock >=1
-        @product.stock -= 1
-        flash[:success] = "Successfully updated #{view_context.link_to @product.name, product_path(@product.id)}" 
-        redirect_to order_path(@order.id)
-        return
-    else 
-        render :show, status: :bad_request 
-        return
+
+    if @product.stock >= 1
+      @product.stock -= 1
+      flash[:success] = "Successfully updated #{view_context.link_to @product.name, product_path(@product.id)}"
+      redirect_to order_path(@order.id)
+      return
+    else
+      render :show, status: :bad_request
+      return
     end
   end
-
 end
