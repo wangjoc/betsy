@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :find_order, only: [:show, :purchase, :cancel, :complete, :add_to_cart]
+  before_action :find_order, only: [:show, :purchase, :cancel, :complete, :add_to_cart, :confirmation]
 
   # TODO - JW to figure out how to prevent people from seeing this page after order path has been submitted (something to do with session again?)
   def show    
@@ -21,6 +21,11 @@ class OrdersController < ApplicationController
     end
   end
 
+  def confirmation
+    @order = Order.find_by(id: session[:order_id])
+    session[:order_id] = nil
+  end
+
   def new
     if session[:shopping_cart].nil?
       redirect_to products_path
@@ -33,6 +38,13 @@ class OrdersController < ApplicationController
 
   def create
     @order = Order.new(order_params) 
+
+    # TODO - move to a helper method if we need to check for this more than once
+    if session[:shopping_cart].nil? || session[:shopping_cart].empty?
+      redirect_to products_path
+      flash[:warning] = "Nothing in cart, let's do some shopping first!"
+      return
+    end
 
     if @order.save 
       session[:shopping_cart].each do |product_id, quantity|
@@ -59,9 +71,9 @@ class OrdersController < ApplicationController
 
     if @order.save
       flash[:success] = "Thank you for your purchase!"
-      session[:order_id] = nil
+      # session[:order_id] = nil
       session[:shopping_cart] = nil
-      redirect_to products_path
+      redirect_to receipt_path
       return
     else
       render :new, status: :bad_request

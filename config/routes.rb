@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   # # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   get "/merchants/dashboard", to: "merchants#dashboard", as: "dashboard"
+  get "/orders/receipt", to: "orders#receipt", as: "receipt"
 
   resources :categories, only: [:index, :show, :new, :create]
   resources :orders, except: [:index]
