@@ -23,7 +23,7 @@
 
           <%= link_to "Add to Cart", add_to_cart_path(@product.id), method: :patch, class: "btn btn-primary " %>
           
-          <%# TODO: This needs to be refactored show show edit product ONLY if the product's merchant id matches the session merchant id %>
+          <%# TODO: This needs to be refactored show show edit product ONLY if the product's merchant id matches the session merchant id - maybe move this only to the dashboard %>
           <% if session[:merchant_id]%>
           <%= link_to "Edit this Product", edit_product_path(@product.id), class: "btn btn-primary " %>
           <% end %>
