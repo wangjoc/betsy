@@ -2,19 +2,8 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
-.title {
-  text-align: center;
-  background-color: #E5989B;
-  padding: 30px 0px 10px 0px;
-  margin-bottom: 30px;
-  font-family: 'La Belle Aurore', cursive;
-}
 
-.subtitle {
-  text-align: center;
-  font-family: 'La Belle Aurore', cursive;
-  font-size: 5vw;
-}
+
 
 .btn-container {
   display: flex;
@@ -24,23 +13,3 @@
 .current {
   margin: 50px auto;
 }
-
-
-// <div class="container-lg">
-// <h2 class='subtitle'>My Order Fullfillment</h2>
-// <h3>By the Numbers</h3>
-//   <h4>Total Revenue: $$$$</h4>
-//   <h4>Total Revenue by Status:</h4>
-//   <p>Pending: $$$</p>
-//   <p>Paid: $$$</p>
-//   <p>Complete: $$$</p>
-//   <p>Cancelled: $$$</p>
-
-//   <h4>Total Number of Orders by Status:</h4>
-//   <p>Pending: ###</p>
-//   <p>Paid: ###</p>
-//   <p>Complete: ###</p>
-//   <p>Cancelled: ###</p>
-
-//   <p>
-// </div>

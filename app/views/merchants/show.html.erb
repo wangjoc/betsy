@@ -1,3 +1,3 @@
 <%# DISPLAYS ONLY ONE MERCHANT PRODUCTS%>
-<h1>Sold By <%= "#{@merchant.name} (ID: #{@merchant.uid})" %></h1>
+<h1 class='title'><%= @merchant.name %>'s Store</h1>
 <%= render partial: "shared/card", locals: { product_set: @products } %>

@@ -1,5 +1,11 @@
 class ApplicationController < ActionController::Base
   # before_action :require_login
+  before_action :navigation_data
+
+  def navigation_data
+    @categories = Category.all
+    @merchants = Merchant.all
+  end
 
   def current_merchant
     # return user matching id from session variable

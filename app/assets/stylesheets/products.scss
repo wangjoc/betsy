@@ -13,10 +13,15 @@
     margin: 30px auto
 }
 
-.title {
-    text-align: center;
-    background-color: #E5989B;
-    padding: 30px 0px 10px 0px;
-    margin-bottom: 30px;
-    font-family: 'La Belle Aurore', cursive;
+.card-columns {
+    @include media-breakpoint-only(lg) {
+        column-count: 4;
+    }
+    @include media-breakpoint-only(xl) {
+        column-count: 6;
+    }
+}
+
+.single-product-container {
+    padding-bottom: 20px;
 }

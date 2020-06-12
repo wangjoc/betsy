@@ -1,8 +1,7 @@
 <%# DISPLAYS ALL PRODUCTS, REGARDLESS OF CATEGORY%>
-
-<h1> SHOP BY CATEGORY </h1>
+<h1 class="title"> regrEtsy Products by Category </h1>
 <% @products_by_category.each do |category_id, products| %>
   <% category = Category.find_by(id: category_id) %>
-  <h3>Here is our selection of <%= link_to "#{category.category} (ID: #{category.id})", category_path(category.id) %> products!</h3>
+  <h3 class='subtitle'>Category: <%= link_to category.category, category_path(category.id) %></h3>
   <%= render partial: "shared/card", locals: { product_set: products } %>
 <% end %>

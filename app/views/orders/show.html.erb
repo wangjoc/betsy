@@ -1,23 +1,39 @@
-<h1 class='title'>Order Details: Order <%= @order.id %></h1>
-<%# TODO Leah will update this view %>
+<div class='page-container'>
+<h1 class='title'>You're Still Considering This?? </h1>
+<div class="jumbotron">
+  <h1 class="display-4">Your Order Details (Order #<%= @order.id %>)</h1>
+  <p class="lead">Take a look before you complete your purchase:</p>
+  <hr class="my-4">
+<%#TODO: Leah Will reformat this into a table %>
 <div class="container-sm">
-  <h2>Customer Detail</h2>
-  <%= "Customer Name: #{@order.buyer_name}" %><br>
-  <%= "Email Address: #{@order.email_address}" %><br>
-  <%= "Mail Address: #{@order.mail_address}" %><br>
-  <%= "Last Four Digits of Credit Card: #{@order.cc_num}" %><br>
-  <%= "Credit Card Expiration: #{@order.cc_exp}" %><br>
-</div>
-
-<div class="container-sm">
-  <h2>Product Detail</h2>
+  <h2>Product Detail: this is going to be a table someday soon</h2>
     <% @order.order_items.each do |order_item| %>
       <%= order_item.product.name %><br>
-      <%= order_item.product.description %><br>
-      <%= "Price: #{order_item.product.price}" %><br>
       <%= "Quantity: #{order_item.quantity}" %><br>
+      <%= "Price: #{order_item.product.price}" %><br>
     <% end %>
 </div>
 
-<%= button_to "Purchase Order", purchase_path(@order.id), method: :patch %><br>
-<%= button_to "Cancel Order", cancel_path(@order.id), method: :patch %><br>
+  <div class='card-deck'>
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+          <h5 class="card-title">Customer Details:</h5>
+          
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><%= "Customer Name: #{@order.buyer_name}" %></li>
+        <li class="list-group-item"><%= "Email Address: #{@order.email_address}" %></li>
+        <li class="list-group-item"><%= "Mail Address: #{@order.mail_address}" %></li>
+        <li class="list-group-item"><%= "Last Four Digits of Credit Card: #{@order.cc_num}" %></li>
+        <li class="list-group-item"><%= "Credit Card Expiration: #{@order.cc_exp}" %></li>
+      </ul>
+    </div>
+    </div>
+
+<%#TODO: Leah will make these buttons bigger %>
+<%#TODO: The link to complete order is broken - also should redirect to a confirmation page (which we can put in the application controller and I can style tomorrow %>
+<%= button_to "Complete Order", orders_path, method: :get %><br>
+
+<%# TODO: Maybe the cancel order path should clear the cart and redirect to the root? %>
+<%= button_to "Cancel Order", order_path(@order.id), method: :get %><br>
+</div>

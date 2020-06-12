@@ -38,6 +38,7 @@
 .navbar-nav {
   grid-column-start: 4;
   justify-items: end;
+  align-items: center;
 }
 
 .nav-link {
@@ -59,3 +60,50 @@
   border: #B5838D;
   box-shadow: 0px 0px 15px 1px #FFCDB2;
 }
+
+.title {
+  text-align: center;
+  background-color: #E5989B;
+  padding: 30px 0px 10px 0px;
+  margin-bottom: 30px;
+  font-family: 'La Belle Aurore', cursive;
+}
+
+.subtitle {
+  text-align: center;
+  font-family: 'La Belle Aurore', cursive;
+  font-size: 5vw;
+}
+
+.subtitle2 {
+  text-align: center;
+  font-family: 'La Belle Aurore', cursive;
+  font-size: 3vw;
+}
+
+.subtitle3 {
+  text-align: left;
+  font-family: 'La Belle Aurore', cursive;
+  font-size: 2.5vw;
+}
+
+.reviews {
+  padding: 50px 0px 30px;
+}
+
+.review {
+  border: 2px solid #B5838D;
+}
+
+a {
+  color: #B5838D;
+}
+
+a:hover {
+  color: #B5838D;
+}
+
+.inline {
+  display: inline-block;
+}
+
