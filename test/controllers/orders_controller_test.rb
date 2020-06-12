@@ -230,7 +230,105 @@ describe OrdersController do
   #   end
   # end
 
-  describe "purchase" do
+  # describe "purchase" do
+  #   let (:customer_info) {
+  #         {
+  #           order: {
+  #             buyer_name: "Ye Xiu",
+  #             email_address: "lordgrim@glory.com",
+  #             mail_address: "Happy Internet Cafe",
+  #             zip_code: "11111",
+  #             cc_num: 1111,
+  #             cc_exp: 111111,
+  #           },
+  #         }
+  #       }
+    
+  #   before do
+  #     populate_cart
+  #     post orders_path, params: customer_info
+  #   end
+
+  #   describe "purchase without login (guest)" do
+  #     it "changes status of pending order to paid" do 
+  #       expect(Order.last.status).must_equal "pending"
+  #       patch purchase_path(Order.last.id)
+
+  #       expect(Order.last.status).must_equal "paid"
+  #       must_respond_with :redirect
+  #       must_redirect_to receipt_path
+  #     end
+
+  #     it "cannot change status of complete order to paid" do
+  #       order = Order.last
+  #       order.status = "complete"
+  #       order.save
+
+  #       expect(Order.last.status).must_equal "complete"
+  #       patch purchase_path(Order.last.id)
+
+  #       expect(Order.last.status).must_equal "complete"
+  #       must_respond_with :redirect
+  #       must_redirect_to order_path(order.id)
+  #     end
+
+  #     it "cannot change status of cancelled order to paid" do
+  #       order = Order.last
+  #       order.status = "cancelled"
+  #       order.save
+
+  #       expect(Order.last.status).must_equal "cancelled"
+  #       patch purchase_path(Order.last.id)
+
+  #       expect(Order.last.status).must_equal "cancelled"
+  #       must_respond_with :redirect
+  #       must_redirect_to order_path(order.id)
+  #     end
+  #   end
+  # end
+
+  # describe "purchase with login as merchant" do
+  #   before do 
+  #     perform_login
+  #   end
+
+  #   it "changes status of pending order to paid" do 
+  #     expect(Order.last.status).must_equal "pending"
+  #     patch purchase_path(Order.last.id)
+
+  #     expect(Order.last.status).must_equal "paid"
+  #     must_respond_with :redirect
+  #     must_redirect_to receipt_path
+  #   end
+
+  #   it "cannot change status of complete order to paid" do
+  #     order = Order.last
+  #     order.status = "complete"
+  #     order.save
+
+  #     expect(Order.last.status).must_equal "complete"
+  #     patch purchase_path(Order.last.id)
+
+  #     expect(Order.last.status).must_equal "complete"
+  #     must_respond_with :redirect
+  #     must_redirect_to order_path(order.id)
+  #   end
+
+  #   it "cannot change status of cancelled order to paid" do
+  #     order = Order.last
+  #     order.status = "cancelled"
+  #     order.save
+
+  #     expect(Order.last.status).must_equal "cancelled"
+  #     patch purchase_path(Order.last.id)
+
+  #     expect(Order.last.status).must_equal "cancelled"
+  #     must_respond_with :redirect
+  #     must_redirect_to order_path(order.id)
+  #   end
+  # end
+
+  describe "cancel" do
     let (:customer_info) {
           {
             order: {
@@ -247,86 +345,130 @@ describe OrdersController do
     before do
       populate_cart
       post orders_path, params: customer_info
+      patch purchase_path(Order.last.id)
+      get receipt_path
     end
 
-    describe "purchase without login (guest)" do
+    describe "cancel without login (guest)" do
       it "changes status of pending order to paid" do 
-        expect(Order.last.status).must_equal "pending"
-        patch purchase_path(Order.last.id)
-
         expect(Order.last.status).must_equal "paid"
+        patch cancel_path(Order.last.id)
+
+        expect(Order.last.status).must_equal "cancel"
         must_respond_with :redirect
-        must_redirect_to receipt_path
+        must_redirect_to products_path
       end
 
-      it "cannot change status of complete order to paid" do
+      it "changes status of complete order to cancelled" do
         order = Order.last
         order.status = "complete"
         order.save
 
         expect(Order.last.status).must_equal "complete"
-        patch purchase_path(Order.last.id)
+        patch cancel_path(Order.last.id)
 
-        expect(Order.last.status).must_equal "complete"
+        expect(Order.last.status).must_equal "cancel"
         must_respond_with :redirect
-        must_redirect_to order_path(order.id)
+        must_redirect_to products_path
       end
 
-      it "cannot change status of cancelled order to paid" do
+      it "changes status of paid order to cancelled" do
         order = Order.last
-        order.status = "cancelled"
+        order.status = "paid"
         order.save
 
-        expect(Order.last.status).must_equal "cancelled"
-        patch purchase_path(Order.last.id)
+        expect(Order.last.status).must_equal "paid"
+        patch cancel_path(Order.last.id)
 
-        expect(Order.last.status).must_equal "cancelled"
+        expect(Order.last.status).must_equal "cancel"
         must_respond_with :redirect
-        must_redirect_to order_path(order.id)
+        must_redirect_to products_path
+      end
+    end
+
+    describe "cancel with login as merchant" do
+      before do 
+        perform_login
+        get dashboard_path
+      end
+
+      it "changes status of pending order to paid" do 
+        expect(Order.last.status).must_equal "paid"
+        patch cancel_path(Order.last.id)
+
+        expect(Order.last.status).must_equal "cancel"
+        must_respond_with :redirect
+        must_redirect_to dashboard_path
+      end
+
+      it "changes status of complete order to cancelled" do
+        order = Order.last
+        order.status = "complete"
+        order.save
+
+        expect(Order.last.status).must_equal "complete"
+        patch cancel_path(Order.last.id)
+
+        expect(Order.last.status).must_equal "cancel"
+        must_respond_with :redirect
+        must_redirect_to dashboard_path
+      end
+
+      it "changes status of paid order to cancelled" do
+        order = Order.last
+        order.status = "paid"
+        order.save
+
+        expect(Order.last.status).must_equal "paid"
+        patch cancel_path(Order.last.id)
+
+        expect(Order.last.status).must_equal "cancel"
+        must_respond_with :redirect
+        must_redirect_to dashboard_path
       end
     end
   end
 
-  describe "purchase with login as merchant" do
-    before do 
-      perform_login
-    end
+  # describe "purchase with login as merchant" do
+  #   before do 
+  #     perform_login
+  #   end
 
-    it "changes status of pending order to paid" do 
-      expect(Order.last.status).must_equal "pending"
-      patch purchase_path(Order.last.id)
+  #   it "changes status of pending order to paid" do 
+  #     expect(Order.last.status).must_equal "pending"
+  #     patch purchase_path(Order.last.id)
 
-      expect(Order.last.status).must_equal "paid"
-      must_respond_with :redirect
-      must_redirect_to receipt_path
-    end
+  #     expect(Order.last.status).must_equal "paid"
+  #     must_respond_with :redirect
+  #     must_redirect_to receipt_path
+  #   end
 
-    it "cannot change status of complete order to paid" do
-      order = Order.last
-      order.status = "complete"
-      order.save
+  #   it "cannot change status of complete order to paid" do
+  #     order = Order.last
+  #     order.status = "complete"
+  #     order.save
 
-      expect(Order.last.status).must_equal "complete"
-      patch purchase_path(Order.last.id)
+  #     expect(Order.last.status).must_equal "complete"
+  #     patch purchase_path(Order.last.id)
 
-      expect(Order.last.status).must_equal "complete"
-      must_respond_with :redirect
-      must_redirect_to order_path(order.id)
-    end
+  #     expect(Order.last.status).must_equal "complete"
+  #     must_respond_with :redirect
+  #     must_redirect_to order_path(order.id)
+  #   end
 
-    it "cannot change status of cancelled order to paid" do
-      order = Order.last
-      order.status = "cancelled"
-      order.save
+  #   it "cannot change status of cancelled order to paid" do
+  #     order = Order.last
+  #     order.status = "cancelled"
+  #     order.save
 
-      expect(Order.last.status).must_equal "cancelled"
-      patch purchase_path(Order.last.id)
+  #     expect(Order.last.status).must_equal "cancelled"
+  #     patch purchase_path(Order.last.id)
 
-      expect(Order.last.status).must_equal "cancelled"
-      must_respond_with :redirect
-      must_redirect_to order_path(order.id)
-    end
-  end
+  #     expect(Order.last.status).must_equal "cancelled"
+  #     must_respond_with :redirect
+  #     must_redirect_to order_path(order.id)
+  #   end
+  # end
 
 
   describe "complete" do
