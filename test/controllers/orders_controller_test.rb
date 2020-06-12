@@ -328,148 +328,204 @@ describe OrdersController do
   #   end
   # end
 
-  describe "cancel" do
-    let (:customer_info) {
-          {
-            order: {
-              buyer_name: "Ye Xiu",
-              email_address: "lordgrim@glory.com",
-              mail_address: "Happy Internet Cafe",
-              zip_code: "11111",
-              cc_num: 1111,
-              cc_exp: 111111,
-            },
-          }
-        }
+  # describe "cancel" do
+  #   let (:customer_info) {
+  #         {
+  #           order: {
+  #             buyer_name: "Ye Xiu",
+  #             email_address: "lordgrim@glory.com",
+  #             mail_address: "Happy Internet Cafe",
+  #             zip_code: "11111",
+  #             cc_num: 1111,
+  #             cc_exp: 111111,
+  #           },
+  #         }
+  #       }
     
-    before do
-      populate_cart
-      post orders_path, params: customer_info
-      patch purchase_path(Order.last.id)
-      get receipt_path
-    end
-
-    describe "cancel without login (guest)" do
-      it "changes status of pending order to paid" do 
-        expect(Order.last.status).must_equal "paid"
-        patch cancel_path(Order.last.id)
-
-        expect(Order.last.status).must_equal "cancel"
-        must_respond_with :redirect
-        must_redirect_to products_path
-      end
-
-      it "changes status of complete order to cancelled" do
-        order = Order.last
-        order.status = "complete"
-        order.save
-
-        expect(Order.last.status).must_equal "complete"
-        patch cancel_path(Order.last.id)
-
-        expect(Order.last.status).must_equal "cancel"
-        must_respond_with :redirect
-        must_redirect_to products_path
-      end
-
-      it "changes status of paid order to cancelled" do
-        order = Order.last
-        order.status = "paid"
-        order.save
-
-        expect(Order.last.status).must_equal "paid"
-        patch cancel_path(Order.last.id)
-
-        expect(Order.last.status).must_equal "cancel"
-        must_respond_with :redirect
-        must_redirect_to products_path
-      end
-    end
-
-    describe "cancel with login as merchant" do
-      before do 
-        perform_login
-        get dashboard_path
-      end
-
-      it "changes status of pending order to paid" do 
-        expect(Order.last.status).must_equal "paid"
-        patch cancel_path(Order.last.id)
-
-        expect(Order.last.status).must_equal "cancel"
-        must_respond_with :redirect
-        must_redirect_to dashboard_path
-      end
-
-      it "changes status of complete order to cancelled" do
-        order = Order.last
-        order.status = "complete"
-        order.save
-
-        expect(Order.last.status).must_equal "complete"
-        patch cancel_path(Order.last.id)
-
-        expect(Order.last.status).must_equal "cancel"
-        must_respond_with :redirect
-        must_redirect_to dashboard_path
-      end
-
-      it "changes status of paid order to cancelled" do
-        order = Order.last
-        order.status = "paid"
-        order.save
-
-        expect(Order.last.status).must_equal "paid"
-        patch cancel_path(Order.last.id)
-
-        expect(Order.last.status).must_equal "cancel"
-        must_respond_with :redirect
-        must_redirect_to dashboard_path
-      end
-    end
-  end
-
-  # describe "purchase with login as merchant" do
-  #   before do 
-  #     perform_login
+  #   before do
+  #     populate_cart
+  #     post orders_path, params: customer_info
+  #     patch purchase_path(Order.last.id)
+  #     get receipt_path
   #   end
 
-  #   it "changes status of pending order to paid" do 
-  #     expect(Order.last.status).must_equal "pending"
-  #     patch purchase_path(Order.last.id)
+  #   describe "cancel without login (guest)" do
+  #     it "changes status of pending order to paid" do 
+  #       expect(Order.last.status).must_equal "paid"
+  #       patch cancel_path(Order.last.id)
 
-  #     expect(Order.last.status).must_equal "paid"
-  #     must_respond_with :redirect
-  #     must_redirect_to receipt_path
+  #       expect(Order.last.status).must_equal "cancel"
+  #       must_respond_with :redirect
+  #       must_redirect_to products_path
+  #     end
+
+  #     it "changes status of complete order to cancelled" do
+  #       order = Order.last
+  #       order.status = "complete"
+  #       order.save
+
+  #       expect(Order.last.status).must_equal "complete"
+  #       patch cancel_path(Order.last.id)
+
+  #       expect(Order.last.status).must_equal "cancel"
+  #       must_respond_with :redirect
+  #       must_redirect_to products_path
+  #     end
+
+  #     it "changes status of paid order to cancelled" do
+  #       order = Order.last
+  #       order.status = "paid"
+  #       order.save
+
+  #       expect(Order.last.status).must_equal "paid"
+  #       patch cancel_path(Order.last.id)
+
+  #       expect(Order.last.status).must_equal "cancel"
+  #       must_respond_with :redirect
+  #       must_redirect_to products_path
+  #     end
   #   end
 
-  #   it "cannot change status of complete order to paid" do
-  #     order = Order.last
-  #     order.status = "complete"
-  #     order.save
+  #   describe "cancel with login as merchant" do
+  #     before do 
+  #       perform_login
+  #       get dashboard_path
+  #     end
 
-  #     expect(Order.last.status).must_equal "complete"
-  #     patch purchase_path(Order.last.id)
+  #     it "changes status of pending order to paid" do 
+  #       expect(Order.last.status).must_equal "paid"
+  #       patch cancel_path(Order.last.id)
 
-  #     expect(Order.last.status).must_equal "complete"
-  #     must_respond_with :redirect
-  #     must_redirect_to order_path(order.id)
-  #   end
+  #       expect(Order.last.status).must_equal "cancel"
+  #       must_respond_with :redirect
+  #       must_redirect_to dashboard_path
+  #     end
 
-  #   it "cannot change status of cancelled order to paid" do
-  #     order = Order.last
-  #     order.status = "cancelled"
-  #     order.save
+  #     it "changes status of complete order to cancelled" do
+  #       order = Order.last
+  #       order.status = "complete"
+  #       order.save
 
-  #     expect(Order.last.status).must_equal "cancelled"
-  #     patch purchase_path(Order.last.id)
+  #       expect(Order.last.status).must_equal "complete"
+  #       patch cancel_path(Order.last.id)
 
-  #     expect(Order.last.status).must_equal "cancelled"
-  #     must_respond_with :redirect
-  #     must_redirect_to order_path(order.id)
+  #       expect(Order.last.status).must_equal "cancel"
+  #       must_respond_with :redirect
+  #       must_redirect_to dashboard_path
+  #     end
+
+  #     it "changes status of paid order to cancelled" do
+  #       order = Order.last
+  #       order.status = "paid"
+  #       order.save
+
+  #       expect(Order.last.status).must_equal "paid"
+  #       patch cancel_path(Order.last.id)
+
+  #       expect(Order.last.status).must_equal "cancel"
+  #       must_respond_with :redirect
+  #       must_redirect_to dashboard_path
+  #     end
   #   end
   # end
 
+  describe "receipt" do
+    let (:customer_info) {
+      {
+        order: {
+          buyer_name: "Ye Xiu",
+          email_address: "lordgrim@glory.com",
+          mail_address: "Happy Internet Cafe",
+          zip_code: 11111,
+          cc_num: 1111,
+          cc_exp: 111111,
+        },
+      }
+    }
+
+    before do
+      populate_cart
+      post orders_path, params: customer_info
+    end
+
+    describe "show without login (guest)" do
+      it "show receipt if order is paid for and in session" do
+        patch purchase_path(Order.last.id)
+        expect(session[:order_id]).must_equal Order.last.id
+        get receipt_path
+
+        must_respond_with :success
+        expect(session[:order_id]).must_equal nil
+      end
+
+      it "do not show receipt if order was cancelled" do
+        # also covers scenario where session order_id is nil
+        patch purchase_path(Order.last.id)
+        patch cancel_path(Order.last.id)
+        get receipt_path
+
+        must_respond_with :redirect
+        must_redirect_to products_path
+      end
+
+      it "do not show receipt if order is still pending" do
+        get receipt_path
+
+        must_respond_with :redirect
+        must_redirect_to products_path
+      end
+
+      # it "show receipt even if order is complete" do
+      #   # no conflict in order being complete because it will be paid
+      #   #  TODO expecting this to be rare because it means that the merchants will have completed the order between when customer pays and looks at receipt
+      #   get receipt_path
+
+      #   must_respond_with :redirect
+      #   must_redirect_to products_path
+      # end
+    end
+
+    describe "show without login (guest)" do
+      before do 
+        perform_login
+      end
+
+      it "show receipt if order is paid for and in session" do
+        patch purchase_path(Order.last.id)
+        expect(session[:order_id]).must_equal Order.last.id
+        get receipt_path
+
+        must_respond_with :success
+        expect(session[:order_id]).must_equal nil
+      end
+
+      it "do not show receipt if order was cancelled" do
+        # also covers scenario where session order_id is nil
+        patch purchase_path(Order.last.id)
+        patch cancel_path(Order.last.id)
+        get receipt_path
+
+        must_respond_with :redirect
+        must_redirect_to products_path
+      end
+
+      it "do not show receipt if order is still pending" do
+        get receipt_path
+
+        must_respond_with :redirect
+        must_redirect_to products_path
+      end
+
+      # it "show receipt even if order is complete" do
+      #   # no conflict in order being complete because it will be paid
+      #   #  TODO expecting this to be rare because it means that the merchants will have completed the order between when customer pays and looks at receipt
+      #   get receipt_path
+
+      #   must_respond_with :redirect
+      #   must_redirect_to products_path
+      # end
+    end
+  end
 
   describe "complete" do
     # TODO can only be done by merchant logged in for their orders
