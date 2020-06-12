@@ -43,21 +43,21 @@ class Product < ApplicationRecord
 
   def self.featured_products
     # TODO: just taking the bottom three off the list for now, can implement other logic later
-    return Product.order('id DESC')[0..2]
-    def self.sample_products_for_homepage()
-      product_list = Product.order(Arel.sql("RANDOM()")).to_a
+    # added this method, please test it out to see if it makes sense
+    # return Product.order('id DESC')[0..2]
+      product_list = Product.order(rating: :desc)
       
-      sample_products_list = []
+      featured_products_list = []
       
-      while sample_products_list.length < 5 && !product_list.empty?
+      while featured_products_list.length < 5 && !product_list.empty?
         product = product_list.pop()
         
         if product.available == true
-          sample_products_list << product
+          featured_products_list << product
         end
       end
       
-      return sample_products_list
+      return featured_products_list
     end
   end
 
