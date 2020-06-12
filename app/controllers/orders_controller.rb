@@ -50,6 +50,7 @@ class OrdersController < ApplicationController
                               )
       end
 
+      session[:shopping_cart] = nil
       session[:order_id] = @order.id
       session[:return_to] = products_path
 
