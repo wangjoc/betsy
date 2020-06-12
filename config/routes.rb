@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   patch "/products/:id/remove_from_cart", to: "products#remove_from_cart", as: "remove_from_cart"
 
   get "/auth/github", as: "github_login"
-  get "/auth/:provider/callback", to: "merchants#create"
+  get "/auth/:provider/callback", to: "merchants#create", as: "omniauth_callback"
   post "/logout", to: "merchants#logout", as: "logout"
 
   get "/merchants/current", to: "merchants#current", as: "current_merchant"
