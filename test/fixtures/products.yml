@@ -1,0 +1,21 @@
+diaper:
+  name: Used Diaper
+  description: State of the art diaper, guaranteed to smell!
+  price: 10.00
+  photo_url: https://i.imgur.com/JWfZcrG.jpg
+  stock: 5
+  merchant: faker
+toliet:
+  name: Open Toliet
+  description: Sharing is caring
+  price: 50.00
+  photo_url: https://imgur.com/paTfP93.jpg
+  stock: 10
+  merchant: faker
+lion:
+  name: Lion Bravehearts
+  description: Bringing the jungle to you
+  price: 75.00
+  photo_url: https://imgur.com/Q6snmV7.jpg
+  stock: 2
+  merchant: greentye

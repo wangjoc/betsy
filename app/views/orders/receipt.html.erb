@@ -1,0 +1,23 @@
+<h1 class='title'>Order Details: Order <%= @order.id %></h1>
+<%# TODO Leah will update this view %>
+<div class="container-sm">
+  <h2>Customer Detail</h2>
+  <%= "Customer Name: #{@order.buyer_name}" %><br>
+  <%= "Email Address: #{@order.email_address}" %><br>
+  <%= "Mail Address: #{@order.mail_address}" %><br>
+  <%= "Last Four Digits of Credit Card: #{@order.cc_num}" %><br>
+  <%= "Credit Card Expiration: #{@order.cc_exp}" %><br>
+</div>
+
+<div class="container-sm">
+  <h2>Product Detail</h2>
+    <% @order.order_items.each do |order_item| %>
+      <%= order_item.product.name %><br>
+      <%= order_item.product.description %><br>
+      <%= "Price: #{order_item.product.price}" %><br>
+      <%= "Quantity: #{order_item.quantity}" %><br>
+    <% end %>
+</div>
+
+<%= button_to "Return to Browsing", root_path %><br>
+<%= button_to "Cancel Order", cancel_path(@order.id), method: :patch %><br>

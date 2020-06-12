@@ -14,6 +14,7 @@ class MerchantsController < ApplicationController
   end
 
   def dashboard
+    session[:return_to] = dashboard_path
   end
 
   def create
