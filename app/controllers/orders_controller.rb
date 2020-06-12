@@ -4,12 +4,21 @@ class OrdersController < ApplicationController
   # TODO - JW to figure out how to prevent people from seeing this page after order path has been submitted (something to do with session again?)
   def show    
     if @order.nil?
-      redirect_to orders_path
+      redirect_to products_path
       flash[:warning] = "Nothing in cart, let's do some shopping first!"
       return
     end
 
-    session[:return_to] = order_path(@order.id)
+    if session[:order_id].nil?
+      redirect_to products_path
+      flash[:warning] = "Cannot access somebody else's order!"
+      session[:return_to] = products_path
+      return
+    elsif session[:order_id] != @order.id
+      redirect_to order_path(session[:order_id])
+      session[:return_to] = order_path(@order.id)
+      return
+    end
   end
 
   def new
@@ -34,6 +43,8 @@ class OrdersController < ApplicationController
                               )
       end
 
+      session[:order_id] = @order.id
+
       redirect_to order_path(@order.id)
       flash[:success] = "Successfully added new order: #{view_context.link_to "#Order ID: #{@order.id}", purchase_path(@order.id) }"
       return
@@ -48,6 +59,7 @@ class OrdersController < ApplicationController
 
     if @order.save
       flash[:success] = "Thank you for your purchase!"
+      session[:order_id] = nil
       session[:shopping_cart] = nil
       redirect_to products_path
       return
@@ -62,6 +74,7 @@ class OrdersController < ApplicationController
 
     if @order.save
       flash[:success] = "We're sorry to see you cancel. Please call ###.###.### if there is anything we can help with"
+      session[:order_id] = nil
       redirect_to products_path
       return
     else
