@@ -1,22 +1,66 @@
-<h1 class='title'>RECEIPT <%= @order.id %></h1>
-<%# TODO Leah will update this view %>
-<div class="container-sm">
-  <h2>Customer Detail</h2>
-  <%= "Customer Name: #{@order.buyer_name}" %><br>
-  <%= "Email Address: #{@order.email_address}" %><br>
-  <%= "Mail Address: #{@order.mail_address}" %><br>
-  <%= "Last Four Digits of Credit Card: #{@order.cc_num}" %><br>
-  <%= "Credit Card Expiration: #{@order.cc_exp}" %><br>
+<div class='page-container'>
+<h1 class='title'>You're Going to Regret This (Order <%= @order.id %>) </h1>
+
+<div class='card-container'>
+  <div class="card mb-3 middle" style="max-width: 800px;">
+    <div class="row no-gutters">
+      <div class="col-md-4">
+        <img src="https://i.imgur.com/iWMoX66.jpg" class="card-img" alt="Cher's If I Could Turn Back Time album cover">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title subtitle3">ORDER CONFIRMED!</h5>
+          <p class="card-text">Thanks For Placing An Order with regrEtsy! The Merchant will contact you when your items ship!</p>
+          <p class="card-text"><small class="text-muted">We forgot to mention...no refunds!</small></p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="container-sm">
-  <h2>Product Detail</h2>
-    <% @order.order_items.each do |order_item| %>
-      <%= order_item.product.name %><br>
-      <%= order_item.product.description %><br>
-      <%= "Price: #{order_item.product.price}" %><br>
-      <%= "Quantity: #{order_item.quantity}" %><br>
-    <% end %>
+<div class="jumbotron">
+  <h1 class="display-4">Your Order Details (Order #<%= @order.id %>)</h1>
+  <hr class="my-4">
+
+<div class="card-deck">
+  <div class="card details" style="width: 18rem;">
+    <h2 class='subtitle3'>Product Details</h2>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Prodcut</th>
+          <th>Quantity</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @order.order_items.each do |order_item| %>
+        <tr>
+          <td><%= order_item.product.name %></td>
+          <td><%= "Quantity: #{order_item.quantity}" %></td>
+          <td><%= "Price: #{order_item.product.price}" %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>
 
-<%= button_to "Return to Browsing", products_path, method: :get %><br>
+  <div class='card-deck'>
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+          <h5 class="card-title subtitle3">Customer Details:</h5>
+          
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><strong>Customer Name: </strong><%= @order.buyer_name %></li>
+        <li class="list-group-item"><strong>Email Address: </strong><%= @order.email_address %></li>
+        <li class="list-group-item"><strong>Mail Address:</strong><%= @order.mail_address %></li>
+        <li class="list-group-item"><strong>Last Four Digits of Credit Card: </strong><%= @order.cc_num %></li>
+        <li class="list-group-item"><strong>Credit Card Expiration: </strong><%= @order.cc_exp %></li>
+      </ul>
+    </div>
+    </div>
+
+<%= link_to "Return to Browsing", products_path, class: 'btn btn-info' %><br>
+</div>
