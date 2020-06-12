@@ -24,7 +24,7 @@
           <%= link_to "Add to Cart", add_to_cart_path(@product.id), method: :patch, class: "btn btn-primary " %>
           <%# TODO: Need a button to leave a review %>
           <%# JW - Done %>
-          <%= button_to "Review Product", review_product_path(@product.id), method: :get, class: "btn btn-info" %>
+          <%= button_to "Review Product", new_product_review_path(@product.id), method: :get, class: "btn btn-info" %>
           
 
           

@@ -5,8 +5,6 @@ Rails.application.routes.draw do
 
   get "/merchants/dashboard", to: "merchants#dashboard", as: "dashboard"
   get "/orders/receipt", to: "orders#receipt", as: "receipt"
-  # get "/products/:id/review_product", to: "products#review_product", as: "review_product"
-  get "/reviews/:id/review_product", to: "reviews#review_product", as: "review_product"
 
   resources :categories, only: [:index, :show, :new, :create]
   resources :reviews, only: [:new, :create]

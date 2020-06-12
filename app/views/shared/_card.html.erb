@@ -15,7 +15,7 @@
                     <div class="card-text"><%= link_to "#{category.category} (ID: #{category.id})", category_path(category.id) %> </div>
                 <% end %>
                 <%= button_to "Add to Cart", add_to_cart_path(product.id), method: :patch, class: "btn btn-info" %>
-                <%= button_to "Review Product", review_product_path(product.id), method: :get, class: "btn btn-info" %>
+                <%= button_to "Review Product", new_product_review_path(product.id), method: :get, class: "btn btn-info" %>
             </div>
         </div>
     <% end %>
