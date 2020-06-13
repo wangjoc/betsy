@@ -40,8 +40,6 @@
           Category.all, :id, :category) %>
     </div>
 
-
-    <%# TODO: Can I change this to "update" rather than action_name? %>
     <%= f.submit action_name == "New" ? "Add new product" : "#{action_name} product" , class: "order-button" %>
   <% end %>
 </div>
