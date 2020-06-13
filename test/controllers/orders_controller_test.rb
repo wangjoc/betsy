@@ -584,9 +584,50 @@ describe OrdersController do
     end
   end
 
-  # describe "complete" do
-  #   # TODO can only be done by merchant logged in for their orders
-  #   # TODO need to add status to OrderItems so that they can actually be fulfilled... can this just be done with boolean? either fufilled or not?
-  #   # TODO test should be on ORderItem instead, and function to change to complete should also be ORderITem as well
-  # end
+  describe "ship" do
+    describe "ship without login (guest)" do
+      it "redirect if not logged in" do
+        patch ship_path(orders(:order_one).id)
+
+        must_respond_with :redirect
+        must_redirect_to root_path
+      end
+    end
+
+    describe "ship with login as merchant" do
+      before do 
+        perform_login(merchants(:faker))
+        @order_one = orders(:order_one)
+        @order_two = orders(:order_two)
+        get dashboard_path
+      end
+
+      it "ship orderitem that merchant owns if not already shipped" do
+        patch ship_path(@order_one.id)
+
+        must_respond_with :redirect
+        must_redirect_to dashboard_path
+        expect(@order_one.order_items[1].is_shipped).must_equal true
+        expect(@order_one.order_items[0].is_shipped).must_equal false
+      end
+
+      it "do nothing if that merchant doesn't own anything" do
+        patch ship_path(@order_two.id)
+
+        must_respond_with :redirect
+        must_redirect_to dashboard_path
+        expect(@order_two.order_items[0].is_shipped).must_equal false
+      end
+
+      it "returns to order detail page if coming from order detail" do
+        get order_path(@order_one.id)
+        patch ship_path(@order_one.id)
+
+        must_respond_with :redirect
+        must_redirect_to order_path(@order_one.id)
+        expect(@order_one.order_items[1].is_shipped).must_equal true
+        expect(@order_one.order_items[0].is_shipped).must_equal false
+      end
+    end
+  end
 end

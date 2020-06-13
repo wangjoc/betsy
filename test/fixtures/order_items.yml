@@ -12,4 +12,4 @@ item_three:
   quantity: 2
   product: lion
   order: order_two
-  is_shipped: true
+  is_shipped: false

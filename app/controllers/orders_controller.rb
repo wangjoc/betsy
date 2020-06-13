@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :find_order, only: [:show, :purchase, :cancel, :complete, :add_to_cart, :confirm, :ship]
-  before_action :require_login, only: [:show]
+  before_action :require_login, only: [:show, :ship]
 
   def show    
     if Order.contains_merchant?(@order.id, session[:merchant_id])
