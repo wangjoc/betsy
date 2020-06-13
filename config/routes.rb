@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   get "/merchants/dashboard", to: "merchants#dashboard", as: "dashboard"
   get "/orders/receipt", to: "orders#receipt", as: "receipt"
+  get "/orders/confirm", to: "orders#confirm", as: "confirm"
+  patch "/orders/purchase", to: "orders#purchase", as: "purchase"
 
   resources :categories, only: [:show, :new, :create]
   resources :reviews, only: [:new, :create]
@@ -16,7 +18,7 @@ Rails.application.routes.draw do
     resources :reviews
   end
 
-  patch "/orders/:id/purchase", to: "orders#purchase", as: "purchase"
+  # patch "/orders/:id/purchase", to: "orders#purchase", as: "purchase"
   patch "/orders/:id/cancel", to: "orders#cancel", as: "cancel"
   patch "/orders/:id/complete", to: "orders#complete", as: "complete"
 
