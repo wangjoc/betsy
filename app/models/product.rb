@@ -11,14 +11,6 @@ class Product < ApplicationRecord
     return Product.where(merchant_id: id)
   end
 
-  def self.categorize_by_merchant
-    cat_by_merchant = {}
-    Merchant.all.each do |merchant|
-      cat_by_merchant[merchant.id] = by_merchant(merchant.id)
-    end
-    return cat_by_merchant
-  end
-
   # TODO - there might be a way to get the data through a query (more  efficient). Might need to reset the relationship between the two tables
   def self.by_category(id)
     products = []
@@ -26,14 +18,6 @@ class Product < ApplicationRecord
       products << product if product.category_ids.include? id 
     end
     return products
-  end
-
-  def self.categorize_by_category
-    cat_by_category = {}
-    Category.all.each do |category|
-      cat_by_category[category.id] = by_category(category.id)
-    end
-    return cat_by_category
   end
 
   def self.featured_products

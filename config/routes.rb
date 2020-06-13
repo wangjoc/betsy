@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get "/merchants/dashboard", to: "merchants#dashboard", as: "dashboard"
   get "/orders/receipt", to: "orders#receipt", as: "receipt"
 
-  resources :categories, only: [:index, :show, :new, :create]
+  resources :categories, only: [:show, :new, :create]
   resources :reviews, only: [:new, :create]
   resources :orders, except: [:index]
   resources :merchants

@@ -4,13 +4,6 @@
 #   # it "does a thing" do
 #   #   value(1+1).must_equal 2
 #   # end
-#   describe "index" do
-#     it "can get the index page" do
-#       get merchants_path
-
-#       must_respond_with :success
-#     end
-#   end
 
 #   describe "show" do
 #     it "can get the show page" do
