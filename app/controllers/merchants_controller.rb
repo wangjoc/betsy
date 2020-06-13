@@ -14,6 +14,12 @@ class MerchantsController < ApplicationController
   end
 
   def dashboard
+    if session[:merchant_id].nil?
+      flash[:warning] = "Please login to access your merchant dashboard"
+      redirect_to root_path
+      return
+    end
+
     session[:return_to] = dashboard_path
   end
 
@@ -60,6 +66,7 @@ class MerchantsController < ApplicationController
 
   def logout
     session[:merchant_id] = nil
+    request.env["omniauth.auth"] = nil
     flash[:success] = "Successfully logged out"
     redirect_to root_path
     return
