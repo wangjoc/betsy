@@ -1,15 +1,33 @@
 class OrdersController < ApplicationController
-  before_action :find_order, only: [:show, :purchase, :cancel, :complete, :add_to_cart, :confirmation]
+  before_action :find_order, only: [:show, :purchase, :cancel, :complete, :add_to_cart, :confirm]
+  # before_action :require_login, only: []
 
   def show    
+    if Order.contains_merchant?(@order.id, session[:merchant_id])
+      @order_items = OrderItem.items_by_order_merchant(@order.id, session[:merchant_id])
+    else 
+      redirect_to dashboard_path
+      flash[:warning] = "You do not have any products on this order!"
+      return
+    end
+  end
+
+  def confirm
     if session[:order_id].nil?
       redirect_to products_path
       flash[:warning] = "Cannot access somebody else's order!"
-      session[:return_to] = products_path
       return
-    elsif session[:order_id] != @order.id
-      redirect_to order_path(session[:order_id])
-      session[:return_to] = order_path(@order.id)
+    end
+
+    @order = Order.find_by(id: session[:order_id])
+
+    # prevent customer from seeing confirmation page if they've already paid
+    if @order.status == "pending"
+      # session[:order_id] = nil
+      session[:return_to] = confirm_path
+    else
+      redirect_to session.delete(:return_to)
+      flash[:warning] = "No payment, no receipt!"
       return
     end
   end
@@ -41,7 +59,7 @@ class OrdersController < ApplicationController
       session[:order_id] = @order.id
       session[:return_to] = products_path
 
-      redirect_to order_path(@order.id)
+      redirect_to confirm_path
       flash[:success] = "Thanks for creating an order! Please confirm your regrets to render payment."
       return
     else 
@@ -51,6 +69,8 @@ class OrdersController < ApplicationController
   end
 
   def purchase
+    @order = Order.find_by(id: session[:order_id])
+
     if @order.status == "pending" || @order.status == "paid"
       @order.status = "paid"
     else
