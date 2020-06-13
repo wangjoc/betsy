@@ -1,0 +1,20 @@
+<div class='card-deck'>
+    <% order_set.each do |order| %>
+        <div class="card">
+          <div class="card-body">
+            <p class='card-text'>Order: <%= order.id %></p>
+            <p class='card-text'>Date: <%= order.created_at %></p>
+            <%# <p class='card-text'>Status (ready to ship if paid): <%= order.status %></p> %>
+            <p class='card-text'>Item list(with links): <%= order.id %></p>
+            <p class='card-text'>Subtotal: <%= order.id %></p>
+            <p class='card-text'>Button to mark as shipped: <%= order.id %></p>
+          </div>
+        </div>
+    <% end %>
+</div>
+
+<%# Each order item sold by me with a quantity and line-item subtotal
+A link to the item description page
+DateTime the order was placed
+Link to transition the order item to marked as shipped
+The current status of the order ("pending", "paid", "complete", "cancelled") %>

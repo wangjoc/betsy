@@ -41,6 +41,11 @@
   
 </div> <%# end jumbotron%>
 
+<%# TODO - Leah, this is the test Current Orders designed after Becca's comments in standup  %>
+<div class="jumbotron">
+<h3 class='subtitle'>Current Orders</h3>
+<%= render partial: "shared/order", locals: { order_set: @merchant_orders } %>
+
 <div class="jumbotron">
 <h3 class='subtitle'>Current Orders</h3>
   <table class="table table-hover">
@@ -59,23 +64,19 @@
     <thead>
 
     <tbody>
-      <% Order.all.each do |order| %>
-        <% order.order_items.each do |order_item| %>
-          <tr class="clickable-tr" data-path="<%= order_path(order.id)%>" >
-            <% if order_item.product.merchant.id == @merchant.id %>
-              <td><%= order.id %></td>
-              <td><%= order.buyer_name %></td>
-              <td><%= order_item.product.name %></td>
-              <td><%= order_item.product.price %></td>
-              <td><%= order_item.quantity %></td>
-              <td><%= order.created_at %></td>
-              <td><%= order.status %></td>
-              <td><%= link_to "Complete Order", root_path, class: "btn btn-info" %></td>
-              <td><%= link_to "Cancel Order", root_path, class: "btn btn-info" %></td>
-              </td>
-            <% end %>
-          </tr>
-        <% end %>
+      <% @merchant_order_items.each do |order_item| %>
+        <tr class="clickable-tr" data-path="<%= order_path(order_item.order.id)%>" >
+          <td><%= order_item.order.id %></td>
+          <td><%= order_item.order.buyer_name %></td>
+          <td><%= order_item.product.name %></td>
+          <td><%= order_item.product.price %></td>
+          <td><%= order_item.quantity %></td>
+          <td><%= order_item.order.created_at %></td>
+          <td><%= order_item.order.status %></td>
+          <td><%= link_to "Complete Order", root_path, class: "btn btn-info" %></td>
+          <td><%= link_to "Cancel Order", root_path, class: "btn btn-info" %></td>
+          </td>
+        </tr>
       <% end %>
     </tbody>
   </table>

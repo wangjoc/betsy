@@ -19,6 +19,16 @@ class Merchant < ApplicationRecord
     # TODO: just taking the bottom three off the list for now, can implement other logic later
     return Merchant.order('id DESC')[0..2]
   end
+
+  def self.get_merchant_order_items(id)
+    return OrderItem.joins(:product).where(:products => {:merchant_id => id})
+  end
+
+  # https://stackoverflow.com/questions/19527177/rails-triple-join
+  def self.get_merchant_orders(id)
+    return Order.joins(:order_items => :product).where(:products => {:merchant_id => id})
+  end
+
   
   def orders_of_status(status)
     # something goes here

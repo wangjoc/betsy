@@ -9,6 +9,8 @@ class MerchantsController < ApplicationController
   end
 
   def dashboard
+    @merchant_orders = Merchant.get_merchant_orders(@merchant.id)
+    @merchant_order_items = Merchant.get_merchant_order_items(@merchant.id)
     session[:return_to] = dashboard_path
   end
 
