@@ -240,7 +240,84 @@ describe ProductsController do
   #   end  
   # end
 
-  describe "remove_from_cart" do
+  # describe "remove_from_cart" do
+  #   before do
+  #     # Go to products_path to get a return_to session key
+  #     get products_path
+  #     @product_lion = products(:lion)
+  #     @product_diaper = products(:diaper)
+  #     @product_toliet = products(:toliet)
+
+  #     patch add_to_cart_path(@product_lion.id)
+  #     get products_path
+  #     patch add_to_cart_path(@product_lion.id)
+  #     get products_path
+  #     patch add_to_cart_path(@product_toliet.id)
+  #     get new_order_path
+  #   end
+
+  #   describe "remove_from_cart without login (guest)" do
+  #     it "remove product from cart, if in cart" do
+  #       expect(session[:shopping_cart][@product_lion.id.to_s]).must_equal 2
+  #       patch remove_from_cart_path(@product_lion.id)
+  #       expect(session[:shopping_cart][@product_lion.id.to_s]).must_equal 1
+
+  #       must_respond_with :redirect
+  #       must_redirect_to new_order_path
+  #     end
+
+  #     it "remove key/value from cart, if reduced to 0" do
+  #       patch remove_from_cart_path(@product_toliet.id)
+  #       expect(session[:shopping_cart][@product_toliet.id.to_s]).must_equal nil
+
+  #       must_respond_with :redirect
+  #       must_redirect_to new_order_path
+  #     end
+
+  #     it "no change to shopping cart if item not in cart" do
+  #       expect(session[:shopping_cart][@product_diaper.id.to_s]).must_equal nil
+  #       patch remove_from_cart_path(@product_diaper.id)
+  #       expect(session[:shopping_cart][@product_diaper.id.to_s]).must_equal nil
+
+  #       must_respond_with :redirect
+  #       must_redirect_to new_order_path
+  #     end
+  #   end
+
+  #   describe "remove_from_cart login as master" do
+  #     before do 
+  #       perform_login
+  #     end
+
+  #     it "remove product from cart, if in cart" do
+  #       expect(session[:shopping_cart][@product_lion.id.to_s]).must_equal 2
+  #       patch remove_from_cart_path(@product_lion.id)
+  #       expect(session[:shopping_cart][@product_lion.id.to_s]).must_equal 1
+
+  #       must_respond_with :redirect
+  #       must_redirect_to new_order_path
+  #     end
+
+  #     it "remove key/value from cart, if reduced to 0" do
+  #       patch remove_from_cart_path(@product_toliet.id)
+  #       expect(session[:shopping_cart][@product_toliet.id.to_s]).must_equal nil
+
+  #       must_respond_with :redirect
+  #       must_redirect_to new_order_path
+  #     end
+
+  #     it "no change to shopping cart if item not in cart" do
+  #       expect(session[:shopping_cart][@product_diaper.id.to_s]).must_equal nil
+  #       patch remove_from_cart_path(@product_diaper.id)
+  #       expect(session[:shopping_cart][@product_diaper.id.to_s]).must_equal nil
+
+  #       must_respond_with :redirect
+  #       must_redirect_to new_order_path
+  #     end
+  #   end
+  # end
+
+  describe "delete_from_cart" do
     before do
       # Go to products_path to get a return_to session key
       get products_path
@@ -257,18 +334,10 @@ describe ProductsController do
     end
 
     describe "remove_from_cart without login (guest)" do
-      it "remove product from cart, if in cart" do
+      it "remove all type of product from cart, if in cart" do
         expect(session[:shopping_cart][@product_lion.id.to_s]).must_equal 2
-        patch remove_from_cart_path(@product_lion.id)
-        expect(session[:shopping_cart][@product_lion.id.to_s]).must_equal 1
-
-        must_respond_with :redirect
-        must_redirect_to new_order_path
-      end
-
-      it "remove key/value from cart, if reduced to 0" do
-        patch remove_from_cart_path(@product_toliet.id)
-        expect(session[:shopping_cart][@product_toliet.id.to_s]).must_equal nil
+        patch delete_from_cart_path(@product_lion.id)
+        expect(session[:shopping_cart][@product_lion.id.to_s]).must_equal nil
 
         must_respond_with :redirect
         must_redirect_to new_order_path
@@ -284,23 +353,14 @@ describe ProductsController do
       end
     end
 
-    describe "remove_from_cart login as master" do
+    describe "remove_from_cart login as merchant" do
       before do 
         perform_login
       end
-
-      it "remove product from cart, if in cart" do
+      it "remove all type of product from cart, if in cart" do
         expect(session[:shopping_cart][@product_lion.id.to_s]).must_equal 2
-        patch remove_from_cart_path(@product_lion.id)
-        expect(session[:shopping_cart][@product_lion.id.to_s]).must_equal 1
-
-        must_respond_with :redirect
-        must_redirect_to new_order_path
-      end
-
-      it "remove key/value from cart, if reduced to 0" do
-        patch remove_from_cart_path(@product_toliet.id)
-        expect(session[:shopping_cart][@product_toliet.id.to_s]).must_equal nil
+        patch delete_from_cart_path(@product_lion.id)
+        expect(session[:shopping_cart][@product_lion.id.to_s]).must_equal nil
 
         must_respond_with :redirect
         must_redirect_to new_order_path
@@ -316,5 +376,4 @@ describe ProductsController do
       end
     end
   end
-
 end
