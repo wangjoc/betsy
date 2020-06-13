@@ -66,7 +66,8 @@ class ProductsController < ApplicationController
     if session[:shopping_cart].nil?
       session[:shopping_cart] = Hash.new()
     end
-
+    
+    # TODO - JW to clean this up and make it more manageable
     if session[:shopping_cart][@product.id.to_s] 
       if session[:shopping_cart][@product.id.to_s] < @product.stock
         session[:shopping_cart][@product.id.to_s] += 1
@@ -75,8 +76,12 @@ class ProductsController < ApplicationController
         flash[:warning] = "Sorry, no more stock for this product!"
       end
     else
-      session[:shopping_cart][@product.id.to_s] = 1
-      flash[:success] = "You have successfully added on to the cart!"
+      if @product.stock > 0 
+        session[:shopping_cart][@product.id.to_s] = 1
+        flash[:success] = "You have successfully added on to the cart!"
+      else
+        flash[:warning] = "Sorry, no more stock for this product!"
+      end
     end
 
     redirect_to session.delete(:return_to)
