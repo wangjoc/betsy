@@ -5,8 +5,12 @@
   <p class="lead">Order Information:</p>
   <hr class="my-4">
 
+<%= button_to "Return to Dashboard", dashboard_path, method: :get, class: "btn btn-info" %>
+<%= button_to "Ship Products", ship_path(@order.id), method: :patch, class: "btn btn-info" %>
+
+<h3>Products have been shipped: Boolean</h3>
+
 <%= render partial: "shared/order_details", locals: { item_set: @order_items } %>
 
 <%#TODO: Leah will make these buttons bigger %>
-<%= button_to "Return to Dashboard", dashboard_path, method: :get, class: "btn btn-info" %>
-<%= button_to "Ship Products", products_path, method: :get, class: "btn btn-info" %>
+

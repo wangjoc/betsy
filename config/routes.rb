@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     resources :reviews
   end
 
-  # patch "/orders/:id/purchase", to: "orders#purchase", as: "purchase"
+  patch "/orders/:id/ship", to: "orders#ship", as: "ship"
   patch "/orders/:id/cancel", to: "orders#cancel", as: "cancel"
   patch "/orders/:id/complete", to: "orders#complete", as: "complete"
 

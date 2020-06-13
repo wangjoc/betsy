@@ -1,10 +1,11 @@
 class OrdersController < ApplicationController
-  before_action :find_order, only: [:show, :purchase, :cancel, :complete, :add_to_cart, :confirm]
+  before_action :find_order, only: [:show, :purchase, :cancel, :complete, :add_to_cart, :confirm, :ship]
   # before_action :require_login, only: []
 
   def show    
     if Order.contains_merchant?(@order.id, session[:merchant_id])
       @order_items = OrderItem.items_by_order_merchant(@order.id, session[:merchant_id])
+      session[:return_to] = order_path(@order.id)
     else 
       redirect_to dashboard_path
       flash[:warning] = "You do not have any products on this order!"
@@ -125,8 +126,16 @@ class OrdersController < ApplicationController
     end
   end
 
-  def complete
-    #TODO - change to a OrderItem action
+  def ship
+    @order_items = OrderItem.items_by_order_merchant(@order.id, session[:merchant_id])
+
+    @order_items.each do |order_item|
+      item = order_item 
+      item.is_shipped = true
+      item.save
+    end
+
+    redirect_to session.delete(:return_to)
   end
 
   private

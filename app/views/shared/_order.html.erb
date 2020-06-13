@@ -8,7 +8,7 @@
           <p class='card-text'>Item list(with links): <%= order.id %></p>
           <p class='card-text'>Subtotal: <%= order.id %></p>
           <p class='card-text'>Button to mark as shipped: <%= order.id %></p>
-          <%= button_to "Ship Products", products_path, method: :get, class: "btn btn-info" %>
+          <%= button_to "Ship Products", ship_path(order.id), method: :patch, class: "btn btn-info" %>
         </div>
       </div>
     <% end %>
