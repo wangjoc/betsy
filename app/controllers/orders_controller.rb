@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :find_order, only: [:show, :purchase, :cancel, :complete, :add_to_cart, :confirm, :ship]
-  # before_action :require_login, only: []
+  before_action :require_login, only: [:show]
 
   def show    
     if Order.contains_merchant?(@order.id, session[:merchant_id])
@@ -50,7 +50,7 @@ class OrdersController < ApplicationController
       redirect_to products_path
       return
     end
-    
+
     @order = Order.new(order_params) 
 
     if @order.save 
