@@ -1,13 +1,12 @@
 <div class='page-container'>
-<h1 class='title'>You're Still Considering This?? </h1>
+<h1 class='title'>Nice Job Suckering in Some Cash ;)</h1>
 <div class="jumbotron">
-  <h1 class="display-4">Your Order Details (Order #<%= @order.id %>)</h1>
-  <p class="lead">Take a look before you complete your purchase:</p>
+  <h1 class="display-4">Order Details (Order #<%= @order.id %>)</h1>
+  <p class="lead">Order Information:</p>
   <hr class="my-4">
 
-<%= render partial: "order_details", locals: { action_name: "New" } %>
+<%= render partial: "shared/order_details", locals: { item_set: @order_items } %>
 
 <%#TODO: Leah will make these buttons bigger %>
-<%= button_to "Purchase Order", purchase_path, method: :patch, class: "btn btn-info" %>
-<%= button_to "Cancel Order", cancel_path(@order.id), method: :patch, class: "btn btn-info" %>
-</div>
+<%= button_to "Return to Dashboard", dashboard_path, method: :get, class: "btn btn-info" %>
+<%= button_to "Ship Products", products_path, method: :get, class: "btn btn-info" %>

@@ -6,7 +6,8 @@
     <p class="lead">Enjoying your regrets:</p>
     <hr class="my-4">
 <%# TODO Leah will update this view %>
-<%= render partial: "order_details", locals: { action_name: "New" } %>
+
+<%= render partial: "shared/order_details", locals: { item_set: @order.order_items } %>
 <%= button_to "Return to Browsing", products_path, method: :get, class: "btn btn-info" %>
 </div>
 

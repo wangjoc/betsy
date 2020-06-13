@@ -22,13 +22,13 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th>Prodcut</th>
+          <th>Product</th>
           <th>Quantity</th>
           <th>Price</th>
         </tr>
       </thead>
       <tbody>
-      <% @order.order_items.each do |order_item| %>
+      <% item_set.each do |order_item| %>
         <tr>
           <td><%= order_item.product.name %></td>
           <td><%= "Quantity: #{order_item.quantity}" %></td>
