@@ -110,134 +110,211 @@ describe ProductsController do
 
   # TODO - Hala, JW put in tests for the custom paths for products since they are related to the shopping cart. Please feel free to add more as needed
 
-  describe "add_to_cart" do
+  # describe "add_to_cart" do
+  #   before do
+  #     # Go to products_path to get a return_to session key
+  #     get products_path
+  #     @product_lion = products(:lion)
+  #     @product_diaper = products(:diaper)
+  #     @product_toliet = products(:toliet)
+  #     @product_zero_stock = products(:zero_stock)
+  #   end
+
+  #   describe "add_to_cart without login (guest)" do
+  #     it "add product to cart if enough stock" do
+  #       patch add_to_cart_path(@product_lion.id)
+  #       expect(session[:shopping_cart][@product_lion.id.to_s]).must_equal 1
+
+  #       get products_path
+  #       patch add_to_cart_path(@product_diaper.id)
+  #       expect(session[:shopping_cart][@product_diaper.id.to_s]).must_equal 1
+
+  #       must_respond_with :redirect
+  #       must_redirect_to products_path
+
+  #       # TODO - cart_num_items should increase by 1 is add is successful in application test
+  #     end
+
+  #     it "do not add product to cart if not enough stock" do
+  #       patch add_to_cart_path(@product_toliet.id)
+  #       expect(session[:shopping_cart][@product_toliet.id.to_s]).must_equal 1
+  #       get products_path
+
+  #       patch add_to_cart_path(@product_toliet.id)
+  #       expect(session[:shopping_cart][@product_toliet.id.to_s]).must_equal 1
+
+  #       must_respond_with :redirect
+  #       must_redirect_to products_path
+  #     end
+
+  #     it "do not add product to cart if stock is zero" do
+  #       patch add_to_cart_path(@product_zero_stock.id)
+  #       expect(session[:shopping_cart][@product_zero_stock.id.to_s]).must_equal nil
+
+  #       must_respond_with :redirect
+  #       must_redirect_to products_path
+  #     end
+
+  #     it "redirect back to product show if added from there" do
+  #       get product_path(@product_lion.id)
+  #       patch add_to_cart_path(@product_lion.id)
+  #       expect(session[:shopping_cart][@product_lion.id.to_s]).must_equal 1
+
+  #       must_respond_with :redirect
+  #       must_redirect_to product_path(@product_lion.id)
+  #     end
+
+  #     it "redirect back to order show if added from there" do
+  #       patch add_to_cart_path(@product_lion.id)
+  #       expect(session[:shopping_cart][@product_lion.id.to_s]).must_equal 1
+
+  #       get new_order_path
+  #       patch add_to_cart_path(@product_lion.id)
+  #       expect(session[:shopping_cart][@product_lion.id.to_s]).must_equal 2
+
+  #       must_respond_with :redirect
+  #       must_redirect_to new_order_path
+  #     end
+  #   end
+
+  #   describe "add_to_cart login as master" do
+  #     # TODO - consider adding logic to prevent merchant from buying own product? (similar to how they can't review own product)
+  #     before do
+  #       perform_login
+  #     end
+
+  #     it "add product to cart if enough stock" do
+  #       patch add_to_cart_path(@product_lion.id)
+  #       expect(session[:shopping_cart][@product_lion.id.to_s]).must_equal 1
+
+  #       get products_path
+  #       patch add_to_cart_path(@product_diaper.id)
+  #       expect(session[:shopping_cart][@product_diaper.id.to_s]).must_equal 1
+
+  #       must_respond_with :redirect
+  #       must_redirect_to products_path
+
+  #       # TODO - cart_num_items should increase by 1 is add is successful in application test
+  #     end
+
+  #     it "do not add product to cart if not enough stock" do
+  #       patch add_to_cart_path(@product_toliet.id)
+  #       expect(session[:shopping_cart][@product_toliet.id.to_s]).must_equal 1
+  #       get products_path
+
+  #       patch add_to_cart_path(@product_toliet.id)
+  #       expect(session[:shopping_cart][@product_toliet.id.to_s]).must_equal 1
+
+  #       must_respond_with :redirect
+  #       must_redirect_to products_path
+  #     end
+
+  #     it "do not add product to cart if stock is zero" do
+  #       patch add_to_cart_path(@product_zero_stock.id)
+  #       expect(session[:shopping_cart][@product_zero_stock.id.to_s]).must_equal nil
+
+  #       must_respond_with :redirect
+  #       must_redirect_to products_path
+  #     end
+
+  #     it "redirect back to product show if added from there" do
+  #       get product_path(@product_lion.id)
+  #       patch add_to_cart_path(@product_lion.id)
+  #       expect(session[:shopping_cart][@product_lion.id.to_s]).must_equal 1
+
+  #       must_respond_with :redirect
+  #       must_redirect_to product_path(@product_lion.id)
+  #     end
+
+  #     it "redirect back to order show if added from there" do
+  #       patch add_to_cart_path(@product_lion.id)
+  #       expect(session[:shopping_cart][@product_lion.id.to_s]).must_equal 1
+
+  #       get new_order_path
+  #       patch add_to_cart_path(@product_lion.id)
+  #       expect(session[:shopping_cart][@product_lion.id.to_s]).must_equal 2
+
+  #       must_respond_with :redirect
+  #       must_redirect_to new_order_path
+  #     end
+  #   end  
+  # end
+
+  describe "remove_from_cart" do
     before do
       # Go to products_path to get a return_to session key
       get products_path
       @product_lion = products(:lion)
       @product_diaper = products(:diaper)
       @product_toliet = products(:toliet)
-      @product_zero_stock = products(:zero_stock)
+
+      patch add_to_cart_path(@product_lion.id)
+      get products_path
+      patch add_to_cart_path(@product_lion.id)
+      get products_path
+      patch add_to_cart_path(@product_toliet.id)
+      get new_order_path
     end
 
-    describe "add_to_cart without login (guest)" do
-      it "add product to cart if enough stock" do
-        patch add_to_cart_path(@product_lion.id)
-        expect(session[:shopping_cart][@product_lion.id.to_s]).must_equal 1
-
-        get products_path
-        patch add_to_cart_path(@product_diaper.id)
-        expect(session[:shopping_cart][@product_diaper.id.to_s]).must_equal 1
-
-        must_respond_with :redirect
-        must_redirect_to products_path
-
-        # TODO - cart_num_items should increase by 1 is add is successful in application test
-      end
-
-      it "do not add product to cart if not enough stock" do
-        patch add_to_cart_path(@product_toliet.id)
-        expect(session[:shopping_cart][@product_toliet.id.to_s]).must_equal 1
-        get products_path
-
-        patch add_to_cart_path(@product_toliet.id)
-        expect(session[:shopping_cart][@product_toliet.id.to_s]).must_equal 1
-
-        must_respond_with :redirect
-        must_redirect_to products_path
-      end
-
-      it "do not add product to cart if stock is zero" do
-        patch add_to_cart_path(@product_zero_stock.id)
-        expect(session[:shopping_cart][@product_zero_stock.id.to_s]).must_equal nil
-
-        must_respond_with :redirect
-        must_redirect_to products_path
-      end
-
-      it "redirect back to product show if added from there" do
-        get product_path(@product_lion.id)
-        patch add_to_cart_path(@product_lion.id)
-        expect(session[:shopping_cart][@product_lion.id.to_s]).must_equal 1
-
-        must_respond_with :redirect
-        must_redirect_to product_path(@product_lion.id)
-      end
-
-      it "redirect back to order show if added from there" do
-        patch add_to_cart_path(@product_lion.id)
-        expect(session[:shopping_cart][@product_lion.id.to_s]).must_equal 1
-
-        get new_order_path
-        patch add_to_cart_path(@product_lion.id)
+    describe "remove_from_cart without login (guest)" do
+      it "remove product from cart, if in cart" do
         expect(session[:shopping_cart][@product_lion.id.to_s]).must_equal 2
+        patch remove_from_cart_path(@product_lion.id)
+        expect(session[:shopping_cart][@product_lion.id.to_s]).must_equal 1
+
+        must_respond_with :redirect
+        must_redirect_to new_order_path
+      end
+
+      it "remove key/value from cart, if reduced to 0" do
+        patch remove_from_cart_path(@product_toliet.id)
+        expect(session[:shopping_cart][@product_toliet.id.to_s]).must_equal nil
+
+        must_respond_with :redirect
+        must_redirect_to new_order_path
+      end
+
+      it "no change to shopping cart if item not in cart" do
+        expect(session[:shopping_cart][@product_diaper.id.to_s]).must_equal nil
+        patch remove_from_cart_path(@product_diaper.id)
+        expect(session[:shopping_cart][@product_diaper.id.to_s]).must_equal nil
 
         must_respond_with :redirect
         must_redirect_to new_order_path
       end
     end
 
-    describe "add_to_cart login as master" do
-      # TODO - consider adding logic to prevent merchant from buying own product? (similar to how they can't review own product)
-      before do
+    describe "remove_from_cart login as master" do
+      before do 
         perform_login
       end
 
-      it "add product to cart if enough stock" do
-        patch add_to_cart_path(@product_lion.id)
-        expect(session[:shopping_cart][@product_lion.id.to_s]).must_equal 1
-
-        get products_path
-        patch add_to_cart_path(@product_diaper.id)
-        expect(session[:shopping_cart][@product_diaper.id.to_s]).must_equal 1
-
-        must_respond_with :redirect
-        must_redirect_to products_path
-
-        # TODO - cart_num_items should increase by 1 is add is successful in application test
-      end
-
-      it "do not add product to cart if not enough stock" do
-        patch add_to_cart_path(@product_toliet.id)
-        expect(session[:shopping_cart][@product_toliet.id.to_s]).must_equal 1
-        get products_path
-
-        patch add_to_cart_path(@product_toliet.id)
-        expect(session[:shopping_cart][@product_toliet.id.to_s]).must_equal 1
-
-        must_respond_with :redirect
-        must_redirect_to products_path
-      end
-
-      it "do not add product to cart if stock is zero" do
-        patch add_to_cart_path(@product_zero_stock.id)
-        expect(session[:shopping_cart][@product_zero_stock.id.to_s]).must_equal nil
-
-        must_respond_with :redirect
-        must_redirect_to products_path
-      end
-
-      it "redirect back to product show if added from there" do
-        get product_path(@product_lion.id)
-        patch add_to_cart_path(@product_lion.id)
-        expect(session[:shopping_cart][@product_lion.id.to_s]).must_equal 1
-
-        must_respond_with :redirect
-        must_redirect_to product_path(@product_lion.id)
-      end
-
-      it "redirect back to order show if added from there" do
-        patch add_to_cart_path(@product_lion.id)
-        expect(session[:shopping_cart][@product_lion.id.to_s]).must_equal 1
-
-        get new_order_path
-        patch add_to_cart_path(@product_lion.id)
+      it "remove product from cart, if in cart" do
         expect(session[:shopping_cart][@product_lion.id.to_s]).must_equal 2
+        patch remove_from_cart_path(@product_lion.id)
+        expect(session[:shopping_cart][@product_lion.id.to_s]).must_equal 1
 
         must_respond_with :redirect
         must_redirect_to new_order_path
       end
-    end  
+
+      it "remove key/value from cart, if reduced to 0" do
+        patch remove_from_cart_path(@product_toliet.id)
+        expect(session[:shopping_cart][@product_toliet.id.to_s]).must_equal nil
+
+        must_respond_with :redirect
+        must_redirect_to new_order_path
+      end
+
+      it "no change to shopping cart if item not in cart" do
+        expect(session[:shopping_cart][@product_diaper.id.to_s]).must_equal nil
+        patch remove_from_cart_path(@product_diaper.id)
+        expect(session[:shopping_cart][@product_diaper.id.to_s]).must_equal nil
+
+        must_respond_with :redirect
+        must_redirect_to new_order_path
+      end
+    end
   end
 
 end
