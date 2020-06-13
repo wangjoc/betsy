@@ -28,7 +28,4 @@ Rails.application.routes.draw do
   get "/auth/github", as: "github_login"
   get "/auth/:provider/callback", to: "merchants#create", as: "omniauth_callback"
   post "/logout", to: "merchants#logout", as: "logout"
-
-  get "/merchants/current", to: "merchants#current", as: "current_merchant"
-
 end
