@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :categories, only: [:show, :new, :create]
   resources :reviews, only: [:new, :create]
   resources :orders, except: [:index]
-  resources :merchants
+  resources :merchants, only: [:show, :create]
 
   resources :products do
     resources :categories
