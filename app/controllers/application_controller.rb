@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-  # before_action :require_login
   before_action :navigation_data
 
   def navigation_data
