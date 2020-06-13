@@ -1,14 +1,7 @@
 class OrdersController < ApplicationController
   before_action :find_order, only: [:show, :purchase, :cancel, :complete, :add_to_cart, :confirmation]
 
-  # TODO - JW to figure out how to prevent people from seeing this page after order path has been submitted (something to do with session again?)
   def show    
-    if @order.nil?
-      redirect_to products_path
-      flash[:warning] = "Nothing in cart, let's do some shopping first!"
-      return
-    end
-
     if session[:order_id].nil?
       redirect_to products_path
       flash[:warning] = "Cannot access somebody else's order!"
@@ -23,6 +16,7 @@ class OrdersController < ApplicationController
 
   def new
     if session[:shopping_cart].nil? || session[:shopping_cart].empty?
+      flash[:warning] = "Nothing in cart, let's do some shopping first!"
       redirect_to products_path
       return
     end
@@ -33,13 +27,6 @@ class OrdersController < ApplicationController
 
   def create
     @order = Order.new(order_params) 
-
-    # TODO - move to a helper method if we need to check for this more than once
-    if session[:shopping_cart].nil? || session[:shopping_cart].empty?
-      redirect_to products_path
-      flash[:warning] = "Nothing in cart, let's do some shopping first!"
-      return
-    end
 
     if @order.save 
       session[:shopping_cart].each do |product_id, quantity|
@@ -55,7 +42,7 @@ class OrdersController < ApplicationController
       session[:return_to] = products_path
 
       redirect_to order_path(@order.id)
-      flash[:success] = "Successfully added new order: #{view_context.link_to "#Order ID: #{@order.id}", purchase_path(@order.id) }"
+      flash[:success] = "Thanks for creating an order! Please confirm your regrets to render payment."
       return
     else 
       render :new, status: :bad_request
@@ -73,7 +60,7 @@ class OrdersController < ApplicationController
     end
 
     if @order.save
-      flash[:success] = "Thank you for your purchase!"
+      flash[:success] = "Thank you for your purchase! Hope you regret it :)"
       session[:order_id] = @order.id
       session[:return_to] = products_path
       redirect_to receipt_path
@@ -88,7 +75,7 @@ class OrdersController < ApplicationController
     @order.status = "cancel"
 
     if @order.save
-      flash[:success] = "We're sorry to see you cancel. Please call ###.###.### if there is anything we can help with"
+      flash[:success] = "We're sorry to see you cancel. Please call ###.###.### if there is anything else we can make you regret."
       session[:order_id] = nil
       redirect_to session.delete(:return_to)
       return
@@ -101,12 +88,13 @@ class OrdersController < ApplicationController
   def receipt
     if session[:order_id].nil?
       redirect_to products_path
-      flash[:warning] = "No payment, no receipt!"
+      flash[:warning] = "Cannot access somebody else's order!"
       return
     end
 
     @order = Order.find_by(id: session[:order_id])
 
+    # prevent customer from seeing receipt if they haven't paid yet
     if @order.status == "paid"
       session[:order_id] = nil
       session[:return_to] = products_path
