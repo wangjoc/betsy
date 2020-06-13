@@ -5,49 +5,9 @@
   <p class="lead">Take a look before you complete your purchase:</p>
   <hr class="my-4">
 
-<div class="card-deck">
-  <div class="card details" style="width: 18rem;">
-    <h2 class='subtitle3'>Product Details</h2>
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>Prodcut</th>
-          <th>Quantity</th>
-          <th>Price</th>
-        </tr>
-      </thead>
-      <tbody>
-      <% @order.order_items.each do |order_item| %>
-        <tr>
-          <td><%= order_item.product.name %></td>
-          <td><%= "Quantity: #{order_item.quantity}" %></td>
-          <td><%= "Price: #{order_item.product.price}" %></td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-  <div class='card-deck'>
-    <div class="card" style="width: 18rem;">
-      <div class="card-body">
-          <h5 class="card-title subtitle3">Customer Details:</h5>
-          
-      </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item"><strong>Customer Name: </strong><%= @order.buyer_name %></li>
-        <li class="list-group-item"><strong>Email Address: </strong><%= @order.email_address %></li>
-        <li class="list-group-item"><strong>Mail Address:</strong><%= @order.mail_address %></li>
-        <li class="list-group-item"><strong>Last Four Digits of Credit Card: </strong><%= @order.cc_num %></li>
-        <li class="list-group-item"><strong>Credit Card Expiration: </strong><%= @order.cc_exp %></li>
-      </ul>
-    </div>
-    </div>
+<%= render partial: "order_details", locals: { action_name: "New" } %>
 
 <%#TODO: Leah will make these buttons bigger %>
-<%#TODO: The link to complete order is broken - also should redirect to a confirmation page (which we can put in the application controller and I can style tomorrow %>
 <%= button_to "Purchase Order", purchase_path, method: :patch, class: "btn btn-info" %>
-<%# TODO: Maybe the cancel order path should clear the cart and redirect to the root? %>
-<%= button_to "Cancel Order", order_path(@order.id), method: :get, class: "btn btn-info" %>
+<%= button_to "Cancel Order", cancel_path(@order.id), method: :patch, class: "btn btn-info" %>
 </div>
