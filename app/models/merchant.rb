@@ -26,7 +26,7 @@ class Merchant < ApplicationRecord
 
   # https://stackoverflow.com/questions/19527177/rails-triple-join
   def self.get_merchant_orders(id)
-    return Order.joins(:order_items => :product).where(:products => {:merchant_id => id})
+    return Order.joins(:order_items => :product).where(:products => {:merchant_id => id}).uniq
   end
 
   
