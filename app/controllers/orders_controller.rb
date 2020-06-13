@@ -22,7 +22,7 @@ class OrdersController < ApplicationController
   end
 
   def new
-    if session[:shopping_cart].nil?
+    if session[:shopping_cart].nil? || session[:shopping_cart].empty?
       redirect_to products_path
       return
     end

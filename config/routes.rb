@@ -22,6 +22,7 @@ Rails.application.routes.draw do
 
   patch "/products/:id/add_to_cart", to: "products#add_to_cart", as: "add_to_cart"
   patch "/products/:id/remove_from_cart", to: "products#remove_from_cart", as: "remove_from_cart"
+  patch "/products/:id/delete_from_cart", to: "products#delete_from_cart", as: "delete_from_cart"
 
 
   get "/auth/github", as: "github_login"

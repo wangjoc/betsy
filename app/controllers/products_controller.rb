@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :find_product, only: [:show, :edit, :update, :add_to_cart, :remove_from_cart]
+  before_action :find_product, only: [:show, :edit, :update, :add_to_cart, :remove_from_cart, :delete_from_cart]
   
   def index
     @products = Product.where('stock > ?', 0)
@@ -95,10 +95,24 @@ class ProductsController < ApplicationController
     if session[:shopping_cart][@product.id.to_s] > 0
       session[:shopping_cart][@product.id.to_s] -= 1
       flash[:success] = "You have successfully removed on to the cart!"
+      if session[:shopping_cart][@product.id.to_s] == 0
+        session[:shopping_cart].delete(@product.id.to_s)
+      end
     else
       flash[:warning] = "Item has been fully removed from cart."
     end
 
+    redirect_to session.delete(:return_to)
+    return
+  end
+
+  def delete_from_cart
+    if @product.nil? 
+      head :not_found
+      return
+    end
+
+    session[:shopping_cart].delete(@product.id.to_s)
     redirect_to session.delete(:return_to)
     return
   end
