@@ -67,15 +67,16 @@ class ProductsController < ApplicationController
       session[:shopping_cart] = Hash.new()
     end
 
-    if @product.stock > 0
-      if session[:shopping_cart][@product.id.to_s] 
+    if session[:shopping_cart][@product.id.to_s] 
+      if session[:shopping_cart][@product.id.to_s] < @product.stock
         session[:shopping_cart][@product.id.to_s] += 1
+        flash[:success] = "You have successfully added on to the cart!"
       else
-        session[:shopping_cart][@product.id.to_s] = 1
+        flash[:warning] = "Sorry, no more stock for this product!"
       end
-      flash[:success] = "You have successfully added on to the cart!"
     else
-      flash[:warning] = "Sorry, this product is currently out of stock!"
+      session[:shopping_cart][@product.id.to_s] = 1
+      flash[:success] = "You have successfully added on to the cart!"
     end
 
     redirect_to session.delete(:return_to)
