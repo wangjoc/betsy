@@ -41,6 +41,13 @@ class ProductsController < ApplicationController
       head :not_found
       return
     end
+
+    if session[:merchant_id] != @product.merchant.id
+      flash[:warning] = "Cannot edit another merchant's products"
+      redirect_to dashboard_path
+      return
+    end
+
   end
 
   def update
