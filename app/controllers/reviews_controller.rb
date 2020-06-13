@@ -5,18 +5,11 @@ class ReviewsController < ApplicationController
   end
 
   def new 
-    
     @product = Product.find_by(id: params[:product_id])
     @review = Review.new
   end
 
-  # def review_product
-  #   @product = Product.find_by(id: params[:id])
-  #   @review = Review.new
-  # end
-
   def create
-    # raise
     @review = Review.new(review_params) 
 
     if @review.save 
@@ -24,7 +17,7 @@ class ReviewsController < ApplicationController
       flash[:success] = "Successfully created new review"
       return
     else 
-      # figure out a way to do it with render and bad request instead
+      # TODO - figure out a way to do it with render and bad request instead
       redirect_to new_product_review_path(review_params[:product_id])
       flash[:warning] = "Successfully created new review"
       # render :new_product_review_path(review_params[:product_id]), status: :bad_request
