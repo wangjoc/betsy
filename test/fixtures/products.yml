@@ -10,7 +10,7 @@ toliet:
   description: Sharing is caring
   price: 50.00
   photo_url: https://imgur.com/paTfP93.jpg
-  stock: 10
+  stock: 1
   merchant: faker
 lion:
   name: Lion Bravehearts
@@ -19,3 +19,10 @@ lion:
   photo_url: https://imgur.com/Q6snmV7.jpg
   stock: 2
   merchant: greentye
+zero_stock:
+  name: Zero Stock
+  description: Out of stock
+  price: 50.00
+  photo_url: https://imgur.com/paTfP93.jpg
+  stock: 0
+  merchant: faker
