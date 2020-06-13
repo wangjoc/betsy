@@ -1,9 +1,9 @@
 class ProductsController < ApplicationController
   before_action :find_product, only: [:show, :edit, :update, :add_to_cart, :remove_from_cart, :delete_from_cart]
+  before_action :require_login, only: [:new, :create, :edit, :update]
   
   def index
     @products = Product.where('stock > ?', 0)
-    @products_by_merchant = Product.categorize_by_merchant
     session[:return_to] = products_path
   end
 
@@ -27,8 +27,8 @@ class ProductsController < ApplicationController
     @product = Product.new(product_params) 
 
     if @product.save 
-      redirect_to product_path(@product.id)
       flash[:success] = "Successfully added new product: #{view_context.link_to "##{@product.id} #{@product.name}", product_path(@product.id) }"
+      redirect_to product_path(@product.id)
       return
     else 
       render :new, status: :bad_request
@@ -48,7 +48,7 @@ class ProductsController < ApplicationController
       head :not_found
       return
     elsif @product.update(product_params)
-      flash[:success] = "Successfully edited #{view_context.link_to @product.name, product_path(@product.id)}" 
+      flash[:success] = "Successfully edited new product: #{view_context.link_to "##{@product.id} #{@product.name}", product_path(@product.id) }"
       redirect_to product_path(@product.id)
       return
     else 
@@ -71,16 +71,16 @@ class ProductsController < ApplicationController
     if session[:shopping_cart][@product.id.to_s] 
       if session[:shopping_cart][@product.id.to_s] < @product.stock
         session[:shopping_cart][@product.id.to_s] += 1
-        flash[:success] = "You have successfully added on to the cart!"
+        flash[:success] = "You have added a #{ view_context.link_to "#{@product.name}", product_path(@product.id) } to the cart!"
       else
-        flash[:warning] = "Sorry, no more stock for this product!"
+        flash[:warning] = "Sorry, no more stock for #{ view_context.link_to "#{@product.name}", product_path(@product.id) }!"
       end
     else
       if @product.stock > 0 
         session[:shopping_cart][@product.id.to_s] = 1
-        flash[:success] = "You have successfully added on to the cart!"
+        flash[:success] = "You have added a #{ view_context.link_to "#{@product.name}", product_path(@product.id) } to the cart!"
       else
-        flash[:warning] = "Sorry, no more stock for this product!"
+        flash[:warning] = "Sorry, no more stock for #{ view_context.link_to "#{@product.name}", product_path(@product.id) }!"
       end
     end
 
@@ -100,12 +100,14 @@ class ProductsController < ApplicationController
 
     if session[:shopping_cart][@product.id.to_s] && session[:shopping_cart][@product.id.to_s] > 0
       session[:shopping_cart][@product.id.to_s] -= 1
-      flash[:success] = "You have successfully removed on to the cart!"
+      flash[:success] = "You have removed a #{ view_context.link_to "#{@product.name}", product_path(@product.id) } from the cart!"
       if session[:shopping_cart][@product.id.to_s] == 0
         session[:shopping_cart].delete(@product.id.to_s)
+        flash[:warning] = "#{ view_context.link_to "#{@product.name}", product_path(@product.id) } has been fully removed from the cart."
       end
     else
-      flash[:warning] = "Item has been fully removed from cart."
+      flash[:warning] = "#{ view_context.link_to "#{@product.name}", product_path(@product.id) } is not in the cart."
+      
     end
 
     redirect_to session.delete(:return_to)
@@ -119,6 +121,7 @@ class ProductsController < ApplicationController
     end
 
     session[:shopping_cart].delete(@product.id.to_s)
+    flash[:warning] = "#{ view_context.link_to "#{@product.name}", product_path(@product.id) } has been fully removed from the cart."
     redirect_to session.delete(:return_to)
     return
   end
