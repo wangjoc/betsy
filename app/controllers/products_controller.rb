@@ -98,7 +98,7 @@ class ProductsController < ApplicationController
       session[:shopping_cart] = Hash.new()
     end
 
-    if session[:shopping_cart][@product.id.to_s] > 0
+    if session[:shopping_cart][@product.id.to_s] && session[:shopping_cart][@product.id.to_s] > 0
       session[:shopping_cart][@product.id.to_s] -= 1
       flash[:success] = "You have successfully removed on to the cart!"
       if session[:shopping_cart][@product.id.to_s] == 0
