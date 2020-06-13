@@ -22,7 +22,7 @@ class OrdersController < ApplicationController
 
     @order = Order.find_by(id: session[:order_id])
 
-    # prevent customer from seeing confirmation page if they've already paid
+    # prevents customer from seeing confirmation page if they've already paid
     if @order.status == "pending"
       # session[:order_id] = nil
       session[:return_to] = confirm_path
@@ -45,6 +45,12 @@ class OrdersController < ApplicationController
   end
 
   def create
+    if session[:shopping_cart].nil? || session[:shopping_cart].empty?
+      flash[:warning] = "Nothing in cart, let's do some shopping first!"
+      redirect_to products_path
+      return
+    end
+    
     @order = Order.new(order_params) 
 
     if @order.save 
