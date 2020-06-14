@@ -154,10 +154,10 @@ class OrdersController < ApplicationController
  
   def fix_params
      # https://stackoverflow.com/questions/47932187/combining-two-form-input-into-one-db-entry
-    month = params[:order].delete(:month)
-    year = params[:order].delete(:year)
+    month = params[:order].delete(:month).to_i
+    year = params[:order].delete(:year).to_i
 
-    params[:order][:cc_exp] = "%02d" %month + year
+    params[:order][:cc_exp] = "%02d" %month + "%02d" %year
 
     cc_num = (params[:order].delete(:cc_one) + 
               params[:order].delete(:cc_two) + 
