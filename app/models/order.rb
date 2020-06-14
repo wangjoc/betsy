@@ -6,8 +6,10 @@ class Order < ApplicationRecord
   validates_format_of :email_address, :with => /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/  
   validates :mail_address, presence: true
   validates :zip_code, presence: true, numericality: true, length: {is: 5}
-  validates :cc_num, presence: true, numericality: true
-  validates :cc_exp, presence: true
+
+  # TODO - JW: Not super proud of how cc validation is done but good enough for now
+  validates :cc_num, presence: true, length: {is: 16}
+  validates_format_of :cc_num, :with => /\*{12}\d{4}/
   validates :order_items, presence: true
 
   def self.contains_merchant?(order_id, merch_id)

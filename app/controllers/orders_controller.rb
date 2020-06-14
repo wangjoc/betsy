@@ -158,6 +158,12 @@ class OrdersController < ApplicationController
     year = params[:order].delete(:year)
 
     params[:order][:cc_exp] = "%02d" %month + year
+
+    cc_num = (params[:order].delete(:cc_one) + 
+              params[:order].delete(:cc_two) + 
+              params[:order].delete(:cc_three))
+
+    params[:order][:cc_num] = cc_num.gsub(/\d/,"*") + params[:order][:cc_four]
   end
 
   def find_order
