@@ -3,79 +3,30 @@ require "test_helper"
 describe OrdersController do
   describe "show" do
     describe "show without login (guest)" do
-      let (:customer_info) {
-        {
-          order: {
-            buyer_name: "Ye Xiu",
-            email_address: "lordgrim@glory.com",
-            mail_address: "Happy Internet Cafe",
-            zip_code: 11111,
-            cc_num: 1111,
-            cc_exp: 111111,
-          },
-        }
-      }
-
-      it "redirect if show page is not accessed directly from order confirm" do
+      it "redirect if not logged in" do
         get order_path(Order.first.id)
 
         must_respond_with :redirect
-      end
-
-      it "redirect if accessing show page of other order" do
-        populate_cart
-        post orders_path, params: customer_info
-        get order_path(Order.first.id)
-
-        must_respond_with :redirect
-      end
-
-      it "show page if accessed directly from order confirm" do
-        populate_cart
-        post orders_path, params: customer_info
-        get order_path(Order.last.id)
-
-        must_respond_with :success
+        must_redirect_to root_path
       end
     end
 
     describe "show with login as merchant" do
       before do 
-        perform_login
+        perform_login(merchants(:faker))
       end
-let (:customer_info) {
-        {
-          order: {
-            buyer_name: "Ye Xiu",
-            email_address: "lordgrim@glory.com",
-            mail_address: "Happy Internet Cafe",
-            zip_code: 11111,
-            cc_num: 1111,
-            cc_exp: 111111,
-          },
-        }
-      }
       
-      it "redirect if show page is not accessed directly from order confirm" do
-        get order_path(Order.first.id)
-
-        must_respond_with :redirect
-      end
-
-      it "redirect if accessing show page of other order" do
-        populate_cart
-        post orders_path, params: customer_info
-        get order_path(Order.first.id)
-
-        must_respond_with :redirect
-      end
-
-      it "show page if accessed directly from order confirm" do
-        populate_cart
-        post orders_path, params: customer_info
-        get order_path(Order.last.id)
+      it "show order detail page if merchant has an orderitem on it" do
+        get order_path(orders(:order_one).id)
 
         must_respond_with :success
+      end
+
+      it "do not show order detail page if merchant doesn't have orderitem on it" do
+        get order_path(orders(:order_two).id)
+
+        must_respond_with :redirect
+        must_redirect_to dashboard_path
       end
     end
   end
@@ -140,7 +91,7 @@ let (:customer_info) {
       }.must_differ 'Order.count', 1
 
       must_respond_with :redirect
-      must_redirect_to order_path(Order.last.id)
+      must_redirect_to confirm_path
       expect(Order.last.buyer_name).must_equal customer_info[:order][:buyer_name]
       expect(Order.last.email_address).must_equal customer_info[:order][:email_address]
       expect(Order.last.mail_address).must_equal customer_info[:order][:mail_address]
@@ -231,25 +182,25 @@ let (:customer_info) {
   end
 
   describe "purchase" do
-    let (:customer_info) {
-          {
-            order: {
-              buyer_name: "Ye Xiu",
-              email_address: "lordgrim@glory.com",
-              mail_address: "Happy Internet Cafe",
-              zip_code: "11111",
-              cc_num: 1111,
-              cc_exp: 111111,
-            },
-          }
-        }
-    
-    before do
-      populate_cart
-      post orders_path, params: customer_info
-    end
-
     describe "purchase without login (guest)" do
+      let (:customer_info) {
+        {
+          order: {
+            buyer_name: "Ye Xiu",
+            email_address: "lordgrim@glory.com",
+            mail_address: "Happy Internet Cafe",
+            zip_code: "11111",
+            cc_num: 1111,
+            cc_exp: 111111,
+          },
+        }
+      }
+  
+      before do
+        populate_cart
+        post orders_path, params: customer_info
+      end
+
       it "changes status of pending order to paid" do 
         expect(Order.last.status).must_equal "pending"
         patch purchase_path(Order.last.id)
@@ -288,11 +239,26 @@ let (:customer_info) {
   end
 
   describe "purchase with login as merchant" do
-    before do 
+    let (:customer_info) {
+      {
+        order: {
+          buyer_name: "Ye Xiu",
+          email_address: "lordgrim@glory.com",
+          mail_address: "Happy Internet Cafe",
+          zip_code: "11111",
+          cc_num: 1111,
+          cc_exp: 111111,
+        },
+      }
+    }
+
+    before do
       perform_login
+      populate_cart
+      post orders_path, params: customer_info
     end
 
-    it "changes status of pending order to paid" do 
+    it "changes status of pending order to paid" do
       expect(Order.last.status).must_equal "pending"
       patch purchase_path(Order.last.id)
 
@@ -527,17 +493,141 @@ let (:customer_info) {
     end
   end
 
-  describe "complete" do
-    # TODO can only be done by merchant logged in for their orders
-    # TODO need to add status to OrderItems so that they can actually be fulfilled... can this just be done with boolean? either fufilled or not?
-    # TODO test should be on ORderItem instead, and function to change to complete should also be ORderITem as well
+  describe "confirm" do
+    describe "show confirm without login (guest)" do
+      let (:customer_info) {
+        {
+          order: {
+            buyer_name: "Ye Xiu",
+            email_address: "lordgrim@glory.com",
+            mail_address: "Happy Internet Cafe",
+            zip_code: 11111,
+            cc_num: 1111,
+            cc_exp: 111111,
+          },
+        }
+      }
+
+      before do 
+        get products_path
+      end
+
+      it "redirect if show confirm is not accessed directly from order confirm" do
+        get confirm_path
+
+        must_respond_with :redirect
+        must_redirect_to products_path
+      end
+
+      it "redirect if order is not pending" do
+        populate_cart
+        post orders_path, params: customer_info
+        patch purchase_path(Order.last.id)
+        get confirm_path
+
+        must_respond_with :redirect
+        must_redirect_to products_path
+      end
+
+      it "show confirm if accessed directly from order confirm" do
+        populate_cart
+        post orders_path, params: customer_info
+        get confirm_path
+
+        must_respond_with :success
+      end
+    end
+
+    describe "show confirm with login as merchant" do
+      before do 
+        perform_login
+        get products_path
+      end
+
+      let (:customer_info) {
+        {
+          order: {
+            buyer_name: "Ye Xiu",
+            email_address: "lordgrim@glory.com",
+            mail_address: "Happy Internet Cafe",
+            zip_code: 11111,
+            cc_num: 1111,
+            cc_exp: 111111,
+          },
+        }
+      }
+      
+      it "redirect if show confirm is not accessed directly from order confirm" do
+        get confirm_path
+
+        must_respond_with :redirect
+        must_redirect_to products_path
+      end
+
+      it "redirect if order is not pending" do
+        populate_cart
+        post orders_path, params: customer_info
+        patch purchase_path(Order.last.id)
+        get confirm_path
+
+        must_respond_with :redirect
+        must_redirect_to products_path
+      end
+
+      it "show confirm if accessed directly from order confirm" do
+        populate_cart
+        post orders_path, params: customer_info
+        get confirm_path
+
+        must_respond_with :success
+      end
+    end
   end
 
-  # #TODO - move to product testing
-  # describe "shopping cart" do
-  #   # make sure to delete key/value pair if quantity < 0 
-  #   # confirm that adding items works
-  #   # confirm that subtracting items works
-  #   # confirm that subtotal is correct
-  # end
+  describe "ship" do
+    describe "ship without login (guest)" do
+      it "redirect if not logged in" do
+        patch ship_path(orders(:order_one).id)
+
+        must_respond_with :redirect
+        must_redirect_to root_path
+      end
+    end
+
+    describe "ship with login as merchant" do
+      before do 
+        perform_login(merchants(:faker))
+        @order_one = orders(:order_one)
+        @order_two = orders(:order_two)
+        get dashboard_path
+      end
+
+      it "ship orderitem that merchant owns if not already shipped" do
+        patch ship_path(@order_one.id)
+        
+        must_respond_with :redirect
+        must_redirect_to dashboard_path
+        expect(@order_one.order_items[1].is_shipped).must_equal true
+        expect(@order_one.order_items[0].is_shipped).must_equal false
+      end
+
+      it "do nothing if that merchant doesn't own anything" do
+        patch ship_path(@order_two.id)
+
+        must_respond_with :redirect
+        must_redirect_to dashboard_path
+        expect(@order_two.order_items[0].is_shipped).must_equal false
+      end
+
+      it "returns to order detail page if coming from order detail" do
+        get order_path(@order_one.id)
+        patch ship_path(@order_one.id)
+
+        must_respond_with :redirect
+        must_redirect_to order_path(@order_one.id)
+        expect(@order_one.order_items[1].is_shipped).must_equal true
+        expect(@order_one.order_items[0].is_shipped).must_equal false
+      end
+    end
+  end
 end

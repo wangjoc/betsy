@@ -15,6 +15,12 @@
   </head>
 
   <body>
+     <% flash.each do |name, message| %>
+      <div class="alert alert-<%= name %>" role="alert">
+        <%= message.html_safe %>
+      </div>
+    <% end %>
+    
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <%= link_to root_path do%><li class="navbar-brand"><h1>regrEtsy</h1></li><%end%>
       <span class="navbar-text">Does anyone even want this stuff??</span>

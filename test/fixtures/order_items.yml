@@ -1,12 +1,15 @@
 item_one:
   quantity: 5
-  product: toliet
+  product: toilet
   order: order_one
-item_one:
+  is_shipped: false
+item_two:
   quantity: 1
   product: lion
   order: order_one
-item_two:
+  is_shipped: false
+item_three:
   quantity: 2
   product: lion
   order: order_two
+  is_shipped: false

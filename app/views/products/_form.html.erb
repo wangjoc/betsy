@@ -1,8 +1,9 @@
+<div class='page-container'>
 <% if @product.errors.any? %>
   <ul class="errors">
     <% @product.errors.each do |column, message| %>
       <div class="alert alert-danger" role="alert">
-        <%= "Order #{column} #{message}. Please enter a valid #{column}." %>
+        <%= "Product #{column} #{message}. Please enter a valid #{column}." %>
       </div>
     <% end %>
   </ul>
@@ -40,8 +41,7 @@
           Category.all, :id, :category) %>
     </div>
 
-
-    <%# TODO: Can I change this to "update" rather than action_name? %>
     <%= f.submit action_name == "New" ? "Add new product" : "#{action_name} product" , class: "order-button" %>
   <% end %>
+</div>
 </div>

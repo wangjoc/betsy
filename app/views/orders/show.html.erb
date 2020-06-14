@@ -1,53 +1,16 @@
 <div class='page-container'>
-<h1 class='title'>You're Still Considering This?? </h1>
+<h1 class='title'>Nice Job Suckering in Some Cash ;)</h1>
 <div class="jumbotron">
-  <h1 class="display-4">Your Order Details (Order #<%= @order.id %>)</h1>
-  <p class="lead">Take a look before you complete your purchase:</p>
+  <h1 class="display-4">Order Details (Order #<%= @order.id %>)</h1>
+  <p class="lead">Order Information:</p>
   <hr class="my-4">
 
-<div class="card-deck">
-  <div class="card details" style="width: 18rem;">
-    <h2 class='subtitle3'>Product Details</h2>
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>Prodcut</th>
-          <th>Quantity</th>
-          <th>Price</th>
-        </tr>
-      </thead>
-      <tbody>
-      <% @order.order_items.each do |order_item| %>
-        <tr>
-          <td><%= order_item.product.name %></td>
-          <td><%= "Quantity: #{order_item.quantity}" %></td>
-          <td><%= "Price: #{order_item.product.price}" %></td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
-  </div>
-</div>
+<%= button_to "Return to Dashboard", dashboard_path, method: :get, class: "btn btn-info" %>
+<%= button_to "Ship Products", ship_path(@order.id), method: :patch, class: "btn btn-info" %>
 
-  <div class='card-deck'>
-    <div class="card" style="width: 18rem;">
-      <div class="card-body">
-          <h5 class="card-title subtitle3">Customer Details:</h5>
-          
-      </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item"><strong>Customer Name: </strong><%= @order.buyer_name %></li>
-        <li class="list-group-item"><strong>Email Address: </strong><%= @order.email_address %></li>
-        <li class="list-group-item"><strong>Mail Address:</strong><%= @order.mail_address %></li>
-        <li class="list-group-item"><strong>Last Four Digits of Credit Card: </strong><%= @order.cc_num %></li>
-        <li class="list-group-item"><strong>Credit Card Expiration: </strong><%= @order.cc_exp %></li>
-      </ul>
-    </div>
-    </div>
+<h3>Products have been shipped: Boolean</h3>
+
+<%= render partial: "shared/order_details", locals: { item_set: @order_items } %>
 
 <%#TODO: Leah will make these buttons bigger %>
-<%#TODO: The link to complete order is broken - also should redirect to a confirmation page (which we can put in the application controller and I can style tomorrow %>
-<%= button_to "Purchase Order", purchase_path, method: :patch, class: "btn btn-info" %>
-<%# TODO: Maybe the cancel order path should clear the cart and redirect to the root? %>
-<%= button_to "Cancel Order", order_path(@order.id), method: :get, class: "btn btn-info" %>
-</div>
+

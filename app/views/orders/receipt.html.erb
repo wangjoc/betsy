@@ -1,22 +1,13 @@
-<h1 class='title'>RECEIPT <%= @order.id %></h1>
+<h1 class='title'>RECEIPT for <%= @order.id %></h1>
+<div class='page-container'>
+  <h1 class='subtitle'>Hope you regret your purchase!</h1>
+  <div class="jumbotron">
+    <h1 class="display-4">Your Order Details (Order #<%= @order.id %>)</h1>
+    <p class="lead">Enjoying your regrets:</p>
+    <hr class="my-4">
 <%# TODO Leah will update this view %>
-<div class="container-sm">
-  <h2>Customer Detail</h2>
-  <%= "Customer Name: #{@order.buyer_name}" %><br>
-  <%= "Email Address: #{@order.email_address}" %><br>
-  <%= "Mail Address: #{@order.mail_address}" %><br>
-  <%= "Last Four Digits of Credit Card: #{@order.cc_num}" %><br>
-  <%= "Credit Card Expiration: #{@order.cc_exp}" %><br>
+
+<%= render partial: "shared/order_details", locals: { item_set: @order.order_items } %>
+<%= link_to "Return to Browsing", products_path, method: :get, class: "btn btn-info" %>
 </div>
 
-<div class="container-sm">
-  <h2>Product Detail</h2>
-    <% @order.order_items.each do |order_item| %>
-      <%= order_item.product.name %><br>
-      <%= order_item.product.description %><br>
-      <%= "Price: #{order_item.product.price}" %><br>
-      <%= "Quantity: #{order_item.quantity}" %><br>
-    <% end %>
-</div>
-
-<%= button_to "Return to Browsing", products_path, method: :get %><br>

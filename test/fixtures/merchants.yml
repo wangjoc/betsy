@@ -2,9 +2,17 @@ faker:
   name: faker
   uid: 1111111
   provider: github
-  email: facker@lol.com
+  email: faker@lol.com
+  avatar: https://i.imgur.com/JWfZcrG.jpg
 greentye:
   name: greentye
   uid: 2222222
   provider: github
   email: greentye@lol.com
+  avatar: https://i.imgur.com/JWfZcrG.jpg
+dancingrain:
+  name: dancingrain
+  uid: 2222222
+  provider: github
+  email: dancingrain@lol.com
+  avatar: https://i.imgur.com/JWfZcrG.jpg

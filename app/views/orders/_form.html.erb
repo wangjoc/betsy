@@ -28,6 +28,7 @@
           <%= button_to " + Add Quantity", add_to_cart_path(product.id), method: :patch, class: "btn btn-light inline" %>
           <%= button_to " - Decrease Quantity", remove_from_cart_path(product.id), method: :patch, class: "btn btn-light inline" %>
           <%#TODO: Need a remove product from cart button%>
+          <%= button_to " Remove from Cart", delete_from_cart_path(product.id), method: :patch, class: "btn btn-light inline" %>
         </div>
         <h5 class="card-header text-right"><%= "Subtotal for this product: $#{subtotal}" %></h5>
       </div>
