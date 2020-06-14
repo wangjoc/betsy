@@ -41,44 +41,11 @@
   
 </div> <%# end jumbotron%>
 
-<%# TODO - Leah, this is the test Current Orders designed after Becca's comments in standup  %>
+
 <div class="jumbotron">
 <h3 class='subtitle'>Current Orders</h3>
 <%= render partial: "shared/order", locals: { order_set: @merchant_orders } %>
 
-<div class="jumbotron">
-<h3 class='subtitle'>Current Orders</h3>
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Buyer</th>
-        <th>Product Name</th>
-        <th>Price</th>
-        <th>Quanitity</th>
-        <th>Order Date</th>
-        <th>Status</th>
-        <th>Complete Order</th>
-      </tr>
-    <thead>
-
-    <tbody>
-      <% @merchant_order_items.each do |order_item| %>
-        <tr class="clickable-tr" data-path="<%= order_path(order_item.order.id)%>" >
-          <td><%= order_item.order.id %></td>
-          <td><%= order_item.order.buyer_name %></td>
-          <td><%= order_item.product.name %></td>
-          <td><%= order_item.product.price %></td>
-          <td><%= order_item.quantity %></td>
-          <td><%= order_item.order.created_at %></td>
-          <td><%= order_item.order.status %></td>
-          <td><%= link_to "Complete Order", root_path, class: "btn btn-info" %></td>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
 
 <div class="jumbotron">
 <h2 class='subtitle'>Current Products For Sale</h2>

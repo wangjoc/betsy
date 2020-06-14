@@ -1,6 +1,6 @@
-<h1 class='title'>RECEIPT <%= @order.id %></h1>
+<h1 class='title'>RECEIPT for <%= @order.id %></h1>
 <div class='page-container'>
-  <h1 class='title'>Hope you regret your purchase!</h1>
+  <h1 class='subtitle'>Hope you regret your purchase!</h1>
   <div class="jumbotron">
     <h1 class="display-4">Your Order Details (Order #<%= @order.id %>)</h1>
     <p class="lead">Enjoying your regrets:</p>
@@ -8,6 +8,6 @@
 <%# TODO Leah will update this view %>
 
 <%= render partial: "shared/order_details", locals: { item_set: @order.order_items } %>
-<%= button_to "Return to Browsing", products_path, method: :get, class: "btn btn-info" %>
+<%= link_to "Return to Browsing", products_path, method: :get, class: "btn btn-info" %>
 </div>
 

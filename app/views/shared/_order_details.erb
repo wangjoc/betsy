@@ -16,7 +16,7 @@
   </div>
 </div>
 
-<div class="card-deck">
+<div class="card-deck details">
   <div class="card details" style="width: 18rem;">
     <h2 class='subtitle3'>Product Details</h2>
     <table class="table table-hover">
@@ -25,7 +25,6 @@
           <th>Product</th>
           <th>Quantity</th>
           <th>Price</th>
-          <th>Shipped?</th>
         </tr>
       </thead>
       <tbody>
@@ -34,11 +33,9 @@
           <td><%= order_item.product.name %></td>
           <td><%= "Quantity: #{order_item.quantity}" %></td>
           <td><%= "Price: #{order_item.product.price}" %></td>
-          <td><%= "Shipped: #{order_item.is_shipped}" %></td>
         </tr>
       <% end %>
       </tbody>
     </table>
   </div>
 </div>
-

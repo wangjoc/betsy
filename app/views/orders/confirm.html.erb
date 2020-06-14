@@ -10,6 +10,6 @@
 <%#TODO: Leah will make these buttons bigger %>
 
 
-<%= button_to "Purchase Order", purchase_path, method: :patch, class: "btn btn-info" %>
-<%= button_to "Cancel Order", cancel_path(@order.id), method: :patch, class: "btn btn-info" %>
+<%= link_to "Purchase Order", purchase_path, method: :patch, class: "btn btn-info" %>
+<%= link_to "Cancel Order", cancel_path(@order.id), method: :patch, class: "btn btn-info" %>
 </div>
