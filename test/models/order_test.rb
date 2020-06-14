@@ -5,7 +5,6 @@ describe Order do
     OrderItem.new(
       quantity: 10,
       product: products(:diaper),
-      # order: order_one,
       is_shipped: false
     )
   }
@@ -16,20 +15,23 @@ describe Order do
       email_address: "troublingrain@glory.com",
       mail_address: "City Blue Rain",
       zip_code: "33333",
-      cc_num: 3333,
-      cc_exp: 122020,
+      cc_num: "************1111",
+      cc_exp: 1230,
+      cc_cvv: "***",
       order_items: [order_item]
     )
   }
 
   before do 
     @order_one = orders(:order_one)
+    @order_two = orders(:order_two)
   end
 
   describe "instantiation" do
     it "can be instantiated" do
       expect(new_order.valid?).must_equal true
       expect(@order_one.valid?).must_equal true
+      expect(@order_two.valid?).must_equal true
     end
 
     it "will have the required fields" do
@@ -123,37 +125,98 @@ describe Order do
       expect(new_order.errors.messages[:zip_code]).must_equal ["is the wrong length (should be 5 characters)"]
     end
 
-    # it "must have a credit card number" do
-    #   new_order.cc_num = nil
+    it "must have a credit card number" do
+      new_order.cc_num = nil
 
-    #   expect(new_order.valid?).must_equal false
-    #   expect(new_order.errors.messages).must_include :cc_num
-    #   expect(new_order.errors.messages[:cc_num]).must_equal ["can't be blank", "is not a number", "is the wrong length (should be 5 characters)"]
-    # end
+      expect(new_order.valid?).must_equal false
+      expect(new_order.errors.messages).must_include :cc_num
+      expect(new_order.errors.messages[:cc_num]).must_equal ["can't be blank", "is the wrong length (should be 16 characters)", "is invalid"]
+    end
 
-    # it "must have a numerical zip code" do
-    #   new_order.cc_num = "string"
+    it "must hide all but last four digits" do
+      new_order.cc_num = "1234123412341234"
 
-    #   expect(new_order.valid?).must_equal false
-    #   expect(new_order.errors.messages).must_include :cc_num
-    #   expect(new_order.errors.messages[:cc_num]).must_equal ["is not a number", "is the wrong length (should be 5 characters)"]
-    # end
+      expect(new_order.valid?).must_equal false
+      expect(new_order.errors.messages).must_include :cc_num
+      expect(new_order.errors.messages[:cc_num]).must_equal ["is invalid"]
+    end
 
-    # it "must have a valid zip code (not greater than 5)" do
-    #   new_order.cc_num = 1234567890
+    it "must hide all four digits using *" do
+      new_order.cc_num = "XXXXXXXXXXXX1234"
 
-    #   expect(new_order.valid?).must_equal false
-    #   expect(new_order.errors.messages).must_include :cc_num
-    #   expect(new_order.errors.messages[:cc_num]).must_equal ["is the wrong length (should be 5 characters)"]
-    # end
+      expect(new_order.valid?).must_equal false
+      expect(new_order.errors.messages).must_include :cc_num
+      expect(new_order.errors.messages[:cc_num]).must_equal ["is invalid"]
+    end
 
-    # it "must have a valid zip code (not less than 5)" do
-    #   new_order.cc_num = 123
+    it "last four digits must be numbers" do
+      new_order.cc_num = "************rand"
 
-    #   expect(new_order.valid?).must_equal false
-    #   expect(new_order.errors.messages).must_include :cc_num
-    #   expect(new_order.errors.messages[:cc_num]).must_equal ["is the wrong length (should be 5 characters)"]
-    # end
+      expect(new_order.valid?).must_equal false
+      expect(new_order.errors.messages).must_include :cc_num
+      expect(new_order.errors.messages[:cc_num]).must_equal ["is invalid"]
+    end
+
+    it "must be long enough (can't be less than 16)" do
+      new_order.cc_num = "****1234"
+
+      expect(new_order.valid?).must_equal false
+      expect(new_order.errors.messages).must_include :cc_num
+      expect(new_order.errors.messages[:cc_num]).must_equal ["is the wrong length (should be 16 characters)", "is invalid"]
+    end
+
+    it "must be long enough (can't be more than 16)" do
+      new_order.cc_num = "********************1234"
+
+      expect(new_order.valid?).must_equal false
+      expect(new_order.errors.messages).must_include :cc_num
+      expect(new_order.errors.messages[:cc_num]).must_equal ["is the wrong length (should be 16 characters)"]
+    end
+
+    it "must have credit card exp" do
+      new_order.cc_exp = nil
+
+      expect(new_order.valid?).must_equal false
+      expect(new_order.errors.messages).must_include :cc_exp
+      expect(new_order.errors.messages[:cc_exp]).must_equal ["can't be blank", "is the wrong length (should be 4 characters)", "is invalid"]
+    end
+
+    it "credit card exp single month digit works" do
+      new_order.cc_exp = '0101'
+      expect(new_order.valid?).must_equal true
+    end
+
+    it "must have credit card cvv" do
+      new_order.cc_cvv = nil
+
+      expect(new_order.valid?).must_equal false
+      expect(new_order.errors.messages).must_include :cc_cvv
+      expect(new_order.errors.messages[:cc_cvv]).must_equal ["can't be blank", "is the wrong length (should be 3 characters)", "is invalid"]
+    end
+
+    it "cvv input is incorrect" do
+      new_order.cc_cvv = '*******'
+
+      expect(new_order.valid?).must_equal false
+      expect(new_order.errors.messages).must_include :cc_cvv
+      expect(new_order.errors.messages[:cc_cvv]).must_equal ["is the wrong length (should be 3 characters)"]
+    end
+
+    it "cvv input is incorrect" do
+      new_order.cc_cvv = 'dfgh'
+
+      expect(new_order.valid?).must_equal false
+      expect(new_order.errors.messages).must_include :cc_cvv
+      expect(new_order.errors.messages[:cc_cvv]).must_equal ["is the wrong length (should be 3 characters)", "is invalid"]
+    end
+
+    it "must have order items" do
+      new_order.order_items = []
+      
+      expect(new_order.valid?).must_equal false
+      expect(new_order.errors.messages).must_include :order_items
+      expect(new_order.errors.messages[:order_items]).must_equal ["can't be blank"]
+    end
   end
 
 end
