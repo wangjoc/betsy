@@ -128,8 +128,16 @@ CSV.foreach(CUSTOMER_FILE, :headers => true) do |row|
   order.email_address = row['email_address']
   order.mail_address = row['mail_address']
   order.zip_code = row['zip_code']
-  order.cc_num = row['cc_num']
+  order.cc_num = "************" + row['cc_num']
   order.cc_exp = row['cc_exp']
+  order.cc_cvv = "***"
+
+  rand(1..5).times do |i|
+    order.order_items << OrderItem.new(
+                          product_id: rand(1..Product.all.length),
+                          quantity: i
+                        )
+  end
 
   successful = order.save
   if !successful
@@ -146,18 +154,18 @@ puts "#{order_failures.length} order failed to save"
 ###########################################################
 ###########################################################
 
-puts "Generating random OrderItems"
+# puts "Generating random OrderItems"
 
-25.times do |i|
-  current_order = rand(1..Order.all.length)
-  order = Order.find_by(id: current_order)
+# 25.times do |i|
+#   current_order = rand(1..Order.all.length)
+#   order = Order.find_by(id: current_order)
 
-  item_params = {quantity: rand(1..5),
-                 product_id: rand(1..Product.all.length),
-                 order_id: current_order}
+#   item_params = {quantity: rand(1..5),
+#                  product_id: rand(1..Product.all.length),
+#                  order_id: current_order}
 
-  new_order_item = OrderItem.create(item_params)
-  order.order_items << new_order_item
-end
+#   new_order_item = OrderItem.create(item_params)
+#   order.order_items << new_order_item
+# end
 
 puts "Added #{OrderItem.all.length} order_item records"
