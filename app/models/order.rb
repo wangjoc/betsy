@@ -7,9 +7,8 @@ class Order < ApplicationRecord
   validates :mail_address, presence: true
   validates :zip_code, presence: true, numericality: true, length: {is: 5}
   validates :cc_num, presence: true, numericality: true
-  validates :cc_exp, presence: true, numericality: true
-  # validates :order_items, presence: true
-  validates :order_items, :length => { :minimum => 1 }
+  validates :cc_exp, presence: true
+  validates :order_items, presence: true
 
   def self.contains_merchant?(order_id, merch_id)
     # query checks to see if the order contains the merchant
