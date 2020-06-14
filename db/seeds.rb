@@ -150,22 +150,4 @@ end
 
 puts "Added #{Order.all.length} order records"
 puts "#{order_failures.length} order failed to save"
-
-###########################################################
-###########################################################
-
-# puts "Generating random OrderItems"
-
-# 25.times do |i|
-#   current_order = rand(1..Order.all.length)
-#   order = Order.find_by(id: current_order)
-
-#   item_params = {quantity: rand(1..5),
-#                  product_id: rand(1..Product.all.length),
-#                  order_id: current_order}
-
-#   new_order_item = OrderItem.create(item_params)
-#   order.order_items << new_order_item
-# end
-
 puts "Added #{OrderItem.all.length} order_item records"
