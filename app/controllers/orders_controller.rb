@@ -148,7 +148,7 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    return params.require(:order).permit(:buyer_name, :mail_address, :zip_code, :email_address, :cc_num, :cc_exp)
+    return params.require(:order).permit(:buyer_name, :mail_address, :zip_code, :email_address, :cc_num, :cc_exp, :cc_cvv)
   end
 
  
@@ -164,6 +164,8 @@ class OrdersController < ApplicationController
               params[:order].delete(:cc_three))
 
     params[:order][:cc_num] = cc_num.gsub(/\d/,"*") + params[:order][:cc_four]
+
+    params[:order][:cc_cvv] = params[:order][:cc_cvv].gsub(/\d/,"*") 
   end
 
   def find_order

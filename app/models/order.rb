@@ -10,6 +10,10 @@ class Order < ApplicationRecord
   # TODO - JW: Not super proud of how cc validation is done but good enough for now
   validates :cc_num, presence: true, length: {is: 16}
   validates_format_of :cc_num, :with => /\*{12}\d{4}/
+  validates :cc_exp, presence: true, length: {is: 4}
+  validates_format_of :cc_exp, :with => /\d{4}/
+  validates :cc_cvv, presence: true, length: {is: 3}
+  validates_format_of :cc_cvv, :with => /\*{3}/
   validates :order_items, presence: true
 
   def self.contains_merchant?(order_id, merch_id)
