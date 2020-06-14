@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
   root to: 'homepages#root'
-  
-  # # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   get "/merchants/dashboard", to: "merchants#dashboard", as: "dashboard"
   get "/orders/receipt", to: "orders#receipt", as: "receipt"
@@ -9,13 +7,14 @@ Rails.application.routes.draw do
   patch "/orders/purchase", to: "orders#purchase", as: "purchase"
 
   resources :categories, only: [:show, :new, :create]
-  resources :reviews, only: [:new, :create]
+  # I thiiiink we don't need these anymore (Leah added @product to the model of the partial so it's working okay now)
+  #resources :reviews, only: [:new, :create]
   resources :orders, except: [:index]
   resources :merchants, only: [:show, :create]
 
   resources :products do
     resources :categories
-    resources :reviews
+    resources :reviews, only: [:new, :create]
   end
 
   patch "/orders/:id/ship", to: "orders#ship", as: "ship"

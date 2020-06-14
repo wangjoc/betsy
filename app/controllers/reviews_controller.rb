@@ -1,23 +1,25 @@
 class ReviewsController < ApplicationController
 
-  def index
-    @review = Review.where(product_id: params[:product_id])
-  end
-
   def new 
     @product = Product.find_by(id: params[:product_id])
-
-    if session[:merchant_id] == @product.merchant.id
-      flash[:warning] = "Boooo!!! We at regrEtsy pride ourselves in our unbiased reviews. You ought to be ashamed of trying to review your own product! >:("
-      redirect_to session.delete(:return_to)
-      return
-    end
-
     @review = Review.new
   end
 
   def create
     @review = Review.new(review_params) 
+    @product = Product.find_by(id: review_params[:product_id])
+
+    if @product.nil?
+      flash[:error] = "We couldn't find that product in our database"
+      redirect_to products_path
+      return
+    end
+
+    if session[:merchant_id] == @product.merchant.id
+      flash[:warning] = "Boooo!!! We at regrEtsy pride ourselves in our unbiased reviews. You ought to be ashamed of trying to review your own product! >:("
+      redirect_to product_path(@product.id)
+      return
+    end
 
     if @review.save 
       redirect_to product_path(@review.product.id)
