@@ -70,11 +70,13 @@ CSV.foreach(PRODUCT_FILE, :headers => true) do |row|
   product.stock = row['stock']
   product.merchant_id = rand(1..Merchant.all.length)
 
+
+  
   if product.price > 25
-    product.categories << Category.first
+    product.categories<< Category.first
   else 
-    product.categories << Category.first
-    product.categories << Category.last
+    product.categories<< Category.first
+    product.categories<< Category.last
   end
 
   successful = product.save

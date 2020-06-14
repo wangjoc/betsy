@@ -37,6 +37,12 @@ class Product < ApplicationRecord
   end
 
   def self.featured_products
+#     Video.group(:id).average(:available_inventory)
+# New
+# 3:14
+# Rating.group(:product_id).average(:score).order(:score)
+# after_save
+# https://guides.rubyonrails.org/active_record_callbacks.html
     # TODO: just taking the bottom three off the list for now, can implement other logic later
     return Product.order('id DESC')[0..2]
   end
