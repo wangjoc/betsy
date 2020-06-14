@@ -25,6 +25,9 @@ describe Order do
   before do 
     @order_one = orders(:order_one)
     @order_two = orders(:order_two)
+    @merchant_faker = merchants(:faker)
+    @merchant_greentye = merchants(:greentye)
+    @merchant_dancingrain = merchants(:dancingrain)
   end
 
   describe "instantiation" do
@@ -219,4 +222,18 @@ describe Order do
     end
   end
 
+  describe "custom tests" do
+    describe "contains_merchant?" do
+      it "contains merchant if order has their product" do
+        expect(Order.contains_merchant?(@order_one.id, @merchant_faker.id)).must_equal true
+        expect(Order.contains_merchant?(@order_one.id, @merchant_greentye.id)).must_equal true
+      end
+
+      it "doesn't contain merchant order doesn't have their product" do
+        expect(Order.contains_merchant?(@order_one.id, @merchant_dancingrain.id)).must_equal false  
+        expect(Order.contains_merchant?(@order_two.id, @merchant_dancingrain.id)).must_equal false 
+        expect(Order.contains_merchant?(@order_two.id, @merchant_faker.id)).must_equal false
+      end
+    end
+  end
 end
