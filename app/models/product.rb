@@ -22,7 +22,7 @@ class Product < ApplicationRecord
 
   def self.featured_products
     # TODO: just taking the bottom three off the list for now, can implement other logic later
-    return Product.order('id DESC')[0..2]
+    return Product.order('id DESC')[0..[Merchant.all.length,2].min]
   end
 
   def reduce_stock

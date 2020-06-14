@@ -112,7 +112,7 @@ describe ProductsController do
       get products_path
       @product_lion = products(:lion)
       @product_diaper = products(:diaper)
-      @product_toliet = products(:toliet)
+      @product_toilet = products(:toilet)
       @product_zero_stock = products(:zero_stock)
     end
 
@@ -132,12 +132,12 @@ describe ProductsController do
       end
 
       it "do not add product to cart if not enough stock" do
-        patch add_to_cart_path(@product_toliet.id)
-        expect(session[:shopping_cart][@product_toliet.id.to_s]).must_equal 1
+        patch add_to_cart_path(@product_toilet.id)
+        expect(session[:shopping_cart][@product_toilet.id.to_s]).must_equal 1
         get products_path
 
-        patch add_to_cart_path(@product_toliet.id)
-        expect(session[:shopping_cart][@product_toliet.id.to_s]).must_equal 1
+        patch add_to_cart_path(@product_toilet.id)
+        expect(session[:shopping_cart][@product_toilet.id.to_s]).must_equal 1
 
         must_respond_with :redirect
         must_redirect_to products_path
@@ -200,12 +200,12 @@ describe ProductsController do
       end
 
       it "do not add product to cart if not enough stock" do
-        patch add_to_cart_path(@product_toliet.id)
-        expect(session[:shopping_cart][@product_toliet.id.to_s]).must_equal 1
+        patch add_to_cart_path(@product_toilet.id)
+        expect(session[:shopping_cart][@product_toilet.id.to_s]).must_equal 1
         get products_path
 
-        patch add_to_cart_path(@product_toliet.id)
-        expect(session[:shopping_cart][@product_toliet.id.to_s]).must_equal 1
+        patch add_to_cart_path(@product_toilet.id)
+        expect(session[:shopping_cart][@product_toilet.id.to_s]).must_equal 1
 
         must_respond_with :redirect
         must_redirect_to products_path
@@ -254,13 +254,13 @@ describe ProductsController do
       get products_path
       @product_lion = products(:lion)
       @product_diaper = products(:diaper)
-      @product_toliet = products(:toliet)
+      @product_toilet = products(:toilet)
 
       patch add_to_cart_path(@product_lion.id)
       get products_path
       patch add_to_cart_path(@product_lion.id)
       get products_path
-      patch add_to_cart_path(@product_toliet.id)
+      patch add_to_cart_path(@product_toilet.id)
       get new_order_path
     end
 
@@ -275,8 +275,8 @@ describe ProductsController do
       end
 
       it "remove key/value from cart, if reduced to 0" do
-        patch remove_from_cart_path(@product_toliet.id)
-        expect(session[:shopping_cart][@product_toliet.id.to_s]).must_equal nil
+        patch remove_from_cart_path(@product_toilet.id)
+        expect(session[:shopping_cart][@product_toilet.id.to_s]).must_equal nil
 
         must_respond_with :redirect
         must_redirect_to new_order_path
@@ -313,8 +313,8 @@ describe ProductsController do
       end
 
       it "remove key/value from cart, if reduced to 0" do
-        patch remove_from_cart_path(@product_toliet.id)
-        expect(session[:shopping_cart][@product_toliet.id.to_s]).must_equal nil
+        patch remove_from_cart_path(@product_toilet.id)
+        expect(session[:shopping_cart][@product_toilet.id.to_s]).must_equal nil
 
         must_respond_with :redirect
         must_redirect_to new_order_path
@@ -343,13 +343,13 @@ describe ProductsController do
       get products_path
       @product_lion = products(:lion)
       @product_diaper = products(:diaper)
-      @product_toliet = products(:toliet)
+      @product_toilet = products(:toilet)
 
       patch add_to_cart_path(@product_lion.id)
       get products_path
       patch add_to_cart_path(@product_lion.id)
       get products_path
-      patch add_to_cart_path(@product_toliet.id)
+      patch add_to_cart_path(@product_toilet.id)
       get new_order_path
     end
 
