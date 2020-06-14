@@ -604,7 +604,7 @@ describe OrdersController do
 
       it "ship orderitem that merchant owns if not already shipped" do
         patch ship_path(@order_one.id)
-
+        
         must_respond_with :redirect
         must_redirect_to dashboard_path
         expect(@order_one.order_items[1].is_shipped).must_equal true
