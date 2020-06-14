@@ -17,7 +17,7 @@ class Merchant < ApplicationRecord
 
   def self.featured_merchants
     # TODO: just taking the bottom three off the list for now, can implement other logic later
-    return Merchant.order('id DESC')[0..2]
+    return Merchant.order('id DESC')[0..[Merchant.all.length,2].min]
   end
 
   def self.get_merchant_order_items(id)
