@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
   before_action :find_order, only: [:show, :purchase, :cancel, :complete, :add_to_cart, :confirm, :ship]
   before_action :require_login, only: [:show, :ship]
+  before_action :fix_params, only: [:create]
 
   def show    
     if Order.contains_merchant?(@order.id, session[:merchant_id])
@@ -148,6 +149,19 @@ class OrdersController < ApplicationController
 
   def order_params
     return params.require(:order).permit(:buyer_name, :mail_address, :zip_code, :email_address, :cc_num, :cc_exp)
+  end
+
+  # https://stackoverflow.com/questions/47932187/combining-two-form-input-into-one-db-entry
+  def fix_params
+    if params[:order].blank?
+      # parent not provided
+      return
+    end
+
+    month = params[:order].delete(:month)
+    year = params[:order].delete(:year)
+
+    params[:order][:cc_exp] = "%02d" %month + year
   end
 
   def find_order
