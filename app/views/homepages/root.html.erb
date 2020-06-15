@@ -23,5 +23,8 @@
       <% #TODO Optional refactor - add photo, change to top selling item - THIS IS PIE IN THE SKY NOT NECESSARY %>
         <%= render partial: "shared/merchants", locals: { merchant_set: @featured_merchants } if !@featured_merchants.empty? %>
         <hr/>
+      <h3 class='subtitle3'>Support our Newest Merchants!</h3>
+        <%= render partial: "shared/merchants", locals: { merchant_set: @newest_merchants } if !@newest_merchants.empty? %>
+        <hr/>
     </div>
   </div>

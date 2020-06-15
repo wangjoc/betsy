@@ -3,7 +3,15 @@ class MerchantsController < ApplicationController
   before_action :require_login, only: [:dashboard]
 
   def show  
+    # TODO - create helper/control filter for finding merchnat?
     @merchant = Merchant.find_by(id: params[:id])
+
+    if @merchant.nil?
+      flash[:warning] = "Merchant does not exist"
+      redirect_to products_path
+      return
+    end
+
     @products = Product.by_merchant(@merchant.id)
     session[:return_to] = merchant_path(@merchant.id)
   end
@@ -45,7 +53,12 @@ class MerchantsController < ApplicationController
   end
 
   def logout
-    flash[:success] = "Successfully logged out of #{@merchant.name}"
+    if session[:merchant_id].nil?
+      flash[:warning] = "Must be logged in to logout"
+    else
+      flash[:success] = "Successfully logged out of #{@merchant.name}"
+    end
+
     session[:merchant_id] = nil
     redirect_to root_path
     return

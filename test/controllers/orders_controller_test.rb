@@ -89,11 +89,11 @@ describe OrdersController do
 
     it "creates a new order" do
       populate_cart
-      # binding.pry
+
       expect {
         post orders_path, params: customer_info
       }.must_differ 'Order.count', 1
-      # binding.pry
+
       must_respond_with :redirect
       must_redirect_to confirm_path
       

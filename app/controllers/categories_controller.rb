@@ -1,15 +1,22 @@
 class CategoriesController < ApplicationController
   before_action :require_login, only: [:new, :create]
 
-  def show  
-    @category = Category.find_by(id: params[:id])
-    @products = Product.by_category(@category.id)
-    session[:return_to] = category_path(@category.id)
-  end
-
   def new
     @category = Category.new
   end
+
+  def show  
+    @category = Category.find_by(id: params[:id])
+
+    if @category.nil?
+      flash[:warning] = "Category does not exist, please select another"
+      redirect_to products_path
+      return
+    end
+
+    @products = Product.by_category(@category.id)
+    session[:return_to] = category_path(@category.id)
+  end  
 
   def create
     @category = Category.new(category_params) 

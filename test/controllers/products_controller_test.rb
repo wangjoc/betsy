@@ -6,7 +6,8 @@ describe ProductsController do
       name: "Harry Potter",
       uid: "123456",
       provider: "github",
-      email: "harrypotter@hogwarts.com"
+      email: "harrypotter@hogwarts.com",
+      avatar: "https://i.imgur.com/JWfZcrG.jpg"
     }
 
     Merchant.create(merch_params)
