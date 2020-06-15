@@ -31,7 +31,7 @@ class Product < ApplicationRecord
           products << product
         end
       end
-      products.sort_by {|product| - product.avg_rating }.first
+      return products.sort_by {|product| - product.avg_rating }
     end
     
   def avg_rating
@@ -57,8 +57,8 @@ class Product < ApplicationRecord
     end
   end
 
-  def increase_stock(quantity)
-    self.stock += quantity
-    return true
-  end
+  # def increase_stock(quantity)
+  #   self.stock += quantity
+  #   return true
+  # end
 end
