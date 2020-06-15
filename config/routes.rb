@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   root to: 'homepages#root'
 
+  # Merchant dashboard 
+  get "/merchants/dashboard", to: "merchants#dashboard", as: "dashboard"
+  
   resources :categories, only: [:show, :new, :create]
   resources :orders, except: [:index]
   resources :merchants, only: [:show, :create]
@@ -10,23 +13,22 @@ Rails.application.routes.draw do
     resources :reviews, only: [:new, :create]
   end
 
-  # Customer purchase routes - view receipt, confirm order, purchase order
+  # Purchase confirmation/receipt
   get "/orders/receipt", to: "orders#receipt", as: "receipt"
   get "/orders/confirm", to: "orders#confirm", as: "confirm"
   patch "/orders/purchase", to: "orders#purchase", as: "purchase"
 
-  # Order managment routes for merchant - dashboard, ship, cancel, complete
-  get "/merchants/dashboard", to: "merchants#dashboard", as: "dashboard"
+  # Merchant order management
   patch "/orders/:id/ship", to: "orders#ship", as: "ship"
   patch "/orders/:id/cancel", to: "orders#cancel", as: "cancel"
   patch "/orders/:id/complete", to: "orders#complete", as: "complete"
 
-  # Routes for adding to cart
+  # Custom cart routes
   patch "/products/:id/add_to_cart", to: "products#add_to_cart", as: "add_to_cart"
   patch "/products/:id/remove_from_cart", to: "products#remove_from_cart", as: "remove_from_cart"
   patch "/products/:id/delete_from_cart", to: "products#delete_from_cart", as: "delete_from_cart"
 
-  # GitHub Authorization Routes
+  # Github authorization
   get "/auth/github", as: "github_login"
   get "/auth/:provider/callback", to: "merchants#create", as: "omniauth_callback"
   post "/logout", to: "merchants#logout", as: "logout"
