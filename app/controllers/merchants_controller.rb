@@ -53,7 +53,12 @@ class MerchantsController < ApplicationController
   end
 
   def logout
-    flash[:success] = "Successfully logged out of #{@merchant.name}"
+    if session[:merchant_id].nil?
+      flash[:warning] = "Must be logged in to logout"
+    else
+      flash[:success] = "Successfully logged out of #{@merchant.name}"
+    end
+
     session[:merchant_id] = nil
     redirect_to root_path
     return
