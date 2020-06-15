@@ -646,8 +646,8 @@ describe OrdersController do
         
         must_respond_with :redirect
         must_redirect_to dashboard_path
-        expect(@order_one.order_items[1].is_shipped).must_equal true
-        expect(@order_one.order_items[0].is_shipped).must_equal false
+        expect(@order_one.order_items[0].is_shipped).must_equal true
+        expect(@order_one.order_items[1].is_shipped).must_equal false
       end
 
       it "do nothing if that merchant doesn't own anything" do
@@ -664,8 +664,8 @@ describe OrdersController do
 
         must_respond_with :redirect
         must_redirect_to order_path(@order_one.id)
-        expect(@order_one.order_items[1].is_shipped).must_equal true
-        expect(@order_one.order_items[0].is_shipped).must_equal false
+        expect(@order_one.order_items[0].is_shipped).must_equal true
+        expect(@order_one.order_items[1].is_shipped).must_equal false
       end
     end
   end

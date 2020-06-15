@@ -21,6 +21,7 @@ describe Merchant do
     )
   }
 
+
   before do
     @merchant_faker = merchants(:faker)
     @merchant_greentye = merchants(:greentye)
@@ -150,31 +151,6 @@ describe Merchant do
             expect(x.product.merchant).must_equal merchant
           end
         end
-        
-
-  describe "custom methods" do
-    before do
-      @order_product1 = order_products(:order_product_one)
-      @order_product2 = order_products(:order_product_two)
-      @diaper = products(:diaper)
-      @lion = products(:lion)
-    end
-
-  describe "orders of status" do
-    it "return order of status :pending" do
-      order_array = @faker.orders_of_status(:pending)
-      order_array.each do |order_products|
-        order_products.must_be_instance_of OrderProduct
-        order_products.status.must_equal "pending"
-      end
-    end
-
-    it "return oders of status :shipped" do 
-      order_array = @greentye
-    end
-
-  end
-
         expect(OrderItem.all.length).must_equal order_item_count
       end
 
@@ -198,9 +174,9 @@ describe Merchant do
             end
           end
         end
-
         expect(OrderItem.all.length).must_equal order_item_count
       end
+
 
       it "returns empty array if merchant doesn't exist" do
         expect(Merchant.get_merchant_orders(-1)).must_be_empty
@@ -259,4 +235,5 @@ describe Merchant do
       end
     end
   end
+  
 end
