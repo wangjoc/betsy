@@ -5,6 +5,9 @@ class Product < ApplicationRecord
   has_and_belongs_to_many :categories
 
   validates :name, presence: true, uniqueness: true
+  validates :photo_url, presence: true, format: { with: /https:\/\/.*/, message: "Please enter a photo url beginning with 'https://'" }
+  validates :price, presence: true, numericality: { greater_than: 0 }, format: { with: /^[0-9]*\.?[0-9]*/, multiline: true, message: "Please enter a price using numbers" }
+
 
   def self.by_merchant(id)
     # products = Product.where("id > ?", 1)
@@ -21,27 +24,41 @@ class Product < ApplicationRecord
   end
 
   def self.featured_products
-    #     Video.group(:id).average(:available_inventory)
-    # New
-    # 3:14
-    # Rating.group(:product_id).average(:score).order(:score)
-    # after_save
-    # https://guides.rubyonrails.org/active_record_callbacks.html
-    # TODO: just taking the bottom three off the list for now, can implement other logic later
-    return Product.order("id DESC")[0..[Merchant.all.length, 2].min]
+      products = []
+      
+      Product.all.each do |product|
+        if product.reviews.length > 0
+          products << product
+        end
+      end
+      products.sort_by {|product| - product.avg_rating }.first
+    end
+    
+  def avg_rating
+    reviews = Review.where(product_id: self.id)
+    ratings = reviews.map do |review|
+      review.rating
+    end
+    if ratings.count > 0
+      return (ratings.sum / ratings.count)
+    end
   end
 
-  def reduce_stock
-    @product = Product.find(params[:id])
+  def in_stock?
+    return self.stock > 0
+  end
 
-    if @product.stock >= 1
-      @product.stock -= 1
-      flash[:success] = "Successfully updated #{view_context.link_to @product.name, product_path(@product.id)}"
-      redirect_to order_path(@order.id)
-      return
+  def decrease_stock(quantity)
+    if self.stock >= quantity
+      self.stock -= quantity
+      return true
     else
-      render :show, status: :bad_request
-      return
+      return false
     end
+  end
+
+  def increase_stock(quantity)
+    self.stock += quantity
+    return true
   end
 end
