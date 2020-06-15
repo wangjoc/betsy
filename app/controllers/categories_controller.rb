@@ -7,6 +7,13 @@ class CategoriesController < ApplicationController
 
   def show  
     @category = Category.find_by(id: params[:id])
+
+    if @category.nil?
+      flash[:warning] = "Category does not exist, please select another"
+      redirect_to products_path
+      return
+    end
+
     @products = Product.by_category(@category.id)
     session[:return_to] = category_path(@category.id)
   end  
