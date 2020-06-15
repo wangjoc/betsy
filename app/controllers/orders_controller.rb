@@ -23,14 +23,18 @@ class OrdersController < ApplicationController
   end
 
   def confirm
-    if session[:order_id].nil?
+    @order = Order.find_by(id: session[:order_id])
+
+    if @order.nil?
       redirect_to products_path
       flash[:warning] = "Cannot access somebody else's order!"
       return
     end
 
-    @order = Order.find_by(id: session[:order_id])
-    @order_revenue = OrderItem.order_revenue(@order.id, session[:merchant_id])
+    @order_revenue = 0
+    @order.order_items.each do |order_item|
+      @order_revenue += order_item.product.price * order_item.quantity
+    end
 
     # prevents customer from seeing confirmation page if they've already paid
     if @order.status == "pending"
@@ -130,7 +134,11 @@ class OrdersController < ApplicationController
 
     @order = Order.find_by(id: session[:order_id])
     # TODO move to helper method?
-    @order_revenue = OrderItem.order_revenue(@order.id, session[:merchant_id])
+
+    @order_revenue = 0
+    @order.order_items.each do |order_item|
+      @order_revenue += order_item.product.price * order_item.quantity
+    end
 
     # prevent customer from seeing receipt if they haven't paid yet
     if @order.status == "paid"
