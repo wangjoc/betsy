@@ -96,7 +96,7 @@
 }
 
 a {
-  color: #B5838D;
+  color: #E5989B;
 }
 
 a:hover {
@@ -107,3 +107,24 @@ a:hover {
   display: inline-block;
 }
 
+.button-holder {
+  justify-content: center;
+}
+
+.sm-txt {
+  font-size: small;
+}
+
+.card-title {
+  text-align: center;
+}
+
+.card-text {
+  text-align: center;
+}
+
+.page-container {
+  background-color: #FFCDB2;
+  position: relative;
+  text-align: center;
+}

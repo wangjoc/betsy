@@ -207,14 +207,14 @@ describe Product do
     end
   end
 
-  describe "increase_stock" do
-    it "increases the given product's stock by the given quantity" do
-      product = products(:lion)
-      expect(product.stock).must_equal 2
+  # describe "increase_stock" do
+  #   it "increases the given product's stock by the given quantity" do
+  #     product = products(:lion)
+  #     expect(product.stock).must_equal 2
 
-      product.increase_stock(2)
-      expect(product.stock).must_equal 4
-    end
-  end
+  #     product.increase_stock(2)
+  #     expect(product.stock).must_equal 4
+  #   end
+  # end
 
 end
