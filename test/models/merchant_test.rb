@@ -67,103 +67,94 @@ describe Merchant do
   #   end
   # end
 
-  describe "validations" do
-    it "must have a provider" do
-      new_merchant.provider = nil
+  # describe "validations" do
+  #   it "must have a provider" do
+  #     new_merchant.provider = nil
 
-      expect(new_merchant.valid?).must_equal false
-      expect(new_merchant.errors.messages).must_include :provider
-      expect(new_merchant.errors.messages[:provider]).must_equal ["can't be blank"]
-    end
-
-    it "must have a uid" do
-      new_merchant.uid = nil
-
-      expect(new_merchant.valid?).must_equal false
-      expect(new_merchant.errors.messages).must_include :uid
-      expect(new_merchant.errors.messages[:uid]).must_equal ["can't be blank"]
-    end
-
-    it "must have a uid" do
-      new_merchant.uid = nil
-
-      expect(new_merchant.valid?).must_equal false
-      expect(new_merchant.errors.messages).must_include :uid
-      expect(new_merchant.errors.messages[:uid]).must_equal ["can't be blank"]
-    end
-
-    it 'must have unique uid' do
-      new_merchant.uid = Merchant.last.uid
-      result = new_merchant.save
-
-      expect(result).must_equal false
-    end
-
-    it "must have a merchant name" do
-      new_merchant.name = nil
-
-      expect(new_merchant.valid?).must_equal false
-      expect(new_merchant.errors.messages).must_include :name
-      expect(new_merchant.errors.messages[:name]).must_equal ["can't be blank"]
-    end
-
-    it "must have a email address" do
-      new_merchant.email = nil
-
-      expect(new_merchant.valid?).must_equal false
-      expect(new_merchant.errors.messages).must_include :email
-      expect(new_merchant.errors.messages[:email]).must_equal ["can't be blank","is invalid"]
-    end
-
-    it 'must have unique email' do
-      new_merchant.email = Merchant.last.email
-      result = new_merchant.save
-
-      expect(result).must_equal false
-    end
-
-    it "must have a valid email address" do
-      new_merchant.email = "troublingrain"
-
-      expect(new_merchant.valid?).must_equal false
-      expect(new_merchant.errors.messages).must_include :email
-      expect(new_merchant.errors.messages[:email]).must_equal ["is invalid"]
-    end
-
-    it "must have a avatar" do
-      new_merchant.avatar = nil
-
-      expect(new_merchant.valid?).must_equal false
-      expect(new_merchant.errors.messages).must_include :avatar
-      expect(new_merchant.errors.messages[:avatar]).must_equal ["can't be blank"]
-    end
-  end
-
-
-
-
-  # I am going to fix/re-write this
-  # describe "merchant model relationship" do
-  #   it "has a relationship to products do
-  #   expect(@hannah.products.first.name).must_equal "something"
-  #   expect(@hannah.id).must_equal @hannah.products.first.merchant_id
-  #   expect(@leah.products.first.name).must_equal "something esle"
-  #   expect(@leah.id).must_equal @leah.products.first.merchant_id
+  #     expect(new_merchant.valid?).must_equal false
+  #     expect(new_merchant.errors.messages).must_include :provider
+  #     expect(new_merchant.errors.messages[:provider]).must_equal ["can't be blank"]
   #   end
 
-  #   it "has many products" do
-  #     something = products(:something)
+  #   it "must have a uid" do
+  #     new_merchant.uid = nil
 
-  #     @hannah.must_respond_to :products
-      
-  #     @hannah.products.each do |product|
-  #       product.must_be_kind of Product
-  #     end
+  #     expect(new_merchant.valid?).must_equal false
+  #     expect(new_merchant.errors.messages).must_include :uid
+  #     expect(new_merchant.errors.messages[:uid]).must_equal ["can't be blank"]
+  #   end
+
+  #   it "must have a uid" do
+  #     new_merchant.uid = nil
+
+  #     expect(new_merchant.valid?).must_equal false
+  #     expect(new_merchant.errors.messages).must_include :uid
+  #     expect(new_merchant.errors.messages[:uid]).must_equal ["can't be blank"]
+  #   end
+
+  #   it 'must have unique uid' do
+  #     new_merchant.uid = Merchant.last.uid
+  #     result = new_merchant.save
+
+  #     expect(result).must_equal false
+  #   end
+
+  #   it "must have a merchant name" do
+  #     new_merchant.name = nil
+
+  #     expect(new_merchant.valid?).must_equal false
+  #     expect(new_merchant.errors.messages).must_include :name
+  #     expect(new_merchant.errors.messages[:name]).must_equal ["can't be blank"]
+  #   end
+
+  #   it "must have a email address" do
+  #     new_merchant.email = nil
+
+  #     expect(new_merchant.valid?).must_equal false
+  #     expect(new_merchant.errors.messages).must_include :email
+  #     expect(new_merchant.errors.messages[:email]).must_equal ["can't be blank","is invalid"]
+  #   end
+
+  #   it 'must have unique email' do
+  #     new_merchant.email = Merchant.last.email
+  #     result = new_merchant.save
+
+  #     expect(result).must_equal false
+  #   end
+
+  #   it "must have a valid email address" do
+  #     new_merchant.email = "troublingrain"
+
+  #     expect(new_merchant.valid?).must_equal false
+  #     expect(new_merchant.errors.messages).must_include :email
+  #     expect(new_merchant.errors.messages[:email]).must_equal ["is invalid"]
+  #   end
+
+  #   it "must have a avatar" do
+  #     new_merchant.avatar = nil
+
+  #     expect(new_merchant.valid?).must_equal false
+  #     expect(new_merchant.errors.messages).must_include :avatar
+  #     expect(new_merchant.errors.messages[:avatar]).must_equal ["can't be blank"]
   #   end
   # end
 
+  describe "custom tests" do
+    describe "get_merchant_order_items?" do
+      it "get all of a merchant's order items" do
+        order_item_count = 0
+        Merchant.all.each do |merchant|
+          Merchant.get_merchant_order_items(merchant.id).each do |x|
+            order_item_count += 1
+            expect(x).must_be_instance_of OrderItem
+            expect(x.product.merchant).must_equal merchant
+          end
+        end
 
+        expect(OrderItem.all.length).must_equal order_item_count
+      end
+    end
 
-
-
+    
+  end
 end

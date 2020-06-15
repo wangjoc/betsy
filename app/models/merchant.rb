@@ -19,11 +19,6 @@ class Merchant < ApplicationRecord
     return merchant  
   end
 
-  def self.featured_merchants
-    # TODO: just taking the bottom three off the list for now, can implement other logic later
-    return Merchant.order('id DESC')[0..[Merchant.all.length,2].min]
-  end
-
   def self.get_merchant_order_items(id)
     return OrderItem.joins(:product).where(:products => {:merchant_id => id})
   end
@@ -32,6 +27,13 @@ class Merchant < ApplicationRecord
   def self.get_merchant_orders(id)
     return Order.joins(:order_items => :product).where(:products => {:merchant_id => id}).uniq
   end
+
+  def self.featured_merchants
+    # TODO: just taking the bottom three off the list for now, can implement other logic later
+    return Merchant.order('id DESC')[0..[Merchant.all.length,2].min]
+  end
+
+
 
   
   def orders_of_status(status)
