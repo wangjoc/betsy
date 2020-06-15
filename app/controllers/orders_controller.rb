@@ -68,6 +68,14 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params) 
 
     session[:shopping_cart].each do |product_id, quantity|
+      product = Product.find_by(id: product_id)
+
+      if product.stock < quantity
+        flash[:warning] = "Sorry, looks like someone beat you to the punch. ##{product.id} #{product.name} does not have the quantity you're looking for."
+        redirect_to products_path
+        return
+      end
+
       @order.order_items << OrderItem.new(
                               product_id: product_id,
                               quantity: quantity
@@ -100,6 +108,13 @@ class OrdersController < ApplicationController
     end
 
     if @order.save
+      # reducing stock here because we don't want on order to go half way through but still have stock reduce
+      @order.order_items.each do |order_item|
+        product = order_item.product
+        product.stock -= order_item.quantity
+        product.save
+      end
+
       flash[:success] = "Thank you for your purchase! Hope you regret it :)"
       session[:order_id] = @order.id
       session[:return_to] = products_path
