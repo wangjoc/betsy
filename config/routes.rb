@@ -4,15 +4,6 @@ Rails.application.routes.draw do
   # Merchant dashboard 
   get "/merchants/dashboard", to: "merchants#dashboard", as: "dashboard"
   
-  resources :categories, only: [:show, :new, :create]
-  resources :orders, except: [:index]
-  resources :merchants, only: [:show, :create]
-
-  resources :products do
-    resources :categories
-    resources :reviews, only: [:new, :create]
-  end
-
   # Purchase confirmation/receipt
   get "/orders/receipt", to: "orders#receipt", as: "receipt"
   get "/orders/confirm", to: "orders#confirm", as: "confirm"
@@ -32,4 +23,14 @@ Rails.application.routes.draw do
   get "/auth/github", as: "github_login"
   get "/auth/:provider/callback", to: "merchants#create", as: "omniauth_callback"
   post "/logout", to: "merchants#logout", as: "logout"
+
+  #RESTful Routes
+  resources :categories, only: [:show, :new, :create]
+  resources :orders, except: [:index]
+  resources :merchants, only: [:show, :create]
+
+  resources :products do
+    resources :categories
+    resources :reviews, only: [:new, :create]
+  end
 end
