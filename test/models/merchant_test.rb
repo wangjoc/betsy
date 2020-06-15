@@ -207,8 +207,31 @@ describe Merchant do
       it "returns empty array if there no merchants have sold anything" do
         OrderItem.delete_all
         featured_sort = Merchant.featured_merchants
-        
+
         expect(featured_sort).must_be_empty
+      end
+    end
+
+    describe "newest_merchants" do
+      it "orders merchants by newest added" do
+        merchant_order = {}
+        Merchant.all.each do |merchant|
+          merchant_order[merchant.id] = merchant.created_at
+        end
+
+        sorted = merchant_order.sort_by {|k, v| v}
+        newest_sort = Merchant.newest_merchants
+
+        expect(newest_sort[0].id).must_equal sorted[0][0]
+        expect(newest_sort[1].id).must_equal sorted[1][0]
+        expect(newest_sort[2].id).must_equal sorted[2][0]
+      end
+
+      it "returns empty array if there are no merchants" do
+        Merchant.delete_all
+        newest_sort = Merchant.newest_merchants
+
+        expect(newest_sort).must_be_empty
       end
     end
   end
