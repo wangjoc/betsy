@@ -3,7 +3,7 @@
       <div class="card">
         <div class="card-body">
           <p class='card-text'>Order: <%= link_to order.id, order_path(order.id) %></p>
-          <p class='card-text'>Date: <%= order.created_at %></p>
+          <p class='card-text'>Date: <%= order.created_at.strftime("%B %d, %Y") %></p>
           <p class='card-text'>Status (ready to ship if paid): <%= order.status %></p>
           <p class='card-text'>Item list(with links): <%= order.id %></p>
           <p class='card-text'>Subtotal: <%= order.id %></p>
