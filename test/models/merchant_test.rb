@@ -6,8 +6,8 @@ describe Merchant do
   # end
 
   before do
-    @hannah = merchants(:hannah)
-    @leah = merchants(:leah)
+    @liya = merchants(:liya)
+    @marta = merchants(:marta)
   end
 
   it "should be valid" do
@@ -18,19 +18,19 @@ describe Merchant do
 
   # I am going to fix/re-write this
   describe "merchant model relationship" do
-    it "has a relationship to products do
-    expect(@hannah.products.first.name).must_equal "something"
-    expect(@hannah.id).must_equal @hannah.products.first.merchant_id
-    expect(@leah.products.first.name).must_equal "something esle"
-    expect(@leah.id).must_equal @leah.products.first.merchant_id
+    it "has a relationship to products" do
+    expect(@liya.products.first.name).must_equal "something"
+    expect(@liya.id).must_equal @liya.products.first.merchant_id
+    expect(@marta.products.first.name).must_equal "something esle"
+    expect(@marta.id).must_equal @marta.products.first.merchant_id
     end
 
     it "has many products" do
       something = products(:something)
 
-      @hannah.must_respond_to :products
+      @liya.must_respond_to :products
       
-      @hannah.products.each do |product|
+      @liya.products.each do |product|
         product.must_be_kind of Product
       end
     end
