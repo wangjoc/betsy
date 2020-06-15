@@ -39,46 +39,45 @@
     <%= link_to "Add New Product", new_product_path, class: "btn btn-info" %>
     <%= link_to "Add New Category", new_category_path, class: "btn btn-info" %>
   </div>
+  </div> <%# end jumbotron 1%>
   
-</div> <%# end jumbotron%>
-
-
 <div class="jumbotron">
 <h3 class='subtitle'>Current Orders</h3>
 <%= render partial: "shared/order", locals: { order_set: @merchant_orders } %>
+</div>
 
 
 <div class="jumbotron">
-<h2 class='subtitle'>Current Products For Sale</h2>
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Price</th>
-        <th>Stock</th>
-        <th>Image</th>
-        <th>Edit</th>
-        <th>Retire</th>
-      </tr>
-    <thead>
-
-    <tbody>
-      <% @merchant.products.each do |product| %>
-        <tr class="clickable-tr" >
-          <td><%= link_to product_path(product.id) do%><%= product.name %><%end%></td>
-          <td><%= product.description %></td>
-          <td><%= sprintf("$%2.2f", product.price) %></td>
-          <td><%= product.stock %></td>
-          <td><%= image_tag(product.photo_url, :size => "260x180") %></td>
-          <td>
-            <%= link_to "Edit", edit_product_path(product.id), method: :get, class: "btn btn-info" %>
-            </td>
-            <%# TODO - put in retire product path after Hala has made it %>
-            <td><%= link_to "Retire", product_path(product.id), method: :destroy, class: "btn btn-info" %>
-            </td>
+  <h2 class='subtitle'>Current Products For Sale</h2>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Price</th>
+          <th>Stock</th>
+          <th>Image</th>
+          <th>Edit</th>
+          <th>Retire</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      <thead>
+
+      <tbody>
+        <% @merchant.products.each do |product| %>
+          <tr class="clickable-tr" >
+            <td><%= link_to product_path(product.id) do%><%= product.name %><%end%></td>
+            <td><%= product.description %></td>
+            <td><%= sprintf("$%2.2f", product.price) %></td>
+            <td><%= product.stock %></td>
+            <td><%= image_tag(product.photo_url, :size => "260x180") %></td>
+            <td>
+              <%= link_to "Edit", edit_product_path(product.id), method: :get, class: "btn btn-info" %>
+              </td>
+              <%# TODO - put in retire product path after Hala has made it %>
+              <td><%= link_to "Retire", product_path(product.id), method: :destroy, class: "btn btn-info" %>
+              </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
 </div>
