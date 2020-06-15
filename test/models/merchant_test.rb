@@ -140,14 +140,34 @@ describe Merchant do
   # end
 
   describe "custom tests" do
-    describe "get_merchant_order_items?" do
-      it "get all of a merchant's order items" do
+    # describe "get_merchant_order_items" do
+    #   it "get all of a merchant's order items" do
+    #     order_item_count = 0
+    #     Merchant.all.each do |merchant|
+    #       Merchant.get_merchant_order_items(merchant.id).each do |x|
+    #         order_item_count += 1
+    #         expect(x).must_be_instance_of OrderItem
+    #         expect(x.product.merchant).must_equal merchant
+    #       end
+    #     end
+
+    #     expect(OrderItem.all.length).must_equal order_item_count
+    #   end
+    # end
+
+    describe "get_merchant_orders" do
+      it "get all of a merchant's orders" do
         order_item_count = 0
         Merchant.all.each do |merchant|
-          Merchant.get_merchant_order_items(merchant.id).each do |x|
-            order_item_count += 1
-            expect(x).must_be_instance_of OrderItem
-            expect(x.product.merchant).must_equal merchant
+          Merchant.get_merchant_orders(merchant.id).each do |order|
+            expect(order).must_be_instance_of Order
+
+            order.order_items.each do |order_item|
+              if order_item.product.merchant == merchant
+                order_item_count += 1
+                expect(order_item).must_be_instance_of OrderItem
+              end
+            end
           end
         end
 
@@ -155,6 +175,8 @@ describe Merchant do
       end
     end
 
-    
+
+
+
   end
 end
