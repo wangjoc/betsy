@@ -1,9 +1,13 @@
 class Merchant < ApplicationRecord
   has_many :products
 
-  validates :name, presence: true, uniqueness: true
+  # TODO - if we were to allow more than OAuth method, might need to verify that uid + provider is the unique value (ie. two diff account from google and github might have same uid)
+  validates :provider, presence: true
+  validates :uid, presence: true, uniqueness: true
+  validates :name, presence: true
   validates :email, presence: true, uniqueness: true
   validates_format_of :email, :with => /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/  
+  validates :avatar, presence: true
 
   def self.build_from_github(auth_hash)
     merchant = Merchant.new
