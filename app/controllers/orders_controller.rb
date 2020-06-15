@@ -168,7 +168,7 @@ class OrdersController < ApplicationController
 
   def ship
     @order_items = OrderItem.items_by_order_merchant(@order.id, session[:merchant_id])
-
+    
     @order_items.each do |order_item|
       item = order_item 
       item.is_shipped = true
