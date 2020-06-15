@@ -7,6 +7,7 @@ class OrdersController < ApplicationController
   def show    
     if Order.contains_merchant?(@order.id, session[:merchant_id])
       @order_items = OrderItem.items_by_order_merchant(@order.id, session[:merchant_id])
+      @order_revenue = OrderItem.order_revenue(@order.id, session[:merchant_id])
       session[:return_to] = order_path(@order.id)
     else 
       redirect_to dashboard_path
@@ -23,6 +24,7 @@ class OrdersController < ApplicationController
     end
 
     @order = Order.find_by(id: session[:order_id])
+    @order_revenue = OrderItem.order_revenue(@order.id, session[:merchant_id])
 
     # prevents customer from seeing confirmation page if they've already paid
     if @order.status == "pending"
@@ -121,6 +123,8 @@ class OrdersController < ApplicationController
     end
 
     @order = Order.find_by(id: session[:order_id])
+    # TODO move to helper method?
+    @order_revenue = OrderItem.order_revenue(@order.id, session[:merchant_id])
 
     # prevent customer from seeing receipt if they haven't paid yet
     if @order.status == "paid"
