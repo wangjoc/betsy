@@ -58,4 +58,21 @@ describe Category do
       expect(Category.last.products.length).must_equal 2
     end
   end
+
+  describe "validations" do
+    it "must have a category" do
+      new_category.category = nil
+
+      expect(new_category.valid?).must_equal false
+      expect(new_category.errors.messages).must_include :category
+      expect(new_category.errors.messages[:category]).must_equal ["can't be blank"]
+    end
+
+    it 'must have unique category' do
+      new_category.category = Category.last.category
+      result = new_category.save
+
+      expect(result).must_equal false
+    end
+  end
 end
