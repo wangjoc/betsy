@@ -80,10 +80,10 @@
     <div class="form-group">
       <%= f.label :Credit_Card_Expiration %><br>
       <%= f.label :month %>
-      <%= f.select :month, 1 .. 12, class: 'form-control' %>
+      <%= f.select :month, [""] + (1..12).to_a, class: 'form-control' %>
 
       <%= f.label :year %>
-      <%= f.select :year, 19 .. 25, class: 'form-control' %>
+      <%= f.select :year, [""] + (20..25).to_a, class: 'form-control' %>
     </div>
 
     <%= f.submit action_name == "New" ? "Review Order" : "Update Order" , class: "order-button" %>
