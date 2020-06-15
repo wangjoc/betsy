@@ -31,7 +31,8 @@ class Product < ApplicationRecord
           products << product
         end
       end
-      return products.sort_by {|product| - product.avg_rating }
+      featured = products.sort_by {|product| - product.avg_rating }
+      return featured[0..4]
     end
     
   def avg_rating
