@@ -9,9 +9,9 @@
     <ul class="list-group list-group-flush">
       <li class="list-group-item"><strong>Customer Name: </strong><%= @order.buyer_name %></li>
       <li class="list-group-item"><strong>Email Address: </strong><%= @order.email_address %></li>
-      <li class="list-group-item"><strong>Mail Address:</strong><%= @order.mail_address %></li>
+      <li class="list-group-item"><strong>Mail Address: </strong><%= @order.mail_address %></li>
       <li class="list-group-item"><strong>Last Four Digits of Credit Card: </strong><%= @order.cc_num %></li>
-      <li class="list-group-item"><strong>Credit Card Expiration: </strong><%= @order.cc_exp %></li>
+      <li class="list-group-item"><strong>Credit Card Expiration: </strong><%= "#{@order.cc_exp[0..1]}/#{@order.cc_exp[2..3]}" %></li>
     </ul>
   </div>
 </div>
@@ -32,7 +32,7 @@
         <tr>
           <td><%= order_item.product.name %></td>
           <td><%= "Quantity: #{order_item.quantity}" %></td>
-          <td><%= "Price: #{order_item.product.price}" %></td>
+          <td><%= "Price: #{ sprintf("$%2.2f", order_item.product.price )}" %></td>
         </tr>
       <% end %>
       </tbody>
