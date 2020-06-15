@@ -6,6 +6,7 @@
   <hr class="my-4">
   
   <%# TODO - replace the 100 placeholders with actual amounts %>
+  <div class='btm-bump-down'>
   <div class='card-deck'>
     <div class="card" style="width: 18rem;">
       <div class="card-body">
@@ -34,10 +35,11 @@
     </div>
 
   </div> <%# end deck %>
+  </div>
   <div class='btn-container'>
-    <%= link_to "Go To My Store", merchant_path(@merchant.id), class: "btn btn-info" %>
-    <%= link_to "Add New Product", new_product_path, class: "btn btn-info" %>
-    <%= link_to "Add New Category", new_category_path, class: "btn btn-info" %>
+    <%= link_to "Go To My Store", merchant_path(@merchant.id), class: "btn btn-info btn-lg" %>
+    <%= link_to "Add New Product", new_product_path, class: "btn btn-info btn-lg" %>
+    <%= link_to "Add New Category", new_category_path, class: "btn btn-info btn-lg" %>
   </div>
   </div> <%# end jumbotron 1%>
   
