@@ -17,8 +17,10 @@ class Product < ApplicationRecord
   # TODO - there might be a way to get the data through a query (more  efficient). Might need to reset the relationship between the two tables
   def self.by_category(id)
     products = []
-    Product.all.each do |product|
-      products << product if product.category_ids.include? id 
+    self.all.each do |product|
+     if product.category_ids.include?(id)
+      products<< product
+     end
     end
     return products
   end
@@ -58,8 +60,4 @@ class Product < ApplicationRecord
     end
   end
 
-  # def increase_stock(quantity)
-  #   self.stock += quantity
-  #   return true
-  # end
 end

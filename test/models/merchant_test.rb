@@ -21,6 +21,7 @@ describe Merchant do
     )
   }
 
+
   before do
     @merchant_faker = merchants(:faker)
     @merchant_greentye = merchants(:greentye)
@@ -150,7 +151,6 @@ describe Merchant do
             expect(x.product.merchant).must_equal merchant
           end
         end
-
         expect(OrderItem.all.length).must_equal order_item_count
       end
 
@@ -174,9 +174,9 @@ describe Merchant do
             end
           end
         end
-
         expect(OrderItem.all.length).must_equal order_item_count
       end
+
 
       it "returns empty array if merchant doesn't exist" do
         expect(Merchant.get_merchant_orders(-1)).must_be_empty
@@ -235,4 +235,5 @@ describe Merchant do
       end
     end
   end
+  
 end

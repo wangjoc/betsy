@@ -74,10 +74,10 @@ CSV.foreach(PRODUCT_FILE, :headers => true) do |row|
 
   
   if product.price > 25
-    product.categories<< Category.first
+    product.category_ids<< Category.first.id
   else 
-    product.categories<< Category.first
-    product.categories<< Category.last
+    product.category_ids<< Category.first.id
+    product.category_ids<< Category.last.id
   end
 
   successful = product.save
