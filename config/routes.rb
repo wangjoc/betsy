@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   # Merchant dashboard 
   get "/merchants/dashboard", to: "merchants#dashboard", as: "dashboard"
-  
+
   # Purchase confirmation/receipt
   get "/orders/receipt", to: "orders#receipt", as: "receipt"
   get "/orders/confirm", to: "orders#confirm", as: "confirm"
