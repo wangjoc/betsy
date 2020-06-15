@@ -4,6 +4,13 @@ class MerchantsController < ApplicationController
 
   def show  
     @merchant = Merchant.find_by(id: params[:id])
+
+    if @merchant.nil?
+      flash[:warning] = "Merchant does not exist"
+      redirect_to products_path
+      return
+    end
+
     @products = Product.by_merchant(@merchant.id)
     session[:return_to] = merchant_path(@merchant.id)
   end
