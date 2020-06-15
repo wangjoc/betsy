@@ -35,12 +35,12 @@ class ActiveSupport::TestCase
 
   def perform_login(merchant = nil)
     merchant ||= Merchant.first
-
+    
     OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new(mock_auth_hash(merchant))
-
+    
     get omniauth_callback_path(:github)
     merchant = Merchant.find_by(uid: merchant.uid, name: merchant.name)
-
+    
     expect(merchant).wont_be_nil
     expect(session[:merchant_id]).must_equal merchant.id
     return merchant
