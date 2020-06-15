@@ -1,15 +1,15 @@
 class CategoriesController < ApplicationController
   before_action :require_login, only: [:new, :create]
 
+  def new
+    @category = Category.new
+  end
+
   def show  
     @category = Category.find_by(id: params[:id])
     @products = Product.by_category(@category.id)
     session[:return_to] = category_path(@category.id)
-  end
-
-  def new
-    @category = Category.new
-  end
+  end  
 
   def create
     @category = Category.new(category_params) 
