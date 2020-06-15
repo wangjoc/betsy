@@ -43,6 +43,7 @@ class Merchant < ApplicationRecord
   def orders_of_status(status)
     OrderProduct.where(status: status).joins(:product).merge(Product.where(merchant_id: id))
   end
+# Order.joins(:order_items => :product).where(:products => { :merchant_id => 1 }, :orders => {:status => "pending"} ).uniq
 
   def revenue_of_status(status)
     order_products = orders_of_status(status)
