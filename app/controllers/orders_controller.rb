@@ -2,13 +2,12 @@ class OrdersController < ApplicationController
   before_action :fix_params, only: [:create]
   before_action :find_order, only: [:show, :purchase, :cancel, :complete, :add_to_cart, :confirm, :ship]
   before_action :require_login, only: [:show, :ship]
-  
 
-  def show    
+  def show
     if Order.contains_merchant?(@order.id, session[:merchant_id])
       @order_items = OrderItem.items_by_order_merchant(@order.id, session[:merchant_id])
       session[:return_to] = order_path(@order.id)
-    else 
+    else
       redirect_to dashboard_path
       flash[:warning] = "You do not have any products on this order!"
       return
@@ -41,7 +40,7 @@ class OrdersController < ApplicationController
       redirect_to products_path
       return
     end
-    
+
     @order = Order.new
     session[:return_to] = new_order_path
   end
@@ -53,16 +52,16 @@ class OrdersController < ApplicationController
       return
     end
 
-    @order = Order.new(order_params) 
+    @order = Order.new(order_params)
 
     session[:shopping_cart].each do |product_id, quantity|
       @order.order_items << OrderItem.new(
-                              product_id: product_id,
-                              quantity: quantity
-                            )
+        product_id: product_id,
+        quantity: quantity,
+      )
     end
 
-    if @order.save 
+    if @order.save
       session[:shopping_cart] = nil
       session[:order_id] = @order.id
       session[:return_to] = products_path
@@ -137,7 +136,7 @@ class OrdersController < ApplicationController
     @order_items = OrderItem.items_by_order_merchant(@order.id, session[:merchant_id])
 
     @order_items.each do |order_item|
-      item = order_item 
+      item = order_item
       item.is_shipped = true
       item.save
     end
@@ -151,21 +150,20 @@ class OrdersController < ApplicationController
     return params.require(:order).permit(:buyer_name, :mail_address, :zip_code, :email_address, :cc_num, :cc_exp, :cc_cvv)
   end
 
- 
   def fix_params
-     # https://stackoverflow.com/questions/47932187/combining-two-form-input-into-one-db-entry
+    # https://stackoverflow.com/questions/47932187/combining-two-form-input-into-one-db-entry
     month = params[:order].delete(:month).to_i
     year = params[:order].delete(:year).to_i
 
-    params[:order][:cc_exp] = "%02d" %month + "%02d" %year
+    params[:order][:cc_exp] = "%02d" % month + "%02d" % year
 
-    cc_num = (params[:order].delete(:cc_one) + 
-              params[:order].delete(:cc_two) + 
+    cc_num = (params[:order].delete(:cc_one) +
+              params[:order].delete(:cc_two) +
               params[:order].delete(:cc_three))
 
-    params[:order][:cc_num] = cc_num.gsub(/\d/,"*") + params[:order][:cc_four]
+    params[:order][:cc_num] = cc_num.gsub(/\d/, "*") + params[:order][:cc_four]
 
-    params[:order][:cc_cvv] = params[:order][:cc_cvv].gsub(/\d/,"*") 
+    params[:order][:cc_cvv] = params[:order][:cc_cvv].gsub(/\d/, "*")
   end
 
   def find_order

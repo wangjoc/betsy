@@ -245,7 +245,7 @@ describe ProductsController do
         get "/products/#{invalid_product_id}"
         must_respond_with :redirect
       end
-    end  
+    end
   end
 
   describe "remove_from_cart" do
@@ -299,7 +299,7 @@ describe ProductsController do
     end
 
     describe "remove_from_cart login as master" do
-      before do 
+      before do
         perform_login
       end
 
@@ -380,7 +380,7 @@ describe ProductsController do
     end
 
     describe "remove_from_cart login as merchant" do
-      before do 
+      before do
         perform_login
       end
       it "remove all type of product from cart, if in cart" do

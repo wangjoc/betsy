@@ -19,7 +19,7 @@ describe HomepagesController do
     end
 
     describe "root without login (guest)" do
-      before do 
+      before do
         perform_login
       end
 

@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
 
   def require_login
     if current_merchant.nil?
-      flash[:warning] = "Please #{ view_context.link_to "login", github_login_path } to perform this action"
+      flash[:warning] = "Please #{view_context.link_to "login", github_login_path} to perform this action"
       redirect_to root_path
     end
   end

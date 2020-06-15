@@ -1,4 +1,4 @@
-<%# TODO - JW Can this error checking be moved to a partial? %>
+<% # TODO - JW Can this error checking be moved to a partial? %>
 <div class='page-container'>
 <% if @review.errors.any? %>
   <ul class="errors">
@@ -15,18 +15,18 @@
 <div class="container-sm">
   <h3>Please enter the following information:</h3>
 
-  <%= form_with(model: [@product, @review], class: 'user-form') do |f| %>
+  <%= form_with(model: [@product, @review], class: "user-form") do |f| %>
     <%= f.hidden_field :product_id, value: @product.id %>
     
     <div class="form-group">
       <%= f.label :rating %>
-      <%= f.select :rating, options_for_select(["choose a number",1,2,3,4,5])%>
+      <%= f.select :rating, options_for_select(["choose a number", 1, 2, 3, 4, 5]) %>
     </div>
 
-    <%# TODO - JW and Leah Should we limit num of characters in reviews? %>
+    <% # TODO - JW and Leah Should we limit num of characters in reviews? %>
     <div class="form-group">
       <%= f.label :review_text %><br>
-      <%= f.text_field :review_text, class: "form-control-lg", placeholder: "(Optional)"%>
+      <%= f.text_field :review_text, class: "form-control-lg", placeholder: "(Optional)" %>
     </div>
 
     <%= f.submit "Submit", class: "order-button" %>

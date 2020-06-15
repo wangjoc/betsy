@@ -36,7 +36,7 @@
 
 <div class='reviews'>
   <h1 class='subtitle2'>Product Reviews</h1>
-  <%# We don't need @reviews, we can just use @product.reviews here and I'm taking out the index method in reviews - Leah %>
+  <% # We don't need @reviews, we can just use @product.reviews here and I'm taking out the index method in reviews - Leah %>
   <div class='reviews-container'>
   <%= render partial: "shared/reviews", locals: { review_set: @product.reviews } %>
   </div>

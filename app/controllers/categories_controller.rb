@@ -12,7 +12,7 @@ class CategoriesController < ApplicationController
 
     @products = Product.by_category(@category.id)
     session[:return_to] = category_path(@category.id)
-  end  
+  end
 
   def create
     @category = Category.new(category_params)

@@ -27,7 +27,7 @@
           
           <%= button_to " + Add Quantity", add_to_cart_path(product.id), method: :patch, class: "btn btn-light inline" %>
           <%= button_to " - Decrease Quantity", remove_from_cart_path(product.id), method: :patch, class: "btn btn-light inline" %>
-          <%#TODO: Need a remove product from cart button%>
+          <% #TODO: Need a remove product from cart button %>
           <%= button_to " Remove from Cart", delete_from_cart_path(product.id), method: :patch, class: "btn btn-light inline" %>
         </div>
         <h5 class="card-header text-right"><%= "Subtotal for this product: $#{subtotal}" %></h5>
@@ -69,10 +69,10 @@
 <<<<<<< HEAD
       <%= f.text_field :cc_num, class: "form-control-lg", placeholder: "Credit Card Number" %>
 =======
-      <%= f.text_field :cc_one, :maxlength => 4, class: "form-control-lg"%>-
-      <%= f.text_field :cc_two, :maxlength => 4, class: "form-control-lg"%>-
-      <%= f.text_field :cc_three, :maxlength => 4, class: "form-control-lg"%>-
-      <%= f.text_field :cc_four, :maxlength => 4, class: "form-control-lg"%>
+      <%= f.text_field :cc_one, :maxlength => 4, class: "form-control-lg" %>-
+      <%= f.text_field :cc_two, :maxlength => 4, class: "form-control-lg" %>-
+      <%= f.text_field :cc_three, :maxlength => 4, class: "form-control-lg" %>-
+      <%= f.text_field :cc_four, :maxlength => 4, class: "form-control-lg" %>
 >>>>>>> master
     </div>
 
@@ -82,7 +82,7 @@
       <%= f.text_field :cc_exp, class: "form-control-lg", placeholder: "Credit Card Expiration" %>
 =======
       <%= f.label :Credit_Card_CVV %><br>
-      <%= f.text_field :cc_cvv, :maxlength => 3, class: "form-control-lg", placeholder: "Credit Card CVV (security code)"%>
+      <%= f.text_field :cc_cvv, :maxlength => 3, class: "form-control-lg", placeholder: "Credit Card CVV (security code)" %>
 >>>>>>> master
     </div>
 
@@ -93,10 +93,10 @@
 =======
       <%= f.label :Credit_Card_Expiration %><br>
       <%= f.label :month %>
-      <%= f.select :month, 1 .. 12, class: 'form-control' %>
+      <%= f.select :month, 1..12, class: "form-control" %>
 
       <%= f.label :year %>
-      <%= f.select :year, 19 .. 25, class: 'form-control' %>
+      <%= f.select :year, 19..25, class: "form-control" %>
 >>>>>>> master
     </div>
 

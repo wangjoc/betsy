@@ -37,11 +37,11 @@ puts "Loading raw merchant data from #{MERCHANT_FILE}"
 merchant_failures = []
 CSV.foreach(MERCHANT_FILE, :headers => true) do |row|
   merchant = Merchant.new
-  merchant.name = row['name']
-  merchant.uid = row['uid']
-  merchant.provider = row['provider']
-  merchant.email = row['email']
-  merchant.avatar = row['avatar']
+  merchant.name = row["name"]
+  merchant.uid = row["uid"]
+  merchant.provider = row["provider"]
+  merchant.email = row["email"]
+  merchant.avatar = row["avatar"]
 
   successful = merchant.save
   if !successful
@@ -71,13 +71,11 @@ CSV.foreach(PRODUCT_FILE, :headers => true) do |row|
   product.stock = row["stock"]
   product.merchant_id = rand(1..Merchant.all.length)
 
-
-  
   if product.price > 25
-    product.categories<< Category.first
-  else 
-    product.categories<< Category.first
-    product.categories<< Category.last
+    product.categories << Category.first
+  else
+    product.categories << Category.first
+    product.categories << Category.last
   end
 
   successful = product.save
@@ -126,19 +124,19 @@ puts "Loading raw customer data from #{CUSTOMER_FILE}"
 order_failures = []
 CSV.foreach(CUSTOMER_FILE, :headers => true) do |row|
   order = Order.new
-  order.buyer_name = row['buyer_name']
-  order.email_address = row['email_address']
-  order.mail_address = row['mail_address']
-  order.zip_code = row['zip_code']
-  order.cc_num = "************" + row['cc_num']
-  order.cc_exp = row['cc_exp']
+  order.buyer_name = row["buyer_name"]
+  order.email_address = row["email_address"]
+  order.mail_address = row["mail_address"]
+  order.zip_code = row["zip_code"]
+  order.cc_num = "************" + row["cc_num"]
+  order.cc_exp = row["cc_exp"]
   order.cc_cvv = "***"
 
   rand(1..5).times do |i|
     order.order_items << OrderItem.new(
-                          product_id: rand(1..Product.all.length),
-                          quantity: i
-                        )
+      product_id: rand(1..Product.all.length),
+      quantity: i,
+    )
   end
 
   successful = order.save
