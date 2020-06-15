@@ -3,13 +3,15 @@ order_one:
   email_address: madhatter@ingary.com
   mail_address: Howl's Moving Castle
   zip_code: 12345
-  cc_num: 1111
-  cc_exp: 123456
+  cc_num: "************1111"
+  cc_exp: 1230
+  cc_cvv: "***"
 order_two:
   buyer_name: Sophie Hatter
   email_address: madhatter@ingary.com
   mail_address: Howl's Moving Castle
   zip_code: 12345
-  cc_num: 1111
-  cc_exp: 123456
+  cc_num: "************2222"
+  cc_exp: 1230
+  cc_cvv: "***"
   

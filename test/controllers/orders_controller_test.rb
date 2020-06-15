@@ -69,35 +69,41 @@ describe OrdersController do
 
   describe "create" do
     # TODO - create second of these test to make sure they work if merchant is logged in (might eventually change so that merchant can't buy own product?)
-    # TODO - JW change zip code to be integer instead of string
     let (:customer_info) {
       {
         order: {
-          buyer_name: "Ye Xiu",
-          email_address: "lordgrim@glory.com",
-          mail_address: "Happy Internet Cafe",
-          zip_code: "11111",
-          cc_num: 1111,
-          cc_exp: 111111,
+          buyer_name: "Huang Shaotian",
+          email_address: "troublingrain@glory.com",
+          mail_address: "City Blue Rain",
+          zip_code: 33333,
+          cc_one: 1111,
+          cc_two: 1111,
+          cc_three: 1111,
+          cc_four: 1111,
+          month: 12,
+          year: 20,
+          cc_cvv: 111,
         },
       }
     }
 
     it "creates a new order" do
       populate_cart
-        
+      # binding.pry
       expect {
         post orders_path, params: customer_info
       }.must_differ 'Order.count', 1
-
+      # binding.pry
       must_respond_with :redirect
       must_redirect_to confirm_path
+      
       expect(Order.last.buyer_name).must_equal customer_info[:order][:buyer_name]
       expect(Order.last.email_address).must_equal customer_info[:order][:email_address]
       expect(Order.last.mail_address).must_equal customer_info[:order][:mail_address]
-      expect(Order.last.zip_code).must_equal customer_info[:order][:zip_code]
-      expect(Order.last.cc_num).must_equal customer_info[:order][:cc_num]
-      expect(Order.last.cc_exp).must_equal customer_info[:order][:cc_exp]
+      expect(Order.last.zip_code).must_equal customer_info[:order][:zip_code].to_s
+      expect(Order.last.cc_num).must_equal "************1111"
+      expect(Order.last.cc_exp).must_equal "1220"
+      expect(Order.last.cc_cvv).must_equal "***"
 
       expect(Order.last.order_items[0]).must_equal OrderItem.last
     end
@@ -147,10 +153,8 @@ describe OrdersController do
     end
 
     it "cannot create a new order if missing credit card is wrong length" do 
-      #TODO change to limiting length later (will need to update seeds and yml as well)
-      #TODO make sure only last four digits of CC are kept
       populate_cart
-      customer_info[:order][:cc_num] = nil
+      customer_info[:order][:cc_one] = ""
 
       expect {
         post orders_path, params: customer_info
@@ -159,10 +163,9 @@ describe OrdersController do
       must_respond_with :bad_request
     end
 
-    it "cannot create a new order if past exp date" do 
-      #TODO change to expired date later, still figuring out how to format the info
+    it "cannot create a new order if invalid date" do 
       populate_cart
-      customer_info[:order][:cc_exp] = nil
+      customer_info[:order][:month] = "234"
 
       expect {
         post orders_path, params: customer_info
@@ -171,7 +174,6 @@ describe OrdersController do
       must_respond_with :bad_request
     end
 
-    # TODO - make sure that value of key cannot be 0 (no zero items created - might go to ORderItem test)
     it "cannot create order if there are no items in shopping cart" do
       expect {
         post orders_path, params: customer_info
@@ -186,12 +188,17 @@ describe OrdersController do
       let (:customer_info) {
         {
           order: {
-            buyer_name: "Ye Xiu",
-            email_address: "lordgrim@glory.com",
-            mail_address: "Happy Internet Cafe",
-            zip_code: "11111",
-            cc_num: 1111,
-            cc_exp: 111111,
+            buyer_name: "Huang Shaotian",
+            email_address: "troublingrain@glory.com",
+            mail_address: "City Blue Rain",
+            zip_code: 33333,
+            cc_one: 1111,
+            cc_two: 1111,
+            cc_three: 1111,
+            cc_four: 1111,
+            month: 12,
+            year: 20,
+            cc_cvv: 111,
           },
         }
       }
@@ -242,12 +249,17 @@ describe OrdersController do
     let (:customer_info) {
       {
         order: {
-          buyer_name: "Ye Xiu",
-          email_address: "lordgrim@glory.com",
-          mail_address: "Happy Internet Cafe",
-          zip_code: "11111",
-          cc_num: 1111,
-          cc_exp: 111111,
+          buyer_name: "Huang Shaotian",
+          email_address: "troublingrain@glory.com",
+          mail_address: "City Blue Rain",
+          zip_code: 33333,
+          cc_one: 1111,
+          cc_two: 1111,
+          cc_three: 1111,
+          cc_four: 1111,
+          month: 12,
+          year: 20,
+          cc_cvv: 111,
         },
       }
     }
@@ -296,17 +308,22 @@ describe OrdersController do
 
   describe "cancel" do
     let (:customer_info) {
-          {
-            order: {
-              buyer_name: "Ye Xiu",
-              email_address: "lordgrim@glory.com",
-              mail_address: "Happy Internet Cafe",
-              zip_code: "11111",
-              cc_num: 1111,
-              cc_exp: 111111,
-            },
-          }
-        }
+      {
+        order: {
+          buyer_name: "Huang Shaotian",
+          email_address: "troublingrain@glory.com",
+          mail_address: "City Blue Rain",
+          zip_code: 33333,
+          cc_one: 1111,
+          cc_two: 1111,
+          cc_three: 1111,
+          cc_four: 1111,
+          month: 12,
+          year: 20,
+          cc_cvv: 111,
+        },
+      }
+    }
     
     before do
       populate_cart
@@ -399,12 +416,17 @@ describe OrdersController do
     let (:customer_info) {
       {
         order: {
-          buyer_name: "Ye Xiu",
-          email_address: "lordgrim@glory.com",
-          mail_address: "Happy Internet Cafe",
-          zip_code: 11111,
-          cc_num: 1111,
-          cc_exp: 111111,
+          buyer_name: "Huang Shaotian",
+          email_address: "troublingrain@glory.com",
+          mail_address: "City Blue Rain",
+          zip_code: 33333,
+          cc_one: 1111,
+          cc_two: 1111,
+          cc_three: 1111,
+          cc_four: 1111,
+          month: 12,
+          year: 20,
+          cc_cvv: 111,
         },
       }
     }
@@ -498,12 +520,17 @@ describe OrdersController do
       let (:customer_info) {
         {
           order: {
-            buyer_name: "Ye Xiu",
-            email_address: "lordgrim@glory.com",
-            mail_address: "Happy Internet Cafe",
-            zip_code: 11111,
-            cc_num: 1111,
-            cc_exp: 111111,
+            buyer_name: "Huang Shaotian",
+            email_address: "troublingrain@glory.com",
+            mail_address: "City Blue Rain",
+            zip_code: 33333,
+            cc_one: 1111,
+            cc_two: 1111,
+            cc_three: 1111,
+            cc_four: 1111,
+            month: 12,
+            year: 20,
+            cc_cvv: 111,
           },
         }
       }
@@ -547,12 +574,17 @@ describe OrdersController do
       let (:customer_info) {
         {
           order: {
-            buyer_name: "Ye Xiu",
-            email_address: "lordgrim@glory.com",
-            mail_address: "Happy Internet Cafe",
-            zip_code: 11111,
-            cc_num: 1111,
-            cc_exp: 111111,
+            buyer_name: "Huang Shaotian",
+            email_address: "troublingrain@glory.com",
+            mail_address: "City Blue Rain",
+            zip_code: 33333,
+            cc_one: 1111,
+            cc_two: 1111,
+            cc_three: 1111,
+            cc_four: 1111,
+            month: 12,
+            year: 20,
+            cc_cvv: 111,
           },
         }
       }
