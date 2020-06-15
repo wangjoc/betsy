@@ -1,6 +1,6 @@
-# require "test_helper"
+ require "test_helper"
 
-# describe HomepagesController do
+ describe HomepagesController do
 #   describe "root" do
 #     describe "root without login (guest)" do
 #       it "must get home if there are enough products and merchants" do
@@ -22,6 +22,8 @@
       before do 
         perform_login
       end
+    end
+  end
 
 #       it "must get home if there are enough products and merchants" do
 #         get root_path
