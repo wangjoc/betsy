@@ -1,0 +1,8 @@
+review_one:
+  rating: 3
+  review_text: This is a product
+  product: lion
+review_two:
+  rating: 5
+  review_text: Would buy again
+  product: toliet

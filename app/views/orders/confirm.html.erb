@@ -1,0 +1,15 @@
+<div class='page-container'>
+<h1 class='title'>You're Still Considering This?? </h1>
+<div class="jumbotron">
+  <h1 class="display-4">Your Order Details (Order #<%= @order.id %>)</h1>
+  <p class="lead">Take a look before you complete your purchase:</p>
+  <hr class="my-4">
+
+<%= render partial: "shared/order_details", locals: { item_set: @order.order_items } %>
+
+<%#TODO: Leah will make these buttons bigger %>
+
+
+<%= link_to "Purchase Order", purchase_path, method: :patch, class: "btn btn-info" %>
+<%= link_to "Cancel Order", cancel_path(@order.id), method: :patch, class: "btn btn-info" %>
+</div>
