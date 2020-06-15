@@ -6,15 +6,15 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-require 'csv'
+require "csv"
 
-CATEGORY_FILE = Rails.root.join('db', 'category_seeds.csv')
+CATEGORY_FILE = Rails.root.join("db", "category_seeds.csv")
 puts "Loading raw category data from #{CATEGORY_FILE}"
 
 category_failures = []
 CSV.foreach(CATEGORY_FILE, :headers => true) do |row|
   category = Category.new
-  category.category = row['category']
+  category.category = row["category"]
 
   successful = category.save
   if !successful
@@ -31,7 +31,7 @@ puts "#{category_failures.length} category failed to save"
 ###########################################################
 ###########################################################
 
-MERCHANT_FILE = Rails.root.join('db', 'merchant_seeds.csv')
+MERCHANT_FILE = Rails.root.join("db", "merchant_seeds.csv")
 puts "Loading raw merchant data from #{MERCHANT_FILE}"
 
 merchant_failures = []
@@ -58,17 +58,17 @@ puts "#{merchant_failures.length} merchant failed to save"
 ###########################################################
 ###########################################################
 
-PRODUCT_FILE = Rails.root.join('db', 'products_seeds.csv')
+PRODUCT_FILE = Rails.root.join("db", "products_seeds.csv")
 puts "Loading raw product data from #{PRODUCT_FILE}"
 
 product_failures = []
 CSV.foreach(PRODUCT_FILE, :headers => true) do |row|
   product = Product.new
-  product.name = row['name']
-  product.description= row['description']
-  product.price = row['price']
-  product.photo_url = row['photo_url']
-  product.stock = row['stock']
+  product.name = row["name"]
+  product.description = row["description"]
+  product.price = row["price"]
+  product.photo_url = row["photo_url"]
+  product.stock = row["stock"]
   product.merchant_id = rand(1..Merchant.all.length)
 
 
@@ -95,14 +95,14 @@ puts "#{product_failures.length} products failed to save"
 ###########################################################
 ###########################################################
 
-REVIEW_FILE = Rails.root.join('db', 'review_seeds.csv')
+REVIEW_FILE = Rails.root.join("db", "review_seeds.csv")
 puts "Loading raw review data from #{REVIEW_FILE}"
 
 review_failures = []
 CSV.foreach(REVIEW_FILE, :headers => true) do |row|
   review = Review.new
-  review.rating = row['rating']
-  review.review_text = row['review_text']
+  review.rating = row["rating"]
+  review.review_text = row["review_text"]
   review.product_id = rand(1..Product.all.length)
 
   successful = review.save
@@ -120,7 +120,7 @@ puts "#{review_failures.length} reviews failed to save"
 ###########################################################
 ###########################################################
 
-CUSTOMER_FILE = Rails.root.join('db', 'customer_seeds.csv')
+CUSTOMER_FILE = Rails.root.join("db", "customer_seeds.csv")
 puts "Loading raw customer data from #{CUSTOMER_FILE}"
 
 order_failures = []

@@ -7,7 +7,7 @@ class ProductsController < ApplicationController
     session[:return_to] = products_path
   end
 
-  def show    
+  def show
     if @product.nil?
       redirect_to products_path
       return
@@ -24,13 +24,13 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.new(product_params) 
+    @product = Product.new(product_params)
 
     if @product.save 
       flash[:success] = "Successfully added new product: #{view_context.link_to "##{@product.id} #{@product.name}", product_path(@product.id) }"
       redirect_to product_path(@product.id)
       return
-    else 
+    else
       render :new, status: :bad_request
       return
     end
@@ -58,14 +58,14 @@ class ProductsController < ApplicationController
       flash[:success] = "Successfully edited new product: #{view_context.link_to "##{@product.id} #{@product.name}", product_path(@product.id) }"
       redirect_to product_path(@product.id)
       return
-    else 
-      render :edit, status: :bad_request 
+    else
+      render :edit, status: :bad_request
       return
     end
   end
 
   def add_to_cart
-    if @product.nil? 
+    if @product.nil?
       head :not_found
       return
     end
@@ -96,7 +96,7 @@ class ProductsController < ApplicationController
   end
 
   def remove_from_cart
-    if @product.nil? 
+    if @product.nil?
       head :not_found
       return
     end
@@ -144,5 +144,4 @@ class ProductsController < ApplicationController
   def find_product
     @product = Product.find_by(id: params[:id])
   end
-
 end

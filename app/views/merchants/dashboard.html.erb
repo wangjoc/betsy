@@ -39,7 +39,7 @@
     <%= link_to "Add New Category", new_category_path, class: "btn btn-info" %>
   </div>
   
-</div> <%# end jumbotron%>
+</div> <%# end jumbotron %>
 
 
 <div class="jumbotron">
@@ -65,7 +65,7 @@
     <tbody>
       <% @merchant.products.each do |product| %>
         <tr class="clickable-tr" >
-          <td><%= link_to product_path(product.id) do%><%= product.name %><%end%></td>
+          <td><%= link_to product_path(product.id) do %><%= product.name %><% end %></td>
           <td><%= product.description %></td>
           <td><%= product.price %></td>
           <td><%= product.stock %></td>

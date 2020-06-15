@@ -9,8 +9,8 @@
 <% end %>
 
 <h1 class='title'> Review Your Order </h2>
-<%# TODO JW to refactor the calculations into a model, consider if session hash can be converted to OrderItem here %>
-<%# TODO LH Says: COOL!  I'd love to put the total at the top really big and loud but NBD if it doesn't happen soon or ever! %>
+<% # TODO JW to refactor the calculations into a model, consider if session hash can be converted to OrderItem here %>
+<% # TODO LH Says: COOL!  I'd love to put the total at the top really big and loud but NBD if it doesn't happen soon or ever! %>
 
 <div class='container-md'>
   <h2 class='subtitle3'><i class="fas fa-shopping-cart"></i> Items in Your Cart</h3>
@@ -36,25 +36,25 @@
 </div>
 
 <div class=container-sm>
-  <h1 class='subtitle2 text-right'><%= "Your Order Total: $#{total}"%></h1>
+  <h1 class='subtitle2 text-right'><%= "Your Order Total: $#{total}" %></h1>
 </div>
 
 <hr/>
 
-<%# TODO: We talked about making a different page for this form - maybe, maybe not %>
+<% # TODO: We talked about making a different page for this form - maybe, maybe not %>
 <div class="container-sm customer-info">
   <h3 class='subtitle3'>Please enter your billing & shipping information:</h3>
   <h4 class='subtitle4 text-muted'>(But remember this is a student project, so please don't give us your real info... <i class="fas fa-laugh-wink"></i>) </h4>
 
-  <%= form_with model: @order, class: 'user-form' do |f| %>
+  <%= form_with model: @order, class: "user-form" do |f| %>
    
     <div class="form-group">
       <%= f.label :name %><br>
-      <%= f.text_field :buyer_name, class: "form-control-lg", placeholder: "Name on Credit Card"%>
+      <%= f.text_field :buyer_name, class: "form-control-lg", placeholder: "Name on Credit Card" %>
     </div>
     <div class="form-group">
       <%= f.label :mail_address %><br>
-      <%= f.text_field :mail_address, class: "form-control-lg", placeholder: "Mailing Address"%>
+      <%= f.text_field :mail_address, class: "form-control-lg", placeholder: "Mailing Address" %>
     </div>
     <div class="form-group">
       <%= f.label :zip_code %><br>
@@ -62,30 +62,44 @@
     </div>
     <div class="form-group">
       <%= f.label :email_address %><br>
-      <%= f.text_field :email_address, class: "form-control-lg", placeholder: "Email Address"%>
+      <%= f.text_field :email_address, class: "form-control-lg", placeholder: "Email Address" %>
     </div>
     <div class="form-group">
       <%= f.label :Credit_Card_Number %><br>
+<<<<<<< HEAD
+      <%= f.text_field :cc_num, class: "form-control-lg", placeholder: "Credit Card Number" %>
+=======
       <%= f.text_field :cc_one, :maxlength => 4, class: "form-control-lg"%>-
       <%= f.text_field :cc_two, :maxlength => 4, class: "form-control-lg"%>-
       <%= f.text_field :cc_three, :maxlength => 4, class: "form-control-lg"%>-
       <%= f.text_field :cc_four, :maxlength => 4, class: "form-control-lg"%>
+>>>>>>> master
     </div>
 
     <div class="form-group">
+<<<<<<< HEAD
+      <%= f.label :Credit_Card_Expiration %><br>
+      <%= f.text_field :cc_exp, class: "form-control-lg", placeholder: "Credit Card Expiration" %>
+=======
       <%= f.label :Credit_Card_CVV %><br>
       <%= f.text_field :cc_cvv, :maxlength => 3, class: "form-control-lg", placeholder: "Credit Card CVV (security code)"%>
+>>>>>>> master
     </div>
 
     <div class="form-group">
+<<<<<<< HEAD
+      <%= f.label :Credit_Card_CVV %><br>
+      <%= f.text_field :cc_cvv, class: "form-control-lg", placeholder: "Credit Card CVV (security code)" %>
+=======
       <%= f.label :Credit_Card_Expiration %><br>
       <%= f.label :month %>
       <%= f.select :month, 1 .. 12, class: 'form-control' %>
 
       <%= f.label :year %>
       <%= f.select :year, 19 .. 25, class: 'form-control' %>
+>>>>>>> master
     </div>
 
-    <%= f.submit action_name == "New" ? "Review Order" : "Update Order" , class: "order-button" %>
+    <%= f.submit action_name == "New" ? "Review Order" : "Update Order", class: "order-button" %>
   <% end %>
 </div>

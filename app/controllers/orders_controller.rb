@@ -70,7 +70,7 @@ class OrdersController < ApplicationController
       redirect_to confirm_path
       flash[:success] = "Thanks for creating an order! Please confirm your regrets to render payment."
       return
-    else 
+    else
       render :new, status: :bad_request
       return
     end
@@ -171,5 +171,4 @@ class OrdersController < ApplicationController
   def find_order
     @order = Order.find_by(id: params[:id])
   end
-
 end

@@ -1,11 +1,7 @@
 class CategoriesController < ApplicationController
   before_action :require_login, only: [:new, :create]
 
-  def new
-    @category = Category.new
-  end
-
-  def show  
+  def show
     @category = Category.find_by(id: params[:id])
 
     if @category.nil?
@@ -19,13 +15,13 @@ class CategoriesController < ApplicationController
   end  
 
   def create
-    @category = Category.new(category_params) 
+    @category = Category.new(category_params)
 
-    if @category.save 
+    if @category.save
       redirect_to dashboard_path
       flash[:success] = "Successfully created category: #{@category.category}"
       return
-    else 
+    else
       render :new, status: :bad_request
       return
     end
@@ -36,5 +32,4 @@ class CategoriesController < ApplicationController
   def category_params
     return params.require(:category).permit(:category)
   end
-
 end

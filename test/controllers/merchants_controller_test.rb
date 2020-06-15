@@ -121,9 +121,13 @@ describe MerchantsController do
   #     op = OrderProduct.first
   #     perform_login(merchant)
       
-  #     get merchant_confirmation_path(op.order_id)
-  #     must_respond_with :success
-  #   end
+#   # end
+
+
+
+
+
+    # end
 
   #   it "should not get into a confirmation page if not logged in" do 
       
