@@ -2,7 +2,7 @@
   <ul class="errors">
     <% @category.errors.each do |column, message| %>
       <div class="alert alert-danger" role="alert">
-        <%= "Order #{column} #{message}. Please enter a valid #{column}." %>
+        <%= "Category #{column} #{message}. Please enter a valid #{column}." %>
       </div>
     <% end %>
   </ul>
