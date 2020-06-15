@@ -6,7 +6,7 @@
 
 <%= button_to "Return to Dashboard", dashboard_path, method: :get, class: "btn btn-info" %>
 
-<% if !@order.order_items[0].is_shipped && order.status == "paid" %>
+<% if !@order.order_items[0].is_shipped && @order.status == "paid" %>
   <%= button_to "Ship Products", ship_path(@order.id), method: :patch, class: "btn btn-info" %>
 <% end %>
 

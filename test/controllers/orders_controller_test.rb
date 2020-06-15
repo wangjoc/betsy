@@ -28,6 +28,13 @@ describe OrdersController do
         must_respond_with :redirect
         must_redirect_to dashboard_path
       end
+
+      it "redirect to dashboard if order doesn't exist" do
+        get order_path(-1)
+
+        must_respond_with :redirect
+        must_redirect_to dashboard_path
+      end
     end
   end
 

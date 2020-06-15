@@ -4,7 +4,13 @@ class OrdersController < ApplicationController
   before_action :require_login, only: [:show, :ship]
   
 
-  def show    
+  def show  
+    if @order.nil?
+      flash[:warning] = "This order does not exist"
+      redirect_to dashboard_path
+      return
+    end
+
     if Order.contains_merchant?(@order.id, session[:merchant_id])
       @order_items = OrderItem.items_by_order_merchant(@order.id, session[:merchant_id])
       @order_revenue = OrderItem.order_revenue(@order.id, session[:merchant_id])
