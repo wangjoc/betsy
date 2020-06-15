@@ -10,7 +10,7 @@ class Product < ApplicationRecord
 
 
   def self.by_merchant(id)
-    # products = Product.where("id > ?", 1)
+    # products = Product.where("id > ?", 1) 
     return Product.where(merchant_id: id)
   end
 
@@ -18,7 +18,7 @@ class Product < ApplicationRecord
   def self.by_category(id)
     products = []
     Product.all.each do |product|
-      products << product if product.category_ids.include? id
+      products << product if product.category_ids.include? id 
     end
     return products
   end

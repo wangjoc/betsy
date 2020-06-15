@@ -18,10 +18,10 @@
 #       end
 #     end
 
-#     describe "root without login (guest)" do
-#       before do
-#         perform_login
-#       end
+    describe "root without login (guest)" do
+      before do 
+        perform_login
+      end
 
 #       it "must get home if there are enough products and merchants" do
 #         get root_path

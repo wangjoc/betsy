@@ -8,10 +8,10 @@
   
     <div class="col-sm-7">
       <div class="card-body">
-        <h2 class="card-title"><%= @product.name %></h5>
-          <p class="card-text"><%= @product.description %></p>
-          <p class="card-text">Price: $<%= @product.price %></p>
-          <p class="card-text">In Stock: <%= @product.stock %></p>
+        <h2 class="card-title"><%=@product.name%></h5>
+          <p class="card-text"><%=@product.description%></p>
+          <p class="card-text">Price: <%= sprintf("$%2.2f", @product.price)%></p>
+          <p class="card-text">In Stock: <%=@product.stock%></p>
           <p class="card-text">Sold by: <%= link_to "#{@product.merchant.name} (ID: #{@product.merchant.uid})", merchant_path(@product.merchant.id) %> </p>
           Category:
             <% @product.category_ids.each do |category_id| %>
@@ -36,7 +36,7 @@
 
 <div class='reviews'>
   <h1 class='subtitle2'>Product Reviews</h1>
-  <% # We don't need @reviews, we can just use @product.reviews here and I'm taking out the index method in reviews - Leah %>
+  <%# We don't need @reviews, we can just use @product.reviews here and I'm taking out the index method in reviews - Leah %>
   <div class='reviews-container'>
   <%= render partial: "shared/reviews", locals: { review_set: @product.reviews } %>
   </div>

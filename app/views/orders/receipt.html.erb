@@ -5,7 +5,7 @@
     <h1 class="display-4">Your Order Details (Order #<%= @order.id %>)</h1>
     <p class="lead">Enjoying your regrets:</p>
     <hr class="my-4">
-<% # TODO Leah will update this view %>
+<%# TODO Leah will update this view %>
 
 <%= render partial: "shared/order_details", locals: { item_set: @order.order_items } %>
 <%= link_to "Return to Browsing", products_path, method: :get, class: "btn btn-info" %>

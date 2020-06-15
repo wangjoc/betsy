@@ -5,7 +5,7 @@ describe Order do
     OrderItem.new(
       quantity: 10,
       product: products(:diaper),
-      is_shipped: false,
+      is_shipped: false
     )
   }
 
@@ -18,11 +18,11 @@ describe Order do
       cc_num: "************1111",
       cc_exp: 1230,
       cc_cvv: "***",
-      order_items: [order_item],
+      order_items: [order_item]
     )
   }
 
-  before do
+  before do 
     @order_one = orders(:order_one)
     @order_two = orders(:order_two)
     @merchant_faker = merchants(:faker)
@@ -185,7 +185,7 @@ describe Order do
     end
 
     it "credit card exp single month digit works" do
-      new_order.cc_exp = "0101"
+      new_order.cc_exp = '0101'
       expect(new_order.valid?).must_equal true
     end
 
@@ -198,7 +198,7 @@ describe Order do
     end
 
     it "cvv input is incorrect" do
-      new_order.cc_cvv = "*******"
+      new_order.cc_cvv = '*******'
 
       expect(new_order.valid?).must_equal false
       expect(new_order.errors.messages).must_include :cc_cvv
@@ -206,7 +206,7 @@ describe Order do
     end
 
     it "cvv input is incorrect" do
-      new_order.cc_cvv = "dfgh"
+      new_order.cc_cvv = 'dfgh'
 
       expect(new_order.valid?).must_equal false
       expect(new_order.errors.messages).must_include :cc_cvv
@@ -215,7 +215,7 @@ describe Order do
 
     it "must have order items" do
       new_order.order_items = []
-
+      
       expect(new_order.valid?).must_equal false
       expect(new_order.errors.messages).must_include :order_items
       expect(new_order.errors.messages[:order_items]).must_equal ["can't be blank"]
@@ -230,8 +230,8 @@ describe Order do
       end
 
       it "doesn't contain merchant order doesn't have their product" do
-        expect(Order.contains_merchant?(@order_one.id, @merchant_dancingrain.id)).must_equal false
-        expect(Order.contains_merchant?(@order_two.id, @merchant_dancingrain.id)).must_equal false
+        expect(Order.contains_merchant?(@order_one.id, @merchant_dancingrain.id)).must_equal false  
+        expect(Order.contains_merchant?(@order_two.id, @merchant_dancingrain.id)).must_equal false 
         expect(Order.contains_merchant?(@order_two.id, @merchant_faker.id)).must_equal false
       end
     end
