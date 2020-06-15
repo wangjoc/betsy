@@ -32,7 +32,7 @@ class Product < ApplicationRecord
         end
       end
       featured = products.sort_by {|product| - product.avg_rating }
-      return featured [0..[4,array.length].min]
+      return featured [0..[4,featured.length].min]
     end
     
   def avg_rating
