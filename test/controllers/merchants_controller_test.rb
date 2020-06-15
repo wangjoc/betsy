@@ -1,45 +1,45 @@
 require "test_helper"
 
 describe MerchantsController do
-  # describe "show" do
-  #   before do 
-  #     @merchant_faker = merchants(:faker)
-  #   end
+  describe "show" do
+    before do 
+      @merchant_faker = merchants(:faker)
+    end
 
-  #   describe "show without login (guest)" do
-  #     it "can get the show page for valid merchant" do
-  #       get merchant_path(@merchant_faker.id)
+    describe "show without login (guest)" do
+      it "can get the show page for valid merchant" do
+        get merchant_path(@merchant_faker.id)
 
-  #       must_respond_with :success
-  #     end
+        must_respond_with :success
+      end
 
-  #     it "redirect show if invalid merchant" do
-  #       get merchant_path(-1)
+      it "redirect show if invalid merchant" do
+        get merchant_path(-1)
 
-  #       must_respond_with :redirect
-  #       must_redirect_to products_path
-  #     end
-  #   end
+        must_respond_with :redirect
+        must_redirect_to products_path
+      end
+    end
 
-  #   describe "show with login as merchant" do
-  #     before do 
-  #       perform_login
-  #     end
+    describe "show with login as merchant" do
+      before do 
+        perform_login
+      end
 
-  #     it "can get the show page for valid merchant" do
-  #       get merchant_path(@merchant_faker.id)
+      it "can get the show page for valid merchant" do
+        get merchant_path(@merchant_faker.id)
 
-  #       must_respond_with :success
-  #     end
+        must_respond_with :success
+      end
 
-  #     it "redirect show if invalid merchant" do
-  #       get merchant_path(-1)
+      it "redirect show if invalid merchant" do
+        get merchant_path(-1)
 
-  #       must_respond_with :redirect
-  #       must_redirect_to products_path
-  #     end
-  #   end
-  # end
+        must_respond_with :redirect
+        must_redirect_to products_path
+      end
+    end
+  end
 
   describe 'create/login' do
     it 'can login an existing user' do
@@ -128,15 +128,4 @@ describe MerchantsController do
   #   it "should not get into a confirmation page if not logged in" do 
       
   # end
-
-
-
-
-
-
-
-
-
-
-
 end
