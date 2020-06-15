@@ -217,9 +217,12 @@ describe OrdersController do
 
       it "changes status of pending order to paid" do 
         expect(Order.last.status).must_equal "pending"
+        expect(Order.last.order_items[0].product.stock).must_equal products(:lion).stock
+
         patch purchase_path(Order.last.id)
 
         expect(Order.last.status).must_equal "paid"
+        expect(Order.last.order_items[0].product.stock).must_equal products(:lion).stock - Order.last.order_items[0].quantity
         must_respond_with :redirect
         must_redirect_to receipt_path
       end
