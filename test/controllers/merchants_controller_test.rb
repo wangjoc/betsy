@@ -41,7 +41,7 @@ describe MerchantsController do
   #   end
   # end
 
-  describe 'login' do
+  describe 'create/login' do
     it 'can login an existing user' do
       merchant = perform_login(merchants(:faker))
 
@@ -98,24 +98,22 @@ describe MerchantsController do
     end
   end
 
+  describe "dashboard" do 
+    it "can get the dashboard page if logged in" do 
+      merchant = merchants(:faker)
+      perform_login(merchant)
+      get dashboard_path
 
+      must_respond_with :success
+    end
 
+    it "can't get to the dashboard page if not logged in" do 
+      get dashboard_path 
 
-  # describe "dashboard" do 
-  #   it "can get the dashboard page" do 
-  #     merchant = merchants(:hannah)
-  #     perform_login(merchant)
-  #     get dashboard_path
-
-  #     must_respond_with :success
-  #   end
-
-  #   it "can't get to the dashboard page if not logged in" do 
-  #     get dashboard_path 
-
-  #     must_respond_with :not_found
-  #   end
-  # end
+      must_respond_with :redirect
+      must_redirect_to root_path
+    end
+  end
 
   # describe "confirmation" do 
   #   it "can get to a confirmation page" do 
