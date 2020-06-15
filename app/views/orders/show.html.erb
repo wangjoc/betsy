@@ -2,15 +2,15 @@
 <h1 class='title'>Nice Job Suckering in Some Cash ;)</h1>
 <div class="jumbotron">
   <h1 class="display-4">Order Details (Order #<%= @order.id %>)</h1>
-  <p class="lead">Order Information:</p>
   <hr class="my-4">
 
 <%= button_to "Return to Dashboard", dashboard_path, method: :get, class: "btn btn-info" %>
-<%= button_to "Ship Products", ship_path(@order.id), method: :patch, class: "btn btn-info" %>
 
-<h3>Products have been shipped: Boolean</h3>
+<% if !@order.order_items[0].is_shipped && @order.status == "paid" %>
+  <%= button_to "Ship Products", ship_path(@order.id), method: :patch, class: "btn btn-info" %>
+<% end %>
 
 <%= render partial: "shared/order_details", locals: { item_set: @order_items } %>
 
-<% #TODO: Leah will make these buttons bigger %>
+<%#TODO: Leah will make these buttons bigger %>
 
