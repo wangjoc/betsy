@@ -20,4 +20,10 @@ class Order < ApplicationRecord
     # query checks to see if the order contains the merchant
     return !Order.where(:id => order_id).joins(:order_items => :product).where(:products => {:merchant_id => merch_id}).empty?
   end
+
+  def total_price_for_merchant(merchant_id)
+    order_items.joins(:product).where(products: {merchant_id: merchant_id}).reduce(0) do |sum, item|
+      sum + item.product.price * item.quantity
+    end
+  end
 end

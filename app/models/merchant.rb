@@ -41,26 +41,24 @@ class Merchant < ApplicationRecord
     return  Merchant.order('created_at DESC')[0..[Merchant.all.length,2].min]
   end
 
-
-
-  
-  def orders_of_status(status)
-    # something goes here
+    def orders_of_status(status)
+      Order.joins(order_items: :product).where(orders: {status: status}, products: {merchant_id: id}) 
     end
+  # Order.joins(:order_items => :product).where(:products => { :merchant_id => 1 }, :orders => {:status => "pending"} ).uniq
   
     def revenue_of_status(status)
-      #some logic goes here for sum and total price
-  
+      orders = orders_of_status(status)
+      orders.reduce(0) do |sum, order|
+        sum + order.total_price_for_merchant(id)
+      end
     end
   
     def order_count(status)
-      #logic goes here
+      orders_of_status(status).count
     end
   
     def total_revenue
-      return revenue_of_status(:pending) + revenue_of_status(:shipped)
+     revenue_of_status(:paid) + revenue_of_status(:shipped) #clairfy
     end
-
-  
   end
 
