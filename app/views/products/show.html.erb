@@ -21,13 +21,11 @@
                 </div>
             <% end %>
 
-          <%= link_to "Add to Cart", add_to_cart_path(@product.id), method: :patch, class: "btn btn-primary " %>
+          <%= link_to "Add to Cart", add_to_cart_path(@product.id), method: :patch, class: "btn btn-info " %>
           
-          <% # TODO: This needs to be refactored show show edit product ONLY if the product's merchant id matches the session merchant id - maybe move this only to the dashboard %>
-          <% if session[:merchant_id] %>
-          <%= link_to "Edit this Product", edit_product_path(@product.id), class: "btn btn-primary " %>
+          <% if session[:merchant_id] != @product.merchant.id %>
+            <%= link_to "Review Product", new_product_review_path(@product.id), method: :get, class: "btn btn-info" %>
           <% end %>
-          <% # TODO: Need a button to leave a review %>
       </div>
     </div>
   </div>
@@ -38,7 +36,10 @@
 
 <div class='reviews'>
   <h1 class='subtitle2'>Product Reviews</h1>
-  <%= render partial: "shared/reviews", locals: { review_set: @reviews } %>
+  <%# We don't need @reviews, we can just use @product.reviews here and I'm taking out the index method in reviews - Leah %>
+  <div class='reviews-container'>
+  <%= render partial: "shared/reviews", locals: { review_set: @product.reviews } %>
+  </div>
 </div>
 
 <hr/>

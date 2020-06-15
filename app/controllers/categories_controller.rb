@@ -1,8 +1,5 @@
 class CategoriesController < ApplicationController
-  def index
-    @products_by_category = Product.categorize_by_category
-    session[:return_to] = categories_path
-  end
+  before_action :require_login, only: [:new, :create]
 
   def show
     @category = Category.find_by(id: params[:id])
@@ -19,7 +16,7 @@ class CategoriesController < ApplicationController
 
     if @category.save
       redirect_to dashboard_path
-      # flash[:success] = "Successfully created new category"
+      flash[:success] = "Successfully created category: #{@category.category}"
       return
     else
       render :new, status: :bad_request

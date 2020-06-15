@@ -14,14 +14,14 @@
   <hr/>
       <h1 class='subtitle2'>Featured Regrets:</h1>
       <h3 class='subtitle3'>Most Recent Regrets!</h3>
-        <%= render partial: "shared/card", locals: { product_set: @featured_products } %>
+        <%= render partial: "shared/card", locals: { product_set: @featured_products } if !@featured_products.empty? %>
         <hr/>
       <h3 class='subtitle3'>Top Reviewed Regrets!</h3>
-        <%= render partial: "shared/card", locals: { product_set: @featured_products } %>
+        <%= render partial: "shared/card", locals: { product_set: @featured_products } if !@featured_products.empty? %>
         <hr/>
       <h3 class='subtitle3'>Featured Merchants!</h3>
       <% #TODO Optional refactor - add photo, change to top selling item - THIS IS PIE IN THE SKY NOT NECESSARY %>
-        <%= render partial: "shared/merchants", locals: { merchant_set: @featured_merchants } %>
+        <%= render partial: "shared/merchants", locals: { merchant_set: @featured_merchants } if !@featured_merchants.empty? %>
         <hr/>
     </div>
   </div>

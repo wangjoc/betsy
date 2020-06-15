@@ -1,39 +1,16 @@
 <div class='page-container'>
-<h1 class='title'>You're Still Considering This?? </h1>
+<h1 class='title'>Nice Job Suckering in Some Cash ;)</h1>
 <div class="jumbotron">
-  <h1 class="display-4">Your Order Details (Order #<%= @order.id %>)</h1>
-  <p class="lead">Take a look before you complete your purchase:</p>
+  <h1 class="display-4">Order Details (Order #<%= @order.id %>)</h1>
+  <p class="lead">Order Information:</p>
   <hr class="my-4">
-<% #TODO: Leah Will reformat this into a table %>
-<div class="container-sm">
-  <h2>Product Detail: this is going to be a table someday soon</h2>
-    <% @order.order_items.each do |order_item| %>
-      <%= order_item.product.name %><br>
-      <%= "Quantity: #{order_item.quantity}" %><br>
-      <%= "Price: #{order_item.product.price}" %><br>
-    <% end %>
-</div>
 
-  <div class='card-deck'>
-    <div class="card" style="width: 18rem;">
-      <div class="card-body">
-          <h5 class="card-title">Customer Details:</h5>
-          
-      </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item"><%= "Customer Name: #{@order.buyer_name}" %></li>
-        <li class="list-group-item"><%= "Email Address: #{@order.email_address}" %></li>
-        <li class="list-group-item"><%= "Mail Address: #{@order.mail_address}" %></li>
-        <li class="list-group-item"><%= "Last Four Digits of Credit Card: #{@order.cc_num}" %></li>
-        <li class="list-group-item"><%= "Credit Card Expiration: #{@order.cc_exp}" %></li>
-      </ul>
-    </div>
-    </div>
+<%= button_to "Return to Dashboard", dashboard_path, method: :get, class: "btn btn-info" %>
+<%= button_to "Ship Products", ship_path(@order.id), method: :patch, class: "btn btn-info" %>
 
-<% #TODO: Leah will make these buttons bigger %>
-<% #TODO: The link to complete order is broken - also should redirect to a confirmation page (which we can put in the application controller and I can style tomorrow %>
-<%= button_to "Complete Order", orders_path, method: :get %><br>
+<h3>Products have been shipped: Boolean</h3>
 
-<% # TODO: Maybe the cancel order path should clear the cart and redirect to the root? %>
-<%= button_to "Cancel Order", order_path(@order.id), method: :get %><br>
-</div>
+<%= render partial: "shared/order_details", locals: { item_set: @order_items } %>
+
+<%#TODO: Leah will make these buttons bigger %>
+

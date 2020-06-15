@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-  # before_action :require_login
   before_action :navigation_data
 
   def navigation_data
@@ -14,7 +13,7 @@ class ApplicationController < ActionController::Base
 
   def require_login
     if current_merchant.nil?
-      flash[:error] = "You must be logged in to do that"
+      flash[:warning] = "Please #{ view_context.link_to "login", github_login_path } to perform this action"
       redirect_to root_path
     end
   end

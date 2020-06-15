@@ -1,7 +1,5 @@
-name,uid,provider,email
-wangjoc,59269516,github,wangjoc@gmail.com
-stpatrickchild,03171989,github,stpatrickchild@yahoo.com
-faker,123456789,github,faker@gmail.com
-winniepooh,987654321,github,honey@hundredacres.com
-lazyday,876534567,github,relax@zzzzzzz.com
-secretadmirer,56978723,github,dontmindme@XOXOX.com
+name,uid,provider,email,avatar
+faker,123456789,github,faker@gmail.com,https://imgur.com/Q6snmV7.jpg
+winniepooh,987654321,github,honey@hundredacres.com,https://imgur.com/Q6snmV7.jpg
+lazyday,876534567,github,relax@zzzzzzz.com,https://imgur.com/Q6snmV7.jpg
+secretadmirer,56978723,github,dontmindme@XOXOX.com,https://imgur.com/Q6snmV7.jpg
