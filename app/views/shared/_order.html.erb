@@ -2,10 +2,11 @@
     <% order_set.each do |order| %>
       <div class="card">
         <div class="card-body">
+          <% order_items = OrderItem.items_by_order_merchant(order.id, session[:merchant_id]) %>
           <p class='card-text'><strong>Order: </strong><%= link_to order.id, order_path(order.id) %></p>
           <p class='card-text'><strong>Order Date: </strong><%= order.created_at.strftime("%B %d, %Y") %></p>
           <p class='card-text'><strong>Order Status: </strong><%= order.status.capitalize %></p>
-          <p class='card-text'><strong>Shipping Status: </strong><%= order.order_items[0].is_shipped ? "Shipped" : "Not Shipped"%></p>
+          <p class='card-text'><strong>Shipping Status: </strong><%= order_items[0].is_shipped ? "Shipped" : "Not Shipped"%></p>
           <p class='card-text'><strong>Item List: </strong></p>
       
           <table class="table table-hover">
@@ -17,7 +18,7 @@
               </tr>
             </thead>
             <tbody>
-            <% order.order_items.each do |order_item| %>
+            <% order_items.each do |order_item| %>
               <tr>
                 <td><%= link_to order_item.product.name, product_path(order_item.product.id) %></td>
                 <td><%= "#{order_item.quantity}" %></td>
@@ -30,7 +31,7 @@
           <p class='card-text'>Total Revenue: <%= sprintf("$%2.2f", OrderItem.order_revenue(order.id, @merchant.id)) %></p>
 
           <div class='btn-container'>
-          <% if !order.order_items[0].is_shipped && order.status == "paid" %>
+          <% if !order_items[0].is_shipped && order.status == "paid" %>
             <%= button_to "Ship Products", ship_path(order.id), method: :patch, class: "btn btn-info btn-lg" %>
           <% end %>
           </div>

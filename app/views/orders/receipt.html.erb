@@ -5,7 +5,7 @@
     <p class="lead">Enjoying your regrets:</p>
     <hr class="my-4">
 
-<%= render partial: "shared/order_details", locals: { item_set: @order.order_items } %>
+<%= render partial: "shared/order_details", locals: { item_set: @order.order_items, ship_status: @order.order_items[0].is_shipped } %>
 <%= link_to "Return to Browsing", products_path, method: :get, class: "btn btn-info" %>
 
 
