@@ -56,6 +56,7 @@ class Product < ApplicationRecord
   def decrease_stock(quantity)
     if self.stock >= quantity
       self.stock -= quantity
+      self.save
       return true
     else
       return false
