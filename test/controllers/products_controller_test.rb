@@ -1,25 +1,25 @@
 require "test_helper"
 
 describe ProductsController do
-  before do 
+  before do
     merch_params = {
       name: "Harry Potter",
       uid: "123456",
       provider: "github",
       email: "harrypotter@hogwarts.com",
-      avatar: "https://i.imgur.com/JWfZcrG.jpg"
+      avatar: "https://i.imgur.com/JWfZcrG.jpg",
     }
 
     Merchant.create(merch_params)
 
     @prod_params = {
-      name: "Used Diapers", 
+      name: "Used Diapers",
       description: "Best-selling product! Especially known for it's special fragrance.",
       price: 99.99,
       photo_url: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ2WjvkDEuH0p5E24TITgJkjV-szXPIvxXT1La-nd7PcbFPxsre&usqp=CAU",
       stock: 10,
-      merchant_id: 1
-     }
+      merchant_id: 1,
+    }
   end
 
   describe "index" do
@@ -28,7 +28,7 @@ describe ProductsController do
       Product.create(@prod_params)
 
       get "/products"
-      must_respond_with :success   
+      must_respond_with :success
     end
 
     it "responds with success when there are no products saved" do
@@ -71,7 +71,7 @@ describe ProductsController do
   #     let (:product_hash) {
   #       {
   #         product: {
-  #           name: "Soiled Diapers", 
+  #           name: "Soiled Diapers",
   #           description: "Best-selling product! Especially known for it's special fragrance.",
   #           price: 99.99,
   #           photo_url: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ2WjvkDEuH0p5E24TITgJkjV-szXPIvxXT1La-nd7PcbFPxsre&usqp=CAU",
@@ -88,7 +88,7 @@ describe ProductsController do
 
   #       must_respond_with :redirect
   #       must_redirect_to product_path(Product.last.id)
-        
+
   #       expect(Product.last.name).must_equal product_params[:product][:name]
   #       expect(Product.last.description).must_equal product_params[:product][:description]
   #     end
@@ -246,7 +246,7 @@ describe ProductsController do
         get "/products/#{invalid_product_id}"
         must_respond_with :redirect
       end
-    end  
+    end
   end
 
   describe "remove_from_cart" do
@@ -300,7 +300,7 @@ describe ProductsController do
     end
 
     describe "remove_from_cart login as master" do
-      before do 
+      before do
         perform_login
       end
 
@@ -381,7 +381,7 @@ describe ProductsController do
     end
 
     describe "remove_from_cart login as merchant" do
-      before do 
+      before do
         perform_login
       end
       it "remove all type of product from cart, if in cart" do

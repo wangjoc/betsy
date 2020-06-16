@@ -1,7 +1,7 @@
 require "test_helper"
 
 describe CategoriesController do
-  describe 'new' do 
+  describe "new" do
     describe "new without login (guest)" do
       it "cannot create new category if not signed in" do
         get new_category_path
@@ -27,8 +27,8 @@ describe CategoriesController do
     let (:new_category) {
       {
         category: {
-          category: "Weapons"
-        }
+          category: "Weapons",
+        },
       }
     }
 
@@ -36,7 +36,7 @@ describe CategoriesController do
       it "cannot create new category if not signed in" do
         expect {
           post categories_path, params: new_category
-        }.must_differ 'Category.count', 0
+        }.must_differ "Category.count", 0
 
         must_respond_with :redirect
         must_redirect_to root_path
@@ -51,7 +51,7 @@ describe CategoriesController do
       it "create new category if signed in" do
         expect {
           post categories_path, params: new_category
-        }.must_differ 'Category.count', 1
+        }.must_differ "Category.count", 1
 
         must_respond_with :redirect
         must_redirect_to dashboard_path
@@ -62,15 +62,15 @@ describe CategoriesController do
 
         expect {
           post categories_path, params: new_category
-        }.must_differ 'Category.count', 0
-        
+        }.must_differ "Category.count", 0
+
         must_respond_with :bad_request
       end
     end
   end
-  
+
   describe "show" do
-    before do 
+    before do
       @category_indoor = categories(:indoor)
     end
 
@@ -90,7 +90,7 @@ describe CategoriesController do
     end
 
     describe "show with login as merchant" do
-      before do 
+      before do
         perform_login
       end
 

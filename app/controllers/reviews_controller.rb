@@ -1,12 +1,11 @@
 class ReviewsController < ApplicationController
-
-  def new 
+  def new
     @product = Product.find_by(id: params[:product_id])
     @review = Review.new
   end
 
   def create
-    @review = Review.new(review_params) 
+    @review = Review.new(review_params)
     @product = Product.find_by(id: review_params[:product_id])
 
     if @product.nil?
@@ -21,11 +20,11 @@ class ReviewsController < ApplicationController
       return
     end
 
-    if @review.save 
+    if @review.save
       redirect_to product_path(@review.product.id)
       flash[:success] = "Thanks for leaving a review for #{@review.product.name}"
       return
-    else 
+    else
       # TODO - figure out a way to do it with render and bad request instead
       redirect_to new_product_review_path(review_params[:product_id])
       flash[:warning] = "Must enter a rating to create a review"

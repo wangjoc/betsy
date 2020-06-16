@@ -7,7 +7,7 @@ describe Merchant do
       description: "Ultimate weapon (silver grade). Makes the unspecialized class feasible.",
       price: 1000,
       photo_url: "https://imgur.com/wC1RZzd",
-      stock: 5
+      stock: 5,
     )
   }
 
@@ -17,10 +17,9 @@ describe Merchant do
       uid: "11111111",
       name: "Bao Rong Xing",
       email: "steamedbuninvasion@glory.com",
-      avatar: "https://imgur.com/Q6snmV7.jpg"
+      avatar: "https://imgur.com/Q6snmV7.jpg",
     )
   }
-
 
   before do
     @merchant_faker = merchants(:faker)
@@ -46,7 +45,7 @@ describe Merchant do
 
   # https://stackoverflow.com/questions/34981661/creating-two-objects-in-one-controller-and-attaching-them-to-each-other-in-rails
   describe "relationships" do
-    before do 
+    before do
       new_merchant.save
       @merchant = Merchant.last
     end
@@ -93,7 +92,7 @@ describe Merchant do
       expect(new_merchant.errors.messages[:uid]).must_equal ["can't be blank"]
     end
 
-    it 'must have unique uid' do
+    it "must have unique uid" do
       new_merchant.uid = Merchant.last.uid
       result = new_merchant.save
 
@@ -113,10 +112,10 @@ describe Merchant do
 
       expect(new_merchant.valid?).must_equal false
       expect(new_merchant.errors.messages).must_include :email
-      expect(new_merchant.errors.messages[:email]).must_equal ["can't be blank","is invalid"]
+      expect(new_merchant.errors.messages[:email]).must_equal ["can't be blank", "is invalid"]
     end
 
-    it 'must have unique email' do
+    it "must have unique email" do
       new_merchant.email = Merchant.last.email
       result = new_merchant.save
 
@@ -177,7 +176,6 @@ describe Merchant do
         expect(OrderItem.all.length).must_equal order_item_count
       end
 
-
       it "returns empty array if merchant doesn't exist" do
         expect(Merchant.get_merchant_orders(-1)).must_be_empty
       end
@@ -190,7 +188,7 @@ describe Merchant do
           merchant_order[merchant.id] = Merchant.get_merchant_order_items(merchant.id).size
         end
 
-        sorted = merchant_order.sort_by {|k, v| v}.reverse
+        sorted = merchant_order.sort_by { |k, v| v }.reverse
         featured_sort = Merchant.featured_merchants
 
         expect(featured_sort[0].id).must_equal sorted[0][0]
@@ -219,7 +217,7 @@ describe Merchant do
           merchant_order[merchant.id] = merchant.created_at
         end
 
-        sorted = merchant_order.sort_by {|k, v| v}
+        sorted = merchant_order.sort_by { |k, v| v }
         newest_sort = Merchant.newest_merchants
 
         expect(newest_sort[0].id).must_equal sorted[0][0]
@@ -241,7 +239,7 @@ describe Merchant do
       @merchant = merchants(:order_status_merchant)
     end
 
-    describe "orders of status" do  
+    describe "orders of status" do
       it "return order of status :pending" do
         order_array = @merchant.orders_of_status(:pending)
         expect(order_array.size).must_equal 1

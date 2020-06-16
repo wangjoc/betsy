@@ -113,35 +113,35 @@ describe Product do
 
     it "has a merchant" do
       merchant = Merchant.first
-      
-      product = Product.create(name: "product", price: 599.99,photo_url: "https://i.imgur.com/JWfZcrG.jpg",  stock: 5, merchant: merchant)
-      
+
+      product = Product.create(name: "product", price: 599.99, photo_url: "https://i.imgur.com/JWfZcrG.jpg", stock: 5, merchant: merchant)
+
       expect(product).must_respond_to :merchant
       expect(product.merchant).must_be_kind_of Merchant
     end
-    
+
     it "has a category" do
       product = products(:diaper)
-      
+
       expect(product).must_respond_to :categories
       product.categories.each do |category|
         expect(category).must_be_kind_of Category
       end
     end
-    
+
     it "contains many order items" do
       product = products(:lion)
-      
+
       expect(product.order_items.count).must_equal 2
       expect(product).must_respond_to :order_items
       product.order_items.each do |order_item|
         expect(order_item).must_be_kind_of OrderItem
       end
     end
-    
+
     it "can contain many reviews" do
       product = products(:lion)
-      
+
       expect(product.reviews.count).must_equal 1
       expect(product).must_respond_to :reviews
       product.reviews.each do |review|
@@ -149,42 +149,42 @@ describe Product do
       end
     end
   end
-  
-  describe "custom methods" do 
+
+  describe "custom methods" do
     describe "list of products by category" do
       it "returns a list of products for each category" do
         category = categories(:indoor)
         product = products(:lion)
-        product.categories<< category
+        product.categories << category
         products = Product.by_category(category.id)
         expect(products.count).must_equal 2
       end
     end
-  
+
     describe "in_stock?" do
       it "returns true if given a valid product that has items in stock" do
         product = products(:lion)
         expect(product.in_stock?).must_equal true
       end
-  
+
       it "returns false if the current product is out of stock" do
         product = products(:toilet)
         product.stock = 0
         expect(product.in_stock?).must_equal false
       end
     end
-    
+
     it "calculate the average rating of a product with reviews" do
       product = products(:lion)
-      
+
       expect(product.avg_rating).must_equal 3
     end
-    
+
     it "creates a list of featured products" do
       products = Product.featured_products
 
       p products
-      
+
       expect(products).must_be_kind_of Array
       expect(products.first.name).must_equal products(:lion).name
     end

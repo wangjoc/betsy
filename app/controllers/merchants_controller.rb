@@ -2,7 +2,7 @@ class MerchantsController < ApplicationController
   before_action :find_merchant, only: [:show, :dashboard, :logout]
   before_action :require_login, only: [:dashboard]
 
-  def show  
+  def show
     # TODO - create helper/control filter for finding merchnat?
     @merchant = Merchant.find_by(id: params[:id])
 
@@ -39,7 +39,7 @@ class MerchantsController < ApplicationController
         return redirect_to root_path
       end
     end
-    
+
     session[:merchant_id] = merchant.id
     return redirect_to root_path
   end
@@ -70,6 +70,4 @@ class MerchantsController < ApplicationController
   def find_merchant
     @merchant = Merchant.find_by(id: session[:merchant_id])
   end
-
 end
-

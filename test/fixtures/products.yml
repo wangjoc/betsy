@@ -26,7 +26,7 @@ zero_stock:
   price: 50.00
   photo_url: https://imgur.com/paTfP93.jpg
   stock: 0
-  merchant: faker 
+  merchant: faker
 order_total_item_1:
   name: order_total_item_1
   description: Out of stock

@@ -2,7 +2,7 @@ require "test_helper"
 
 describe MerchantsController do
   describe "show" do
-    before do 
+    before do
       @merchant_faker = merchants(:faker)
     end
 
@@ -22,7 +22,7 @@ describe MerchantsController do
     end
 
     describe "show with login as merchant" do
-      before do 
+      before do
         perform_login
       end
 
@@ -41,8 +41,8 @@ describe MerchantsController do
     end
   end
 
-  describe 'create/login' do
-    it 'can login an existing user' do
+  describe "create/login" do
+    it "can login an existing user" do
       merchant = perform_login(merchants(:faker))
 
       must_respond_with :redirect
@@ -50,19 +50,19 @@ describe MerchantsController do
       expect(session[:merchant_id]).must_equal merchants(:faker).id
     end
 
-    it 'can login a new user' do
+    it "can login a new user" do
       new_merchant = Merchant.new(
-                      name: 'rycall', 
-                      provider: 'github', 
-                      uid: 123456789,
-                      email: 'rycall@steam.com',
-                      avatar: 'https://imgur.com/Q6snmV7.jpg'
-                    )
+        name: "rycall",
+        provider: "github",
+        uid: 123456789,
+        email: "rycall@steam.com",
+        avatar: "https://imgur.com/Q6snmV7.jpg",
+      )
 
       expect {
         logged_in_user = perform_login(new_merchant)
       }.must_change "Merchant.count", 1
-      
+
       must_respond_with :redirect
       must_redirect_to root_path
       expect(session[:merchant_id]).must_equal Merchant.last.id
@@ -82,7 +82,7 @@ describe MerchantsController do
   end
 
   describe "logout" do
-    it 'can log out an existing user' do
+    it "can log out an existing user" do
       perform_login
       expect(session[:merchant_id]).wont_be_nil
 
@@ -92,14 +92,14 @@ describe MerchantsController do
       must_redirect_to root_path
     end
 
-    it 'redirects to root path if a guest/non-logged in user tries to logout' do
+    it "redirects to root path if a guest/non-logged in user tries to logout" do
       post logout_path, params: {}
       must_redirect_to root_path
     end
   end
 
-  describe "dashboard" do 
-    it "can get the dashboard page if logged in" do 
+  describe "dashboard" do
+    it "can get the dashboard page if logged in" do
       merchant = merchants(:faker)
       perform_login(merchant)
       get dashboard_path
@@ -107,25 +107,25 @@ describe MerchantsController do
       must_respond_with :success
     end
 
-    it "can't get to the dashboard page if not logged in" do 
-      get dashboard_path 
+    it "can't get to the dashboard page if not logged in" do
+      get dashboard_path
 
       must_respond_with :redirect
       must_redirect_to root_path
     end
   end
 
-  # describe "confirmation" do 
-  #   it "can get to a confirmation page" do 
+  # describe "confirmation" do
+  #   it "can get to a confirmation page" do
   #     merchant = merchants(:hannah)
   #     op = OrderProduct.first
   #     perform_login(merchant)
-      
+
   #     get merchant_confirmation_path(op.order_id)
   #     must_respond_with :success
   #   end
 
-  #   it "should not get into a confirmation page if not logged in" do 
-      
+  #   it "should not get into a confirmation page if not logged in" do
+
   # end
 end
