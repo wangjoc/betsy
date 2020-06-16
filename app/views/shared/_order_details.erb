@@ -25,7 +25,7 @@
       <li class="list-group-item"><strong>Order Date: </strong><%= "#{@order.created_at.strftime("%B %d, %Y")}" %></li>
       <li class="list-group-item"><strong>Order Status: </strong><%= @order.status.capitalize %></li>
       <li class="list-group-item"><strong>Order Revenue: </strong><%= sprintf("$%2.2f", @order_revenue) %></li>
-      <li class="list-group-item"><strong>Shipping Status: </strong><%= @order.order_items[0].is_shipped ? "Shipped" : "Not Shipped"%></li>
+      <li class="list-group-item"><strong>Shipping Status: </strong><%= ship_status ? "Shipped" : "Not Shipped"%></li>
     </ul>
   </div>
 </div>

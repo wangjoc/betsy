@@ -5,7 +5,7 @@
   <p class="lead">Take a look before you complete your purchase:</p>
   <hr class="my-4">
 
-<%= render partial: "shared/order_details", locals: { item_set: @order.order_items } %>
+<%= render partial: "shared/order_details", locals: { item_set: @order.order_items, ship_status: @order.order_items[0].is_shipped } %>
 
 <%#TODO: Leah will make these buttons bigger %>
 

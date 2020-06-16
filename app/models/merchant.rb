@@ -25,7 +25,7 @@ class Merchant < ApplicationRecord
 
   # https://stackoverflow.com/questions/19527177/rails-triple-join
   def self.get_merchant_orders(id)
-    return Order.joins(:order_items => :product).where(:products => {:merchant_id => id}).uniq
+    return Order.order('id').joins(:order_items => :product).where(:products => {:merchant_id => id}).uniq
   end
 
   def self.featured_merchants
@@ -41,26 +41,23 @@ class Merchant < ApplicationRecord
     return  Merchant.order('created_at DESC')[0..[Merchant.all.length,2].min]
   end
 
-
-
-  
   def orders_of_status(status)
-    # something goes here
-    end
-  
-    def revenue_of_status(status)
-      #some logic goes here for sum and total price
-  
-    end
-  
-    def order_count(status)
-      #logic goes here
-    end
-  
-    def total_revenue
-      return revenue_of_status(:pending) + revenue_of_status(:shipped)
-    end
-
-  
+    Order.joins(order_items: :product).where(orders: {status: status}, products: {merchant_id: id}) 
   end
+
+  def revenue_of_status(status)
+    orders = orders_of_status(status)
+    orders.reduce(0) do |sum, order|
+      sum + order.total_price_for_merchant(id)
+    end
+  end
+
+  def order_count(status)
+    orders_of_status(status).count
+  end
+
+  def total_revenue
+   revenue_of_status(:paid) + revenue_of_status(:shipped) 
+  end
+end
 
