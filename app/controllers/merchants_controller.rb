@@ -66,12 +66,6 @@ class MerchantsController < ApplicationController
 
   private
 
-  # TODO - Hannah, what is this method doing? Do we really need it?
-  # def check_merchant
-  #   unless @merchant
-  #     render_404
-  #   end
-  # end
 
   def find_merchant
     @merchant = Merchant.find_by(id: session[:merchant_id])

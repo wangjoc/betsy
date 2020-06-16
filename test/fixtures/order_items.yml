@@ -33,3 +33,23 @@ order_total_merchant_2_item_2:
   product: toilet
   order: the_order_total_order
   is_shipped: false
+order_status_pending:
+  quantity: 1
+  product: order_status_product
+  order: order_status_pending
+  is_shipped: false
+order_status_shipped:
+  quantity: 2
+  product: order_status_product
+  order: order_status_shipped
+  is_shipped: false
+order_status_paid:
+  quantity: 3
+  product: order_status_product
+  order: order_status_paid
+  is_shipped: false
+order_status_cancel:
+  quantity: 4
+  product: order_status_product
+  order: order_status_cancel
+  is_shipped: false

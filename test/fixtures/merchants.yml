@@ -22,3 +22,9 @@ order_total_merchant_1:
   provider: github
   email: mary@icloud.com
   avatar: https://i.imgur.com/JWfZcrG.jpg
+order_status_merchant:
+  name: liya
+  uid: 08052005
+  provider: github
+  email: liya@icloud.com
+  avatar: https://i.imgur.com/JWfZcrG.jpg

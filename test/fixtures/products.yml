@@ -40,3 +40,10 @@ order_total_item_2:
   photo_url: https://imgur.com/paTfP93.jpg
   stock: 10
   merchant: order_total_merchant_1
+order_status_product:
+  name: order_status_product
+  merchant: order_status_merchant
+  description: Out of stock
+  price: 5
+  photo_url: https://imgur.com/paTfP93.jpg
+  stock: 10
