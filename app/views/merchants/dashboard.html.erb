@@ -13,22 +13,22 @@
             <p class="card-text">Total Overall Revenue: <%= sprintf("$%2.2f", 100)%></p>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">Pending: <%= sprintf("$%2.2f", 100)%></li>
-          <li class="list-group-item">Paid: <%= sprintf("$%2.2f", 100)%></li>
-          <li class="list-group-item">Complete: <%= sprintf("$%2.2f", 100)%></li>
-          <li class="list-group-item">Cancelled: <%= sprintf("$%2.2f", 100)%></li>
+          <li class="list-group-item">Pending: <%= sprintf("$%2.2f", @merchant.revenue_of_status('pending'))%></li>
+          <li class="list-group-item">Paid: <%= sprintf("$%2.2f", @merchant.revenue_of_status('paid'))%></li>
+          <li class="list-group-item">Complete: <%= sprintf("$%2.2f", @merchant.revenue_of_status('complete'))%></li>
+          <li class="list-group-item">Cancelled: <%= sprintf("$%2.2f", @merchant.revenue_of_status('cancelled'))%></li>
         </ul>
       </div>
       <div class="card" style="width: 18rem;">
         <div class="card-body">
             <h5 class="card-title">Total Orders</h5>
-            <p class="card-text">Total Overall Orders: ###</p>
+            <p class="card-text">Total Overall Orders: <%= @merchant.total_orders %></p>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">Pending: ###</li>
-          <li class="list-group-item">Paid: ###</li>
-          <li class="list-group-item">Complete: ###</li>
-          <li class="list-group-item">Cancelled: ###</li>
+          <li class="list-group-item">Pending: <%= @merchant.order_count('pending') %> </li>
+          <li class="list-group-item">Paid: <%= @merchant.order_count('paid') %> </li>
+          <li class="list-group-item">Complete: <%= @merchant.order_count('complete') %> </li>
+          <li class="list-group-item">Cancelled: <%= @merchant.order_count('cancelled') %> </li>
         </ul>
       </div>
     </div> <%# end deck %>
