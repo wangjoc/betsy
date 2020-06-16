@@ -233,4 +233,48 @@ describe Merchant do
       end
     end
   end
+
+  describe "cusomer methods" do
+    before do
+      @merchant = merchants(:order_status_merchant)
+    end
+
+    describe "orders of status" do
+      it "return order of status :pending" do
+        order_array = @merchant.orders_of_status(:pending)
+        expect(order_array.size).must_equal 1
+        order = order_array[0]
+        expect(order.status).must_equal "pending"
+        expect(order.order_items.size).must_equal 1
+        expect(order.order_items[0].quantity).must_equal 1
+      end
+
+      it "return orders of status :shipped" do
+        order_array = @merchant.orders_of_status(:shipped)
+        expect(order_array.size).must_equal 1
+        order = order_array[0]
+        expect(order.status).must_equal "shipped"
+        expect(order.order_items.size).must_equal 1
+        expect(order.order_items[0].quantity).must_equal 2
+      end
+
+      it "return orders of status :paid" do
+        order_array = @merchant.orders_of_status(:paid)
+        expect(order_array.size).must_equal 1
+        order = order_array[0]
+        expect(order.status).must_equal "paid"
+        expect(order.order_items.size).must_equal 1
+        expect(order.order_items[0].quantity).must_equal 3
+      end
+
+      it "return orders of status :cancel" do
+        order_array = @merchant.orders_of_status(:cancel)
+        expect(order_array.size).must_equal 1
+        order = order_array[0]
+        expect(order.status).must_equal "cancel"
+        expect(order.order_items.size).must_equal 1
+        expect(order.order_items[0].quantity).must_equal 4
+      end
+    end
+  end
 end
