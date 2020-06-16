@@ -69,17 +69,22 @@ CSV.foreach(PRODUCT_FILE, :headers => true) do |row|
   product.price = row['price']
   product.photo_url = row['photo_url']
   product.stock = row['stock']
+  product.tags = row['tags']
   product.merchant_id = rand(1..Merchant.all.length)
 
 
-  
-  if product.price > 25
-    product.category_ids<< Category.first.id
-  else 
-    product.category_ids<< Category.first.id
-    product.category_ids<< Category.last.id
+  #add a column in product seed file name of category for each product and find them and add them manually
+  categorym = Category.all
+  productm = Product.all
+  categorym.each do |category|
+    productm.each do |product|
+      if product.tags.include?(category.category)
+        product.category_ids<< category.id
+        category.products<< product
+      end 
+    end
   end
-
+  
   successful = product.save
   if !successful
     product_failures << product

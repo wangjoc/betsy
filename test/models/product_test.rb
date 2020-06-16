@@ -151,23 +151,15 @@ describe Product do
   end
   
   describe "custom methods" do 
-    # describe "list of products by category" do
-    #   it "returns a list of products for each category" do
-    #     category = categories(:indoor)
-    #     category1 = categories(:outdoor)
-    #     product = products(:lion)
-    #     product1= products(:diaper)
-    #     product.category_ids<< category.id
-    #     product1.category_ids<< category.id
-    #     p product
-    #     p product.category_ids
-    #     p category.id
-    #     p category
-    #     products = Product.by_category(category.id)
-    #     p products
-    #     expect(products.count).must_equal 1
-    #   end
-    # end
+    describe "list of products by category" do
+      it "returns a list of products for each category" do
+        category = categories(:indoor)
+        product = products(:lion)
+        product.categories<< category
+        products = Product.by_category(category.id)
+        expect(products.count).must_equal 2
+      end
+    end
   
     describe "in_stock?" do
       it "returns true if given a valid product that has items in stock" do
