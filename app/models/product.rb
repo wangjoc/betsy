@@ -62,4 +62,10 @@ class Product < ApplicationRecord
     end
   end
 
+  def retire_product(id)
+    product = Product.find_by(id: id)
+    product.stock = 0
+  end 
+
+
 end
