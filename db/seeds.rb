@@ -73,16 +73,16 @@ CSV.foreach(PRODUCT_FILE, :headers => true) do |row|
   product.merchant_id = rand(1..Merchant.all.length)
 
   #add a column in product seed file name of category for each product and find them and add them manually
-  categorym = Category.all
-  productm = Product.all
-  categorym.each do |category|
-    productm.each do |product|
-      if product.tags.include?(category.category)
-        product.category_ids << category.id
-        category.products << product
-      end
-    end
-  end
+  # categorym = Category.all
+  # productm = Product.all
+  # categorym.each do |category|
+  #   productm.each do |product|
+  #     if product.tags.include?(category.category)
+  #       product.category_ids << category.id
+  #       category.products << product
+  #     end
+  #   end
+  # end
 
   successful = product.save
   if !successful
@@ -90,6 +90,10 @@ CSV.foreach(PRODUCT_FILE, :headers => true) do |row|
     puts "Failed to save product: #{product.inspect}"
   else
     puts "Created product: #{product.inspect}"
+    row['tags'].split(":").each do |category|
+      binding.pry if category.nil? || Category.find_by(category: category.strip).nil?
+      product.categories<< Category.find_by(category: category.strip)
+    end
   end
 end
 
