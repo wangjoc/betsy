@@ -14,4 +14,48 @@ order_two:
   cc_num: "************2222"
   cc_exp: 1230
   cc_cvv: "***"
+the_order_total_order:
+  buyer_name: Sophie Hatter
+  email_address: madhatter@ingary.com
+  mail_address: Howl's Moving Castle
+  zip_code: 12345
+  cc_num: "************2222"
+  cc_exp: 1230
+  cc_cvv: "***"
+order_status_shipped:
+  status: shipped
+  buyer_name: Sophie Hatter
+  email_address: madhatter@ingary.com
+  mail_address: Howl's Moving Castle
+  zip_code: 12345
+  cc_num: "************2222"
+  cc_exp: 1230
+  cc_cvv: "***"
+order_status_paid:
+  status: paid
+  buyer_name: Sophie Hatter
+  email_address: madhatter@ingary.com
+  mail_address: Howl's Moving Castle
+  zip_code: 12345
+  cc_num: "************2222"
+  cc_exp: 1230
+  cc_cvv: "***"
+order_status_pending:
+  status: pending
+  buyer_name: Sophie Hatter
+  email_address: madhatter@ingary.com
+  mail_address: Howl's Moving Castle
+  zip_code: 12345
+  cc_num: "************2222"
+  cc_exp: 1230
+  cc_cvv: "***"
+order_status_cancel:
+  status: cancel
+  buyer_name: Sophie Hatter
+  email_address: madhatter@ingary.com
+  mail_address: Howl's Moving Castle
+  zip_code: 12345
+  cc_num: "************2222"
+  cc_exp: 1230
+  cc_cvv: "***"
   
