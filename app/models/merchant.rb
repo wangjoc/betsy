@@ -25,12 +25,10 @@ class Merchant < ApplicationRecord
 
   def avgs_rating
     #merchant = Merchant.where(merchant_id: self.id)
-
-    ratings = self.products.map do |product|
-      product.avg_rating
-    end
-    if ratings.count > 0
-      return (ratings.sum / ratings.count)
+    
+    ratings = self.products.map{|product| product.avg_rating}.reject{|rating| rating.nil?}
+    if ratings.length > 0 
+      return (ratings.sum.to_f / ratings.length).round(2)
     else 
       return 0
     end
