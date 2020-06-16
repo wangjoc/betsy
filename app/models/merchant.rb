@@ -23,6 +23,16 @@ class Merchant < ApplicationRecord
     return OrderItem.joins(:product).where(:products => { :merchant_id => id })
   end
 
+  def avg_rating
+    reviews = Review.where(merchant_id: self.id)
+    ratings = reviews.map do |review|
+      review.rating
+    end
+    if ratings.count > 0
+      return (ratings.sum / ratings.count)
+    end
+  end
+
   # https://stackoverflow.com/questions/19527177/rails-triple-join
   def self.get_merchant_orders(id)
     return Order.order("id").joins(:order_items => :product).where(:products => { :merchant_id => id }).uniq
