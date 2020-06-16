@@ -24,7 +24,7 @@ class Merchant < ApplicationRecord
   end
 
   def avg_rating
-    reviews = Review.where(merchant_id: self.id)
+    reviews = Review.where(merchant_id: Merchant.where(merchant_id: self.id))
     ratings = reviews.map do |review|
       review.rating
     end
