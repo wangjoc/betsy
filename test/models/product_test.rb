@@ -154,10 +154,8 @@ describe Product do
     describe "list of products by category" do
       it "returns a list of products for each category" do
         category = categories(:indoor)
-        product = products(:lion)
-        product.categories<< category
         products = Product.by_category(category.id)
-        expect(products.count).must_equal 2
+        expect(products.count).must_equal 1
       end
     end
   
@@ -185,8 +183,8 @@ describe Product do
 
       p products
       
-      expect(products).must_be_kind_of Array
-      expect(products.first.name).must_equal products(:lion).name
+      expect(products).must_be_kind_of Product
+      expect(products.name).must_equal products(:lion).name
     end
   end
 

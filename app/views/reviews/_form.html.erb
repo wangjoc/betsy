@@ -1,5 +1,5 @@
 <%# TODO - JW Can this error checking be moved to a partial? %>
-
+<div class='page-container'>
 <% if @review.errors.any? %>
   <ul class="errors">
     <% @review.errors.each do |column, message| %>
@@ -31,4 +31,5 @@
 
     <%= f.submit "Submit", class: "order-button" %>
   <% end %>
+</div>
 </div>

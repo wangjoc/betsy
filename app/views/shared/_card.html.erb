@@ -1,16 +1,14 @@
 <div class='card-columns'>
     <% product_set.each do |product| %>
-        <div class="card border-dark">
+        <div class="card">
         <div class=".card-img-top-container">
             <%= image_tag(product.photo_url, class: "card-img-top") %> </div>
             <div class="card-body">
                 <h4 class="card-title"><%= link_to product.name, product_path(product.id) %></h4>
                 <p class="card-text">Sold by: <%= link_to product.merchant.name.capitalize, merchant_path(product.merchant.id) %> </p>
                 <p class='card-text'>Price: <%= sprintf("$%2.2f", product.price) %></p>
-                <div class='d-flex justify-content-center'>
-                <%= link_to "Buy", add_to_cart_path(product.id), method: :patch, class: "btn btn-info sm-txt" %>
-                <%= link_to "Review", new_product_review_path(product.id), method: :get, class: "btn btn-info sm-txt" %>
-                </div>
+                <%= link_to "Add to Cart", add_to_cart_path(product.id), method: :patch, class: "btn btn-info" %>
+                <%= link_to "Review Product", new_product_review_path(product.id), method: :get, class: "btn btn-info" %>
             </div>
         </div>
     <% end %>

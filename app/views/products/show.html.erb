@@ -9,25 +9,23 @@
     <div class="col-sm-7">
       <div class="card-body">
         <h2 class="card-title"><%=@product.name%></h5>
-       <div class='product-info-container'>
-          <p class="card-text text-left"><strong>Description: </strong><%=@product.description%></p>
-          <p class="card-text text-left"><strong>Price: </strong><%= sprintf("$%2.2f", @product.price)%></p>
-          <p class="card-text text-left"><strong>In Stock: </strong><%=@product.stock%></p>
-          <p class="card-text text-left"><strong>Sold by: </strong><%= link_to "#{@product.merchant.name} (ID: #{@product.merchant.uid})", merchant_path(@product.merchant.id) %> </p>
-          <p class="card-text text-left"><strong>Category:</strong> 
+          <p class="card-text"><%=@product.description%></p>
+          <p class="card-text">Price: <%= sprintf("$%2.2f", @product.price)%></p>
+          <p class="card-text">In Stock: <%=@product.stock%></p>
+          <p class="card-text">Sold by: <%= link_to "#{@product.merchant.name} (ID: #{@product.merchant.uid})", merchant_path(@product.merchant.id) %> </p>
+          Category:
             <% @product.category_ids.each do |category_id| %>
                 <% category = Category.find_by(id: category_id) %>
-                <%= link_to category.category, category_path(category.id), class: "btn btn-sm btn-outline-secondary" %> 
+                <div class="card-text">
+                <%= link_to "#{category.category} (ID: #{category.id})", category_path(category.id) %> 
+                </div>
             <% end %>
-            </p>
-          </div>
-  
-          <div class='btn-container'>
-          <%= link_to "Add to Cart", add_to_cart_path(@product.id), method: :patch, class: "btn btn-info btn-lg" %>
+
+          <%= link_to "Add to Cart", add_to_cart_path(@product.id), method: :patch, class: "btn btn-info " %>
+          
           <% if session[:merchant_id] != @product.merchant.id %>
-            <%= link_to "Review Product", new_product_review_path(@product.id), method: :get, class: "btn btn-info btn-lg" %>
+            <%= link_to "Review Product", new_product_review_path(@product.id), method: :get, class: "btn btn-info" %>
           <% end %>
-          </div>
       </div>
     </div>
   </div>
@@ -38,7 +36,8 @@
 
 <div class='reviews'>
   <h1 class='subtitle2'>Product Reviews</h1>
-  <div class='reviews-container d-flex justify-content-center'>
+  <%# We don't need @reviews, we can just use @product.reviews here and I'm taking out the index method in reviews - Leah %>
+  <div class='reviews-container'>
   <%= render partial: "shared/reviews", locals: { review_set: @product.reviews } %>
   </div>
 </div>
@@ -47,8 +46,6 @@
 
 <div class='reviews'>
 <h1 class='subtitle2'>Other Products You May Regret Buying!</h1>
-  <div class='reviews-container mx-auto'>
   <%= render partial: "shared/card", locals: { product_set: @featured_products } %>
-  </div>
 </div>
 

@@ -51,7 +51,7 @@ describe ReviewsController do
         name: 'Prop product',
         description: 'Use me on stage!',
         price: 3.99,
-        photo_url: 'https://imgur.com/paTfP93.jpg',
+        photo_url: 'www.sample.com',
         stock: 3
       )
 

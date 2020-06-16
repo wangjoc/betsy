@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 require "test_helper"
 
 describe HomepagesController do
@@ -8,17 +7,6 @@ describe HomepagesController do
         get root_path
         must_respond_with :success
       end
-=======
- require "test_helper"
-
- describe HomepagesController do
-#   describe "root" do
-#     describe "root without login (guest)" do
-#       it "must get home if there are enough products and merchants" do
-#         get root_path
-#         must_respond_with :success
-#       end
->>>>>>> 65a7a72441cceb042aaf251980dd9b70308dcc01
 
       it "must get home if there are no merchants or products" do
         Review.destroy_all
@@ -34,8 +22,6 @@ describe HomepagesController do
       before do 
         perform_login
       end
-    end
-  end
 
       it "must get home if there are enough products and merchants" do
         get root_path

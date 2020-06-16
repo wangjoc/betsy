@@ -10,6 +10,7 @@
 
 <h1 class='title'> Review Your Order </h2>
 <%# TODO JW to refactor the calculations into a model, consider if session hash can be converted to OrderItem here %>
+<%# TODO LH Says: COOL!  I'd love to put the total at the top really big and loud but NBD if it doesn't happen soon or ever! %>
 
 <div class='container-md'>
   <h2 class='subtitle3'><i class="fas fa-shopping-cart"></i> Items in Your Cart</h3>
@@ -23,19 +24,19 @@
         <div class="card-body">
           <h5 class="card-title"><%= product.name %></h5>
           <p class="card-text"><%= "Quantity: #{quantity}" %></p>
-          <div class='btn-container'>
-          <%= link_to " + Add Quantity", add_to_cart_path(product.id), method: :patch, class: "btn btn-info inline btn-lg" %>
-          <%= link_to " - Decrease Quantity", remove_from_cart_path(product.id), method: :patch, class: "btn btn-info inline btn-lg" %>
-          <%= link_to " Remove from Cart", delete_from_cart_path(product.id), method: :patch, class: "btn btn-info inline btn-lg" %>
-          </div>
+          
+          <%= button_to " + Add Quantity", add_to_cart_path(product.id), method: :patch, class: "btn btn-light inline" %>
+          <%= button_to " - Decrease Quantity", remove_from_cart_path(product.id), method: :patch, class: "btn btn-light inline" %>
+          <%#TODO: Need a remove product from cart button%>
+          <%= button_to " Remove from Cart", delete_from_cart_path(product.id), method: :patch, class: "btn btn-light inline" %>
         </div>
-        <h5 class="card-header text-right">Subtotal for this product: <%= sprintf("$%2.2f", product.price) %></h5>
+        <h5 class="card-header text-right"><%= "Subtotal for this product: $#{subtotal}" %></h5>
       </div>
     <% end %>
 </div>
 
 <div class=container-sm>
-  <h1 class='subtitle2 text-right'>Your Order Total: <%= sprintf("$%2.2f", total) %></h1>
+  <h1 class='subtitle2 text-right'><%= "Your Order Total: $#{total}"%></h1>
 </div>
 
 <hr/>

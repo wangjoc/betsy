@@ -5,7 +5,6 @@ diaper:
   photo_url: https://i.imgur.com/JWfZcrG.jpg
   stock: 5
   merchant: faker
-  categories: indoor
 toilet:
   name: Open Toliet
   description: Sharing is caring

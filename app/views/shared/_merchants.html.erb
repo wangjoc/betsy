@@ -1,20 +1,13 @@
 <div class='card-deck'>
     <% merchant_set.each do |merchant| %>
-        <div class="card" style="width: 18rem;">
-            <div class='image-container'>
-                <%= image_tag(merchant.avatar, class: "card-img-top profile") %>
-            </div>
-            <div class="card-body">
-                <h5 class="card-title"><strong>Merchant: <%= link_to "#{merchant.name}", merchant_path(merchant.id) %></strong></h5>
-            </div>  
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><strong>Name: </strong><%= merchant.name %></li>
-                    <li class="list-group-item"><strong>Products Sold: </strong>###</li>
-                    <li class="list-group-item"><strong>Average Review: </strong>###</li>
-                </ul>
-            <div class="card-body">
-                <small class="text-muted">Joined <%= merchant.created_at.strftime("%B %d, %Y")%></small>
-            </div> 
+        <div class="card">
+          <div class="card-body">
+              <p class="card-text">Name: <%= link_to "#{merchant.name}", merchant_path(merchant.id) %></p>
+              <p class='card-text'>UID: <%= merchant.uid %></p>
+              <p class='card-text'>Products Sold: #### </p>
+              <p class='card-text'>Orders Fulfilled: #### </p>
+              <%= image_tag(merchant.avatar, class: "card-img-top") %> 
+          </div>
         </div>
     <% end %>
 </div>

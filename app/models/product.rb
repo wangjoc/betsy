@@ -16,15 +16,11 @@ class Product < ApplicationRecord
 
   # TODO - there might be a way to get the data through a query (more  efficient). Might need to reset the relationship between the two tables
   def self.by_category(id)
-    category = Category.find_by(id: id)
-    return category.products.uniq
-    # products = []
-    # self.all.each do |product|
-    #  if product.category_ids.include?(id)
-    #   products<< product
-    #  end
-    # end
-    # return products
+    products = []
+    Product.all.each do |product|
+      products << product if product.category_ids.include? id 
+    end
+    return products
   end
 
   def self.featured_products
@@ -35,8 +31,7 @@ class Product < ApplicationRecord
           products << product
         end
       end
-      featured = products.sort_by {|product| - product.avg_rating }
-      return featured [0..[4,featured.length].min]
+      return products.sort_by {|product| - product.avg_rating }
     end
     
   def avg_rating
@@ -62,10 +57,8 @@ class Product < ApplicationRecord
     end
   end
 
-  def retire_product(id)
-    product = Product.find_by(id: id)
-    product.stock = 0
-  end 
-
-
+  # def increase_stock(quantity)
+  #   self.stock += quantity
+  #   return true
+  # end
 end
