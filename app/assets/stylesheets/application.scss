@@ -17,6 +17,7 @@
 
 @import "**/*";
 
+
 .navbar-brand {
   font-family: 'La Belle Aurore', cursive;
   padding-left: 20px;
@@ -127,4 +128,44 @@ a:hover {
 .page-container {
   background-color: #F8F9FA;
   position: relative;
+}
+
+// modal
+.modal-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+.modal-contain {
+  margin: auto;
+  text-align: center;
+  padding: 10px;
+}
+
+.hala {
+  grid-column-start: 1;
+  grid-row-start: 1;
+}
+
+.hannah {
+  grid-column-start: 2;
+  grid-row-start: 1;
+}
+
+.jocelyn {
+  grid-column-start: 1;
+  grid-row-start: 2;
+}
+
+.leah {
+  grid-column-start: 2;
+  grid-row-start: 2;
+}
+
+.avatar {
+  vertical-align: middle;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
 }
