@@ -37,6 +37,24 @@ describe ReviewsController do
       must_redirect_to product_path(product.id)
     end
 
+    it 'allows logged in merchant to review products they do not sell' do
+      merchant = merchants(:faker)
+      product = products(:lion)
+      perform_login(merchant)
+
+      review_info = {
+        review: {
+          rating: 1,
+          review_text: "Bad looking lions - horrible",
+          product_id: product.id,
+        },
+      }
+
+      expect {
+        post product_reviews_path(product.id), params: review_info
+      }.must_change "Review.count", 1
+    end
+
     it "does not allow merchant to review own products if merchant is logged in" do
       # get a merchant
       merchant = merchants(:faker)
@@ -66,6 +84,8 @@ describe ReviewsController do
       expect {
         post product_reviews_path(product.id), params: review_info
       }.wont_change "Review.count"
+
+      expect(flash[:warning]).must_equal 'Boooo!!! We at regrEtsy pride ourselves in our unbiased reviews. You ought to be ashamed of trying to review your own product! >:('
     end
   end
 end
