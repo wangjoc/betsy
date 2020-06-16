@@ -13,3 +13,23 @@ item_three:
   product: lion
   order: order_two
   is_shipped: false
+order_total_merchant_1_item_1:
+  quantity: 5
+  product: order_total_item_1
+  order: the_order_total_order
+  is_shipped: false
+order_total_merchant_1_item_2:
+  quantity: 2
+  product: order_total_item_2
+  order: the_order_total_order
+  is_shipped: false
+order_total_merchant_2_item_1:
+  quantity: 4
+  product: diaper
+  order: the_order_total_order
+  is_shipped: false
+order_total_merchant_2_item_2:
+  quantity: 1
+  product: toilet
+  order: the_order_total_order
+  is_shipped: false

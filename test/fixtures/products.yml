@@ -25,4 +25,18 @@ zero_stock:
   price: 50.00
   photo_url: https://imgur.com/paTfP93.jpg
   stock: 0
-  merchant: faker
+  merchant: faker 
+order_total_item_1:
+  name: order_total_item_1
+  description: Out of stock
+  price: 18.00
+  photo_url: https://imgur.com/paTfP93.jpg
+  stock: 5
+  merchant: order_total_merchant_1
+order_total_item_2:
+  name: order_total_item_2
+  description: Out of stock
+  price: 52.00
+  photo_url: https://imgur.com/paTfP93.jpg
+  stock: 10
+  merchant: order_total_merchant_1
