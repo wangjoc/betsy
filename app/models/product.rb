@@ -16,13 +16,15 @@ class Product < ApplicationRecord
 
   # TODO - there might be a way to get the data through a query (more  efficient). Might need to reset the relationship between the two tables
   def self.by_category(id)
-    products = []
-    self.all.each do |product|
-     if product.category_ids.include?(id)
-      products<< product
-     end
-    end
-    return products
+    category = Category.find_by(id: id)
+    return category.products.uniq
+    # products = []
+    # self.all.each do |product|
+    #  if product.category_ids.include?(id)
+    #   products<< product
+    #  end
+    # end
+    # return products
   end
 
   def self.featured_products
