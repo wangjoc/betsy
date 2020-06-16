@@ -2,24 +2,24 @@
 <h1 class='title'><%= @merchant.name %>'s Store</h1>
 
 <div class='all-prods-container merchant-page'>
-<div class='merchant-card'>
-  <div class="card" style="width: 18rem;">
-    <div class='image-container'>
-      <%= image_tag(@merchant.avatar, class: "card-img-top profile") %>
+    <div class='merchant-card'>
+        <div class="card" style="width: 18rem;">
+            <div class='image-container'>
+                <%= image_tag(@merchant.avatar, class: "card-img-top profile") %>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"><strong>Merchant Info</strong></h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>Name: </strong><%= @merchant.name %></li>
+                <li class="list-group-item"><strong>Products Sold: </strong><%= @merchant.products.count %></li>
+                <li class="list-group-item"><strong>Average Rating: </strong><%= @merchant.avgs_rating %></li>
+            </ul>
+            <div class="card-body">
+                <small class="text-muted">Joined <%= @merchant.created_at.strftime("%B %d, %Y") %></small>
+            </div>
+        </div>
     </div>
-    <div class="card-body">
-      <h5 class="card-title"><strong>Merchant Info</strong></h5>
-    </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item"><strong>Name: </strong><%= @merchant.name %></li>
-      <li class="list-group-item"><strong>Products Sold: </strong><%= @merchant.products.count %></li>
-      <li class="list-group-item"><strong>Average Rating: </strong>###</li>
-    </ul>
-    <div class="card-body">
-      <small class="text-muted">Joined <%= @merchant.created_at.strftime("%B %d, %Y") %></small>
-    </div>
-  </div>
-</div>
 
-<%= render partial: "shared/card", locals: { product_set: @products } %>
+    <%= render partial: "shared/card", locals: { product_set: @products } %>
 </div>

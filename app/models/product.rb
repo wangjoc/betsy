@@ -43,6 +43,10 @@ class Product < ApplicationRecord
     return self.stock > 0
   end
 
+  def self.most_recent
+    return Product.all.sample(5)
+  end
+
   def decrease_stock(quantity)
     if self.stock >= quantity
       self.stock -= quantity

@@ -23,13 +23,16 @@ class Merchant < ApplicationRecord
     return OrderItem.joins(:product).where(:products => { :merchant_id => id })
   end
 
-  def avg_rating
-    reviews = Review.where(merchant_id: Merchant.where(merchant_id: self.id))
-    ratings = reviews.map do |review|
-      review.rating
+  def avgs_rating
+    #merchant = Merchant.where(merchant_id: self.id)
+
+    ratings = self.products.map do |product|
+      product.avg_rating
     end
     if ratings.count > 0
       return (ratings.sum / ratings.count)
+    else 
+      return 0
     end
   end
 
