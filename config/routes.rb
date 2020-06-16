@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   get "/auth/:provider/callback", to: "merchants#create", as: "omniauth_callback"
   post "/logout", to: "merchants#logout", as: "logout"
 
+  #RESTful Routes
   resources :categories, only: [:show, :new, :create]
   resources :orders, except: [:index]
   resources :merchants, only: [:show, :create]

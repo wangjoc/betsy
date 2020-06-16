@@ -1,13 +1,25 @@
 <%# DISPLAYS ONLY ONE MERCHANT PRODUCTS%>
 <h1 class='title'><%= @merchant.name %>'s Store</h1>
-<%#TODO: Leah needs to work on this view - esp photo size%>
-<%# Maybe make the merchant info into a card %>
-<div class='card'>
-  <h3>Merchant Info</h3>
-  <p> Products Sold: ###</p>
-  <p> Average Review: ###</p>
-  <p> Profile pic: </p>
-  <%= image_tag(@merchant.avatar, class: "card-img-top") %> 
+
+<div class='all-prods-container merchant-page'>
+<div class='merchant-card'>
+  <div class="card" style="width: 18rem;">
+    <div class='image-container'>
+      <%= image_tag(@merchant.avatar, class: "card-img-top profile") %>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title"><strong>Merchant Info</strong></h5>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item"><strong>Name: </strong><%= @merchant.name %></li>
+      <li class="list-group-item"><strong>Products Sold: </strong>###</li>
+      <li class="list-group-item"><strong>Average Review: </strong>###</li>
+    </ul>
+    <div class="card-body">
+      <small class="text-muted">Joined <%=@merchant.created_at.strftime("%B %d, %Y")%></small>
+    </div>
+  </div>
 </div>
 
 <%= render partial: "shared/card", locals: { product_set: @products } %>
+</div>
