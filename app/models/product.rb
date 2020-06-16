@@ -9,21 +9,12 @@ class Product < ApplicationRecord
   validates :price, presence: true, numericality: { greater_than: 0 }, format: { with: /^[0-9]*\.?[0-9]*/, multiline: true, message: "Please enter a price using numbers" }
 
   def self.by_merchant(id)
-    # products = Product.where("id > ?", 1)
     return Product.where(merchant_id: id)
   end
 
-  # TODO - there might be a way to get the data through a query (more  efficient). Might need to reset the relationship between the two tables
   def self.by_category(id)
     category = Category.find_by(id: id)
     return category.products
-    # products = []
-    # self.all.each do |product|
-    #  if product.category_ids.include?(id)
-    #   products<< product
-    #  end
-    # end
-    # return products
   end
 
   def self.featured_products
