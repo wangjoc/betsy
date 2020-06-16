@@ -3,7 +3,7 @@ require "test_helper"
 describe Category do
   let (:new_category) {
     Category.new(
-      category: "Weapons"
+      category: "Weapons",
     )
   }
 
@@ -30,7 +30,7 @@ describe Category do
   end
 
   describe "relationships" do
-    before do 
+    before do
       new_category.save
       @category = Category.last
       @product_diaper = products(:diaper)
@@ -68,7 +68,7 @@ describe Category do
       expect(new_category.errors.messages[:category]).must_equal ["can't be blank"]
     end
 
-    it 'must have unique category' do
+    it "must have unique category" do
       new_category.category = Category.last.category
       result = new_category.save
 

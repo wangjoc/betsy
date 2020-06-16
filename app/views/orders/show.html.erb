@@ -5,7 +5,7 @@
   <hr class="my-4">
 
 <%= button_to "Return to Dashboard", dashboard_path, method: :get, class: "btn btn-info" %>
-<% order_items = OrderItem.items_by_order_merchant(@order.id, session[:merchant_id])%>
+<% order_items = OrderItem.items_by_order_merchant(@order.id, session[:merchant_id]) %>
 <% if !order_items[0].is_shipped && @order.status == "paid" %>
   <%= button_to "Ship Products", ship_path(@order.id), method: :patch, class: "btn btn-info" %>
 <% end %>
