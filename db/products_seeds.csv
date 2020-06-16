@@ -1,34 +1,34 @@
-name,description,price,photo_url,stock
-Nick Cage Pillow,Why couldn’t you just put the bunny back in the box?,5.99,https://i.imgur.com/b5il3hB.jpg,8
-Finger Hands Finger Puppets,Too many fingers,11.99,https://i.imgur.com/rZYSl9N.jpg,100
-Cat Butt Tissue Holder,This tissue box makes the perfect gift for a good hostess friend or someone who just loves cats,35.87,https://i.imgur.com/sba6WGw.jpg,2
-Zane's Potty Training Underwear,State of the art toddlers Underwear this underwear has been washed more than 50 times and only has minor staining on the crotch area colors are faded but that only adds to the uniqueness of this item!,49.99,https://i.imgur.com/JWfZcrG.jpg,5
-Jude's torn up baby book,An amazing story about a bunch of monkeys a few pages are missing but that adds to the excitement of the story!,29.99,https://i.imgur.com/34HkGEr.png,1
-Play Dough,A huge piece of Play Dough it is a little dry that's because it's provided hours of fun for two toddlers, 19.99,https://i.imgur.com/DX3iI9Y.jpg,2
-Open Toliet,I'm Sure You're All Wondering Why I've Gathered You Here Today,999.99,https://imgur.com/paTfP93.jpg,10
-Inspirational Rug,You Can(not) do it!,24.59,https://imgur.com/wC1RZzd.jpg,5
-Multi-purpose Light Switch,No safety issues at all! Why would you even ask that :),120.30,https://imgur.com/vhAgHff.jpg,3
-Flamingo Cup Holder,Bringing the party to you! All over you...,7.99,https://imgur.com/8LoEFJS.jpg,7
-Bike Lane,Suitable for people who like to live dangerously. Now installing for a discounted price!,1555,https://imgur.com/iJFXdtj.jpg,10
-Renovated Windows,Trick your neighbors into thinking there's a glitch in the matrix,45.50,https://imgur.com/pfgpGV3.jpg,4
-Gate,Bringing tomorrow's security to you today,120.99,https://imgur.com/63lZXoZ.jpg,5
-Cat Face Mask,Look good and feel good!,19.99,https://imgur.com/0MBtR7J.jpg,5
-Selfie Stick,Don't be fooled - this is the correct way to use a selfie stick. We would never use a fake picture in our advertisement.,79.99,https://imgur.com/tM3yDJz.jpg,10
-Stickers,Suitable for your kids. Send them off to bed with a kid-friendly picture of their favorite piglet,13.25,https://imgur.com/tZJcJnk.jpg,10
-Wise Lions,Want to spruce up your yard? Present an image of elegance to your guests? Spark jealous among your neighbors? Then look no further! Our intelligent lions are sure to fulfill all your needs and more!,250.56,https://imgur.com/Q6snmV7.jpg,4
-Relevant Bridge,We'll be sure to place that bridge exactly where you don't need!,39.90,https://imgur.com/s2PyMbb.jpg,2
-Toy Ride,Sponge Bob in disguise,45.50,https://imgur.com/Hx73Z93.jpg,3
-Cursed Doll,I thought I could clean this doll up to give to my niece but it ended up eating my cat,2.99,https://i.imgur.com/Ryyr570.jpg,1
-Bozo The Clown Doll,I got these for my nephew but they came to life and started a clown club and I've run out of space in my house for them,12.99,https://i.imgur.com/vFSPgid.png,20
-What's Your Poo Telling You?,Turns out I didn't need to know this,10.00,https://i.imgur.com/5rgjTTG.jpg,1
-Flush N' Frenzy,Nope!,10.00,https://i.imgur.com/OfAhDwn.jpg,1
-Pooh Stacker,Really? What were these people thinking??,8.50,https://i.imgur.com/Y4vHWZq.jpg,1
-You Can Shave the Baby,Why?,100.00,https://i.imgur.com/MjLKkKZ.jpg,50
-Biffy Butler Bidet Sprayer Toilet Paper Holder and iPad Stand,I can't figure out the bidet function works?,59.99,https://i.imgur.com/CLV3USD.jpg,3
-Solafeet Foot Tanner,Keeps your feet warm too!,199.99,https://i.imgur.com/YduRKPD.jpg,4
-Karaoke Ear Phone,So only you can hear...,20.99,https://i.imgur.com/FkxQudC.jpg,32
-Dehydrated Water,makes infinite gallons of water Just add water,29.99,https://imgur.com/eLpm8IT.jpg,50
-Roto Wipe,"Say Goodbye to Toilet Paper",99.99,https://imgur.com/3qMGZyC.jpg,60
-Toddler Tamers,"Up to 20 lbs Guaranteed to slow down your toddler",25.99,https://i.imgur.com/uZ7jvAB.jpg,30
-Jigsaw Puzzle,"Years of fun",15.00,https://imgur.com/04YPz5A.jpg,60
-Go the F to Sleep,"Best bedtime story to ever exist",9.99,https://i.imgur.com/loroSOn.jpg,30
+name,description,price,photo_url,stock,tags
+Nick Cage Pillow,Why couldn’t you just put the bunny back in the box?,5.99,https://i.imgur.com/b5il3hB.jpg,8,Household Items:Good Design:
+Finger Hands Finger Puppets,Too many fingers,11.99,https://i.imgur.com/rZYSl9N.jpg,100,Good Design:
+Cat Butt Tissue Holder,This tissue box makes the perfect gift for a good hostess friend or someone who just loves cats,35.87,https://i.imgur.com/sba6WGw.jpg,2,Household Items:
+Zane's Potty Training Underwear,State of the art toddlers Underwear this underwear has been washed more than 50 times and only has minor staining on the crotch area colors are faded but that only adds to the uniqueness of this item!,49.99,https://i.imgur.com/JWfZcrG.jpg,5,Household Items:Children: Good Design:
+Jude's torn up baby book,An amazing story about a bunch of monkeys a few pages are missing but that adds to the excitement of the story!,29.99,https://i.imgur.com/34HkGEr.png,1,Children:
+Play Dough,A huge piece of Play Dough it is a little dry that's because it's provided hours of fun for two toddlers, 19.99,https://i.imgur.com/DX3iI9Y.jpg,2,Children:
+Open Toliet,I'm Sure You're All Wondering Why I've Gathered You Here Today,999.99,https://imgur.com/paTfP93.jpg,10,Household Items: Good Design:
+Inspirational Rug,You Can(not) do it!,24.59,https://imgur.com/wC1RZzd.jpg,5,Household Items:
+Multi-purpose Light Switch,No safety issues at all! Why would you even ask that :),120.30,https://imgur.com/vhAgHff.jpg,3,Good Design:
+Flamingo Cup Holder,Bringing the party to you! All over you...,7.99,https://imgur.com/8LoEFJS.jpg,7, Household Items:
+Bike Lane,Suitable for people who like to live dangerously. Now installing for a discounted price!,1555,https://imgur.com/iJFXdtj.jpg,10, Good Design:
+Renovated Windows,Trick your neighbors into thinking there's a glitch in the matrix,45.50,https://imgur.com/pfgpGV3.jpg,4,Good Design:
+Gate,Bringing tomorrow's security to you today,120.99,https://imgur.com/63lZXoZ.jpg,5,Good Design
+Cat Face Mask,Look good and feel good!,19.99,https://imgur.com/0MBtR7J.jpg,5,Beauty:
+Selfie Stick,Don't be fooled - this is the correct way to use a selfie stick. We would never use a fake picture in our advertisement.,79.99,https://imgur.com/tM3yDJz.jpg,10,Good Design:
+Stickers,Suitable for your kids. Send them off to bed with a kid-friendly picture of their favorite piglet,13.25,https://imgur.com/tZJcJnk.jpg,10,Children:
+Wise Lions,Want to spruce up your yard? Present an image of elegance to your guests? Spark jealous among your neighbors? Then look no further! Our intelligent lions are sure to fulfill all your needs and more!,250.56,https://imgur.com/Q6snmV7.jpg,4,Good Design:
+Relevant Bridge,We'll be sure to place that bridge exactly where you don't need!,39.90,https://imgur.com/s2PyMbb.jpg,2,Good Design:
+Toy Ride,Sponge Bob in disguise,45.50,https://imgur.com/Hx73Z93.jpg,3,Children: Good Design:
+Cursed Doll,I thought I could clean this doll up to give to my niece but it ended up eating my cat,2.99,https://i.imgur.com/Ryyr570.jpg,1,Children:
+Bozo The Clown Doll,I got these for my nephew but they came to life and started a clown club and I've run out of space in my house for them,12.99,https://i.imgur.com/vFSPgid.png,20,Children:
+What's Your Poo Telling You?,Turns out I didn't need to know this,10.00,https://i.imgur.com/5rgjTTG.jpg,1,Education:
+Flush N' Frenzy,Nope!,10.00,https://i.imgur.com/OfAhDwn.jpg,1,Good Design:
+Pooh Stacker,Really? What were these people thinking??,8.50,https://i.imgur.com/Y4vHWZq.jpg,1,Good Design:
+You Can Shave the Baby,Why?,100.00,https://i.imgur.com/MjLKkKZ.jpg,50,Education: Children:
+Biffy Butler Bidet Sprayer Toilet Paper Holder and iPad Stand,I can't figure out the bidet function works?,59.99,https://i.imgur.com/CLV3USD.jpg,3, Household Items: Good Design:
+Solafeet Foot Tanner,Keeps your feet warm too!,199.99,https://i.imgur.com/YduRKPD.jpg,4,Beauty: Good Design:
+Karaoke Ear Phone,So only you can hear...,20.99,https://i.imgur.com/FkxQudC.jpg,32,Good Design:
+Dehydrated Water,makes infinite gallons of water Just add water,29.99,https://imgur.com/eLpm8IT.jpg,50,Household Items: 
+Roto Wipe,"Say Goodbye to Toilet Paper",99.99,https://imgur.com/3qMGZyC.jpg,60, Household Items: Good Design:
+Toddler Tamers,"Up to 20 lbs Guaranteed to slow down your toddler",25.99,https://i.imgur.com/uZ7jvAB.jpg,30, Children:
+Jigsaw Puzzle,"Years of fun",15.00,https://imgur.com/04YPz5A.jpg,60, Fun: Good Design:
+Go the F to Sleep,"Best bedtime story to ever exist",9.99,https://i.imgur.com/loroSOn.jpg,30,Education: Children:
