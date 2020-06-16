@@ -8,9 +8,8 @@ class Product < ApplicationRecord
   validates :photo_url, presence: true, format: { with: /https:\/\/.*/, message: "Please enter a photo url beginning with 'https://'" }
   validates :price, presence: true, numericality: { greater_than: 0 }, format: { with: /^[0-9]*\.?[0-9]*/, multiline: true, message: "Please enter a price using numbers" }
 
-
   def self.by_merchant(id)
-    # products = Product.where("id > ?", 1) 
+    # products = Product.where("id > ?", 1)
     return Product.where(merchant_id: id)
   end
 
@@ -28,17 +27,17 @@ class Product < ApplicationRecord
   end
 
   def self.featured_products
-      products = []
-      
-      Product.all.each do |product|
-        if product.reviews.length > 0
-          products << product
-        end
+    products = []
+
+    Product.all.each do |product|
+      if product.reviews.length > 0
+        products << product
       end
-      featured = products.sort_by {|product| - product.avg_rating }
-      return featured [0..[4,featured.length].min]
     end
-    
+    featured = products.sort_by { |product| -product.avg_rating }
+    return featured[0..[4, featured.length].min]
+  end
+
   def avg_rating
     reviews = Review.where(product_id: self.id)
     ratings = reviews.map do |review|
@@ -66,7 +65,5 @@ class Product < ApplicationRecord
   def retire_product(id)
     product = Product.find_by(id: id)
     product.stock = 0
-  end 
-
-
+  end
 end

@@ -4,7 +4,6 @@
   <h1 class="display-4">The Nitty Gritty</h1>
   <p class="lead">Here are some details about your current earnings and orders.</p>
   <hr class="my-4">
-  
   <%# TODO - replace the 100 placeholders with actual amounts %>
   <div class='btm-bump-down'>
     <div class='card-deck'>
@@ -20,7 +19,6 @@
           <li class="list-group-item">Cancelled: <%= sprintf("$%2.2f", 100)%></li>
         </ul>
       </div>
-
       <div class="card" style="width: 18rem;">
         <div class="card-body">
             <h5 class="card-title">Total Orders</h5>
@@ -35,19 +33,16 @@
       </div>
     </div> <%# end deck %>
   </div>
-  
   <div class='btn-container'>
     <%= link_to "Go To My Store", merchant_path(@merchant.id), class: "btn btn-info btn-lg" %>
     <%= link_to "Add New Product", new_product_path, class: "btn btn-info btn-lg" %>
     <%= link_to "Add New Category", new_category_path, class: "btn btn-info btn-lg" %>
   </div>
   </div> <%# end jumbotron 1%>
-  
 <div class="jumbotron">
 <h3 class='subtitle'>Current Orders</h3>
 <%= render partial: "shared/order", locals: { order_set: @merchant_orders } %>
 </div>
-
 
 <div class="jumbotron">
   <h2 class='subtitle'>Current Products For Sale</h2>
@@ -63,7 +58,6 @@
           <th>Retire</th>
         </tr>
       <thead>
-
       <tbody>
         <% @merchant.products.each do |product| %>
           <tr class="clickable-tr" >

@@ -12,10 +12,10 @@ describe OrdersController do
     end
 
     describe "show with login as merchant" do
-      before do 
+      before do
         perform_login(merchants(:faker))
       end
-      
+
       it "show order detail page if merchant has an orderitem on it" do
         get order_path(orders(:order_one).id)
 
@@ -49,13 +49,13 @@ describe OrdersController do
       it "responds with success if there are orders in cart" do
         populate_cart
         get new_order_path
-  
+
         must_respond_with :success
       end
     end
 
     describe "new with login as merchant" do
-      before do 
+      before do
         perform_login
       end
 
@@ -99,11 +99,11 @@ describe OrdersController do
 
       expect {
         post orders_path, params: customer_info
-      }.must_differ 'Order.count', 1
+      }.must_differ "Order.count", 1
 
       must_respond_with :redirect
       must_redirect_to confirm_path
-      
+
       expect(Order.last.buyer_name).must_equal customer_info[:order][:buyer_name]
       expect(Order.last.email_address).must_equal customer_info[:order][:email_address]
       expect(Order.last.mail_address).must_equal customer_info[:order][:mail_address]
@@ -115,7 +115,7 @@ describe OrdersController do
       expect(Order.last.order_items[0]).must_equal OrderItem.last
     end
 
-    it "cannot create a new order if missing customer name" do 
+    it "cannot create a new order if missing customer name" do
       populate_cart
       customer_info[:order][:buyer_name] = nil
 
@@ -126,7 +126,7 @@ describe OrdersController do
       must_respond_with :bad_request
     end
 
-    it "cannot create a new order if missing email address" do 
+    it "cannot create a new order if missing email address" do
       populate_cart
       customer_info[:order][:email_address] = nil
 
@@ -137,7 +137,7 @@ describe OrdersController do
       must_respond_with :bad_request
     end
 
-    it "cannot create a new order if missing mail address" do 
+    it "cannot create a new order if missing mail address" do
       populate_cart
       customer_info[:order][:mail_address] = nil
 
@@ -148,7 +148,7 @@ describe OrdersController do
       must_respond_with :bad_request
     end
 
-    it "cannot create a new order if zip code is invalid" do 
+    it "cannot create a new order if zip code is invalid" do
       populate_cart
       customer_info[:order][:zip_code] = 1111111
 
@@ -159,7 +159,7 @@ describe OrdersController do
       must_respond_with :bad_request
     end
 
-    it "cannot create a new order if missing credit card is wrong length" do 
+    it "cannot create a new order if missing credit card is wrong length" do
       populate_cart
       customer_info[:order][:cc_one] = ""
 
@@ -170,7 +170,7 @@ describe OrdersController do
       must_respond_with :bad_request
     end
 
-    it "cannot create a new order if invalid date" do 
+    it "cannot create a new order if invalid date" do
       populate_cart
       customer_info[:order][:month] = "234"
 
@@ -209,13 +209,13 @@ describe OrdersController do
           },
         }
       }
-  
+
       before do
         populate_cart
         post orders_path, params: customer_info
       end
 
-      it "changes status of pending order to paid" do 
+      it "changes status of pending order to paid" do
         expect(Order.last.status).must_equal "pending"
         expect(Order.last.order_items[0].product.stock).must_equal products(:lion).stock
 
@@ -334,7 +334,7 @@ describe OrdersController do
         },
       }
     }
-    
+
     before do
       populate_cart
       post orders_path, params: customer_info
@@ -343,7 +343,7 @@ describe OrdersController do
     end
 
     describe "cancel without login (guest)" do
-      it "changes status of pending order to paid" do 
+      it "changes status of pending order to paid" do
         expect(Order.last.status).must_equal "paid"
         patch cancel_path(Order.last.id)
 
@@ -380,12 +380,12 @@ describe OrdersController do
     end
 
     describe "cancel with login as merchant" do
-      before do 
+      before do
         perform_login
         get dashboard_path
       end
 
-      it "changes status of pending order to paid" do 
+      it "changes status of pending order to paid" do
         expect(Order.last.status).must_equal "paid"
         patch cancel_path(Order.last.id)
 
@@ -484,7 +484,7 @@ describe OrdersController do
     end
 
     describe "show without login (guest)" do
-      before do 
+      before do
         perform_login
       end
 
@@ -545,7 +545,7 @@ describe OrdersController do
         }
       }
 
-      before do 
+      before do
         get products_path
       end
 
@@ -576,7 +576,7 @@ describe OrdersController do
     end
 
     describe "show confirm with login as merchant" do
-      before do 
+      before do
         perform_login
         get products_path
       end
@@ -598,7 +598,7 @@ describe OrdersController do
           },
         }
       }
-      
+
       it "redirect if show confirm is not accessed directly from order confirm" do
         get confirm_path
 
@@ -609,7 +609,7 @@ describe OrdersController do
       it "redirect if order is not pending" do
         populate_cart
         post orders_path, params: customer_info
-        patch purchase_path#(Order.last.id)
+        patch purchase_path #(Order.last.id)
         get confirm_path
 
         must_respond_with :redirect
@@ -637,7 +637,7 @@ describe OrdersController do
     end
 
     describe "ship with login as merchant" do
-      before do 
+      before do
         perform_login(merchants(:faker))
         @order_one = orders(:order_one)
         @order_two = orders(:order_two)
@@ -646,7 +646,7 @@ describe OrdersController do
 
       # it "ship orderitem that merchant owns if not already shipped" do
       #   patch ship_path(@order_one.id)
-        
+
       #   must_respond_with :redirect
       #   must_redirect_to dashboard_path
       #   expect(@order_one.order_items[0].is_shipped).must_equal false

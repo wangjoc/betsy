@@ -6,7 +6,7 @@
           <p class='card-text'><strong>Order: </strong><%= link_to order.id, order_path(order.id) %></p>
           <p class='card-text'><strong>Order Date: </strong><%= order.created_at.strftime("%B %d, %Y") %></p>
           <p class='card-text'><strong>Order Status: </strong><%= order.status.capitalize %></p>
-          <p class='card-text'><strong>Shipping Status: </strong><%= order_items[0].is_shipped ? "Shipped" : "Not Shipped"%></p>
+          <p class='card-text'><strong>Shipping Status: </strong><%= order_items[0].is_shipped ? "Shipped" : "Not Shipped" %></p>
           <p class='card-text'><strong>Item List: </strong></p>
       
           <table class="table table-hover">

@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  root to: 'homepages#root'
+  root to: "homepages#root"
 
-  # Merchant dashboard 
+  # Merchant dashboard
   get "/merchants/dashboard", to: "merchants#dashboard", as: "dashboard"
 
   # Purchase confirmation/receipt

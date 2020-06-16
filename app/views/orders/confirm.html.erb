@@ -7,7 +7,7 @@
 
 <%= render partial: "shared/order_details", locals: { item_set: @order.order_items, ship_status: @order.order_items[0].is_shipped } %>
 
-<%#TODO: Leah will make these buttons bigger %>
+<% #TODO: Leah will make these buttons bigger %>
 
 
 <%= link_to "Purchase Order", purchase_path, method: :patch, class: "btn btn-info" %>

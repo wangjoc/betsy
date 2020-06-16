@@ -9,7 +9,7 @@
 <% end %>
 
 <h1 class='title'> Review Your Order </h2>
-<%# TODO JW to refactor the calculations into a model, consider if session hash can be converted to OrderItem here %>
+<% # TODO JW to refactor the calculations into a model, consider if session hash can be converted to OrderItem here %>
 
 <div class='container-md'>
   <h2 class='subtitle3'><i class="fas fa-shopping-cart"></i> Items in Your Cart</h3>
@@ -40,20 +40,20 @@
 
 <hr/>
 
-<%# TODO: We talked about making a different page for this form - maybe, maybe not %>
+<% # TODO: We talked about making a different page for this form - maybe, maybe not %>
 <div class="container-sm customer-info">
   <h3 class='subtitle3'>Please enter your billing & shipping information:</h3>
   <h4 class='subtitle4 text-muted'>(But remember this is a student project, so please don't give us your real info... <i class="fas fa-laugh-wink"></i>) </h4>
 
-  <%= form_with model: @order, class: 'user-form' do |f| %>
+  <%= form_with model: @order, class: "user-form" do |f| %>
    
     <div class="form-group">
       <%= f.label :name %><br>
-      <%= f.text_field :buyer_name, class: "form-control-lg", placeholder: "Name on Credit Card"%>
+      <%= f.text_field :buyer_name, class: "form-control-lg", placeholder: "Name on Credit Card" %>
     </div>
     <div class="form-group">
       <%= f.label :mail_address %><br>
-      <%= f.text_field :mail_address, class: "form-control-lg", placeholder: "Mailing Address"%>
+      <%= f.text_field :mail_address, class: "form-control-lg", placeholder: "Mailing Address" %>
     </div>
     <div class="form-group">
       <%= f.label :zip_code %><br>
@@ -61,30 +61,30 @@
     </div>
     <div class="form-group">
       <%= f.label :email_address %><br>
-      <%= f.text_field :email_address, class: "form-control-lg", placeholder: "Email Address"%>
+      <%= f.text_field :email_address, class: "form-control-lg", placeholder: "Email Address" %>
     </div>
     <div class="form-group">
       <%= f.label :Credit_Card_Number %><br>
-      <%= f.text_field :cc_one, :maxlength => 4, class: "form-control-lg"%>-
-      <%= f.text_field :cc_two, :maxlength => 4, class: "form-control-lg"%>-
-      <%= f.text_field :cc_three, :maxlength => 4, class: "form-control-lg"%>-
-      <%= f.text_field :cc_four, :maxlength => 4, class: "form-control-lg"%>
+      <%= f.text_field :cc_one, :maxlength => 4, class: "form-control-lg" %>-
+      <%= f.text_field :cc_two, :maxlength => 4, class: "form-control-lg" %>-
+      <%= f.text_field :cc_three, :maxlength => 4, class: "form-control-lg" %>-
+      <%= f.text_field :cc_four, :maxlength => 4, class: "form-control-lg" %>
     </div>
 
     <div class="form-group">
       <%= f.label :Credit_Card_CVV %><br>
-      <%= f.text_field :cc_cvv, :maxlength => 3, class: "form-control-lg", placeholder: "Credit Card CVV (security code)"%>
+      <%= f.text_field :cc_cvv, :maxlength => 3, class: "form-control-lg", placeholder: "Credit Card CVV (security code)" %>
     </div>
 
     <div class="form-group">
       <%= f.label :Credit_Card_Expiration %><br>
       <%= f.label :month %>
-      <%= f.select :month, [""] + (1..12).to_a, class: 'form-control' %>
+      <%= f.select :month, [""] + (1..12).to_a, class: "form-control" %>
 
       <%= f.label :year %>
-      <%= f.select :year, [""] + (20..25).to_a, class: 'form-control' %>
+      <%= f.select :year, [""] + (20..25).to_a, class: "form-control" %>
     </div>
 
-    <%= f.submit action_name == "New" ? "Review Order" : "Update Order" , class: "order-button" %>
+    <%= f.submit action_name == "New" ? "Review Order" : "Update Order", class: "order-button" %>
   <% end %>
 </div>
