@@ -13,12 +13,13 @@
     margin: 30px auto
 }
 
+ 
 .card-columns {
     @include media-breakpoint-only(lg) {
         column-count: 4;
     }
     @include media-breakpoint-only(xl) {
-        column-count: 6;
+        column-count: 5;
     }
 }
 
@@ -33,3 +34,9 @@
 .reviews-container {
     padding: 0px 20px;
 }
+
+.product-info-container {
+    padding-left: 80px;
+    padding-bottom: 60px;
+}
+

@@ -57,10 +57,12 @@
           <% if cart_num_items > 0 %><%= cart_num_items %><%end%> </li><%end%>
       </ul>
     </nav>
-    <%= yield %>
 
-    
-    <footer class="page-footer font-small blue pt-4"> 
+    <div class='page-container'>
+    <%= yield %>
+    </div>
+
+    <footer class="page-footer font-small bg-light pt-4"> 
       <div class="container-fluid text-center text-md-left">
         <!-- Grid row -->
         <div class="row">
