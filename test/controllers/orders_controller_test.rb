@@ -622,6 +622,8 @@ describe OrdersController do
         perform_login(merchants(:faker))
         @order_one = orders(:order_one)
         @order_two = orders(:order_two)
+        @order_item_one = order_items(:item_one)
+        @order_item_two = order_items(:item_two)
         get dashboard_path
       end
 
@@ -630,8 +632,8 @@ describe OrdersController do
 
         must_respond_with :redirect
         must_redirect_to dashboard_path
-        expect(@order_one.order_items[0].is_shipped).must_equal false
-        expect(@order_one.order_items[1].is_shipped).must_equal true
+        expect(@order_one.order_items.find_by(id: @order_item_one).is_shipped).must_equal true
+        expect(@order_one.order_items.find_by(id: @order_item_two).is_shipped).must_equal false
       end
 
       it "do nothing if that merchant doesn't own anything" do
@@ -648,8 +650,9 @@ describe OrdersController do
 
         must_respond_with :redirect
         must_redirect_to order_path(@order_one.id)
-        expect(@order_one.order_items[0].is_shipped).must_equal false
-        expect(@order_one.order_items[1].is_shipped).must_equal true
+
+        expect(@order_one.order_items.find_by(id: @order_item_one).is_shipped).must_equal true
+        expect(@order_one.order_items.find_by(id: @order_item_two).is_shipped).must_equal false
       end
     end
   end

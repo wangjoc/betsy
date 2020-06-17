@@ -85,6 +85,7 @@ class ProductsController < ApplicationController
 
     if @product.stock <= 0
       flash[:warning] = "Sorry, no more stock for #{view_context.link_to "#{@product.name}", product_path(@product.id)}!"
+      redirect_to products_path
       return 
     end
 
