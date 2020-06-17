@@ -64,7 +64,7 @@ class Merchant < ApplicationRecord
   end
 
   def total_orders
-    return order_count(:paid) + order_count(:shipped) 
+    order_count(:paid) + order_count(:shipped) 
   end
 
   def total_revenue
