@@ -66,7 +66,6 @@ class MerchantsController < ApplicationController
 
   private
 
-
   def find_merchant
     @merchant = Merchant.find_by(id: session[:merchant_id])
   end

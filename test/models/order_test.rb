@@ -236,7 +236,7 @@ describe Order do
       end
     end
   end
-  describe "revenue test" do #total_price_for_merchant
+  describe "revenue test" do
     describe "total_price_for_merchant" do
       it "properly calculate total price for given merchant" do
         test_order = orders(:the_order_total_order)

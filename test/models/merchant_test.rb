@@ -276,5 +276,36 @@ describe Merchant do
         expect(order.order_items[0].quantity).must_equal 4
       end
     end
+
+    describe "revenue of status" do
+      it "count the total price of :pending order" do
+        pending_revenue = @merchant.revenue_of_status(:pending)
+        pending_revenue.must_equal() #do the math
+      end
+
+      it "counts the total price of :shipped order" do
+        shipped_revenue = @merchant.revenue_of_status(:shipped)
+        shipped_revenue.must_equal() #do math
+      end
+    end
+
+    describe "order count" do
+      it "return the correct count of :pending orders" do
+        pending_orders = @merchant.order_count(:pending)
+        pending_orders.must_equal() # do the math
+      end
+
+      it "return the correct count of :shipped orders" do
+        shipped_orders = @merchant.order_count(:shipped)
+        shipped_orders.must_equal 0
+      end
+    end
+
+    describe "total revenue" do
+      it "return the correct amount of total revnue" do
+        total_revneue = @merchant.total_revneue
+        total_revneue.must_equal() # do math
+      end
+    end
   end
 end
