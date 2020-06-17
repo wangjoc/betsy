@@ -1,5 +1,3 @@
-<% # TODO - JW Can this error checking be moved to a partial? %>
-
 <% if @review.errors.any? %>
   <ul class="errors">
     <% @review.errors.each do |column, message| %>
@@ -23,7 +21,6 @@
       <%= f.select :rating, options_for_select(["choose a number", 1, 2, 3, 4, 5]) %>
     </div>
 
-    <% # TODO - JW and Leah Should we limit num of characters in reviews? %>
     <div class="form-group">
       <%= f.label :review_text %><br>
       <%= f.text_field :review_text, class: "form-control-lg", placeholder: "(Optional)" %>

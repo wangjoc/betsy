@@ -9,7 +9,6 @@
         </div>
     </div>
 
-    <% # TODO: logic for choosing featured products is not complete, need to replace with actual logic later on :( %>
     <div class='feature-products'>
         <hr />
         <h1 class='subtitle2'>Featured Regrets:</h1>
@@ -20,7 +19,7 @@
         <%= render partial: "shared/card", locals: { product_set: Product.most_recent } if !@featured_products.empty? %>
         <hr />
         <h3 class='subtitle3'>Featured Merchants!</h3>
-        <% #TODO Optional refactor - add photo, change to top selling item - THIS IS PIE IN THE SKY NOT NECESSARY %>
+        <% #TODO Leah Optional refactor - add photo, change to top selling item - THIS IS PIE IN THE SKY NOT NECESSARY %>
         <%= render partial: "shared/merchants", locals: { merchant_set: @featured_merchants } if !@featured_merchants.empty? %>
         <hr />
         <h3 class='subtitle3'>Support our Newest Merchants!</h3>

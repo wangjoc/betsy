@@ -7,7 +7,6 @@ class Order < ApplicationRecord
   validates :mail_address, presence: true
   validates :zip_code, presence: true, numericality: true, length: { is: 5 }
 
-  # TODO - JW: Not super proud of how cc validation is done but good enough for now
   validates :cc_num, presence: true, length: { is: 16 }
   validates_format_of :cc_num, :with => /\*{12}\d{4}/
   validates :cc_exp, presence: true, length: { is: 4 }
