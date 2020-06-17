@@ -1,7 +1,6 @@
 module ApplicationHelper
 
   def render_rating(rating)
-    return "Be First to Review" unless rating
     
     rating = rating.to_i
 

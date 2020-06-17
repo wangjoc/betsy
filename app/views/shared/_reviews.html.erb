@@ -5,7 +5,11 @@
             <h5 class="card-title">Unbiased Product Review:</h5>
             <p class='card-text'><%= review.review_text %></p>
             <p class='card-text'>Rating: <tr>
+                    <% if review.rating %>
                     <td><%= render_rating(review.rating) %></td>
+                    <%else%>
+                    <%= link_to "Be First to Review", new_product_review_path(@product.id), method: :get, class: "btn btn-info btn-lg" %>
+                    <%end%>
                 </tr>
             </p>
         </div>

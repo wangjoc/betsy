@@ -15,7 +15,11 @@
                 <li class="list-group-item"><strong>Products Sold: </strong><%= @merchant.products.count %></li>
                 <li class="list-group-item"><strong>Average Rating:
                         <tr>
+                            <% if @merchant.avgs_rating %>
                             <td><%= render_rating(@merchant.avgs_rating) %></td>
+                            <%else%>
+                            <%= link_to "Be First to Review", new_product_review_path(@product.id), method: :get, class: "btn btn-info btn-lg" %>
+                            <%end%>
                         </tr>
                 </li>
             </ul>
