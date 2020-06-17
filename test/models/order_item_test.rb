@@ -10,9 +10,9 @@ describe OrderItem do
       cc_num: "************1111",
       cc_exp: 1230,
       cc_cvv: "***",
-      # order_items: [order_item],
     )
   }
+
   let (:order_item) {
     OrderItem.new(
       quantity: 10,
@@ -28,8 +28,6 @@ describe OrderItem do
     @item_two = order_items(:item_two)
     @order_one = orders(:order_one)
     @merchant_faker = merchants(:faker)
-    # @merchant_greentye = merchants(:greentye)
-    # @merchant_dancingrain = merchants(:dancingrain)
   end
 
   describe "instantiation" do
@@ -67,4 +65,47 @@ describe OrderItem do
       expect(order_item.save).must_equal false
     end
   end
+
+  describe "validations" do
+    it "must an order" do
+      order_item.order = nil
+
+      expect(order_item.valid?).must_equal false
+      expect(order_item.errors.messages).must_include :order
+      expect(order_item.errors.messages[:order]).must_equal ["must exist","can't be blank"]
+    end
+
+    it "must have a product" do
+      order_item.product = nil
+
+      expect(order_item.valid?).must_equal false
+      expect(order_item.errors.messages).must_include :product
+      expect(order_item.errors.messages[:product]).must_equal ["must exist", "can't be blank"]
+    end
+
+    it "must have a quantity" do
+      order_item.quantity = nil
+
+      expect(order_item.valid?).must_equal false
+      expect(order_item.errors.messages).must_include :quantity
+      expect(order_item.errors.messages[:quantity]).must_equal ["can't be blank", "is not a number"]
+    end
+
+    it "must have a quantity > 0" do
+      order_item.quantity = 0
+
+      expect(order_item.valid?).must_equal false
+      expect(order_item.errors.messages).must_include :quantity
+      expect(order_item.errors.messages[:quantity]).must_equal ["must be greater than 0"]
+    end
+
+    it "must have a quantity that is a number" do
+      order_item.quantity = "a"
+
+      expect(order_item.valid?).must_equal false
+      expect(order_item.errors.messages).must_include :quantity
+      expect(order_item.errors.messages[:quantity]).must_equal ["is not a number"]
+    end
+  end
+
 end
