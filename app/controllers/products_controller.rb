@@ -42,11 +42,11 @@ class ProductsController < ApplicationController
       return
     end
 
-    if session[:merchant_id] != @product.merchant.id
-      flash[:warning] = "Cannot edit another merchant's products"
-      redirect_to dashboard_path
-      return
-    end
+    # if session[:merchant_id] != @product.merchant.id
+    #   flash[:warning] = "Cannot edit another merchant's products"
+    #   redirect_to dashboard_path
+    #   return
+    # end
   end
 
   def update

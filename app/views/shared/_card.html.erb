@@ -12,6 +12,7 @@
             <div class='d-flex justify-content-center'>
                 <%= link_to "Buy", add_to_cart_path(product.id), method: :patch, class: "btn btn-info sm-txt" %>
                 <%= link_to "Review", new_product_review_path(product.id), method: :get, class: "btn btn-info sm-txt" %>
+                <%= link_to "Edit", edit_product_path(product.id), method: :get, class: "btn btn-info" %>
             </div>
         </div>
     </div>
