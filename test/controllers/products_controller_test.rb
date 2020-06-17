@@ -135,6 +135,24 @@ describe ProductsController do
       @product_zero_stock = products(:zero_stock)
     end
 
+    let (:customer_info) {
+      {
+        order: {
+          buyer_name: "Huang Shaotian",
+          email_address: "troublingrain@glory.com",
+          mail_address: "City Blue Rain",
+          zip_code: 33333,
+          cc_one: 1111,
+          cc_two: 1111,
+          cc_three: 1111,
+          cc_four: 1111,
+          month: 12,
+          year: 20,
+          cc_cvv: 111,
+        },
+      }
+    }
+
     describe "add_to_cart without login (guest)" do
       it "add product to cart if enough stock" do
         patch add_to_cart_path(@product_lion.id)
@@ -148,7 +166,7 @@ describe ProductsController do
         must_redirect_to products_path
       end
 
-      it "do not add product to cart if not enough stock" do
+      it "do not add product to cart if not enough stock/retired product" do
         patch add_to_cart_path(@product_toilet.id)
         expect(session[:shopping_cart][@product_toilet.id.to_s]).must_equal 1
         get products_path
@@ -193,6 +211,19 @@ describe ProductsController do
         invalid_product_id = 999
         get "/products/#{invalid_product_id}"
         must_respond_with :redirect
+      end
+
+      it "can't add to an order that's not in cart mode" do
+        # will create a new cart instead of adding to an existing one once the cart has already created an order (passed cart phase)
+    
+        patch add_to_cart_path(@product_lion.id)
+        expect(session[:shopping_cart][@product_lion.id.to_s]).must_equal 1
+
+        post orders_path, params: customer_info
+        expect(session[:shopping_cart]).must_be_nil
+        
+        patch add_to_cart_path(@product_lion.id)
+        expect(session[:shopping_cart][@product_lion.id.to_s]).must_equal 1
       end
     end
 
