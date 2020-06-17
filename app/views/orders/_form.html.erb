@@ -19,24 +19,35 @@
       <% subtotal = quantity * product.price %>
       <% total += subtotal %>
 
-      <div class="card card-order">
-        <div class="card-body">
-          <h5 class="card-title"><%= product.name %></h5>
-          <p class="card-text"><%= "Quantity: #{quantity}" %></p>
-          <div class='btn-container'>
-          <%= link_to " + Add Quantity", add_to_cart_path(product.id), method: :patch, class: "btn btn-info inline btn-lg" %>
-          <%= link_to " - Decrease Quantity", remove_from_cart_path(product.id), method: :patch, class: "btn btn-info inline btn-lg" %>
-          <%= link_to " Remove from Cart", delete_from_cart_path(product.id), method: :patch, class: "btn btn-info inline btn-lg" %>
-          </div>
-        </div>
-        <h5 class="card-header text-right">Subtotal for this product: <%= sprintf("$%2.2f", product.price) %></h5>
-      </div>
-    <% end %>
+      <table class="table table-hover">
+      <thead class='text-center'>
+        <tr>
+          <th>Product Image</th>
+          <th>Name</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Change Quantity</th>
+        </tr>
+      <thead>
+      <tbody class='text-center'>
+          <tr class="clickable-tr" >
+            <td><%= image_tag(product.photo_url, class: 'img-thumbnail', size: '200x200') %></td>
+            <td><%= product.name %></td>
+            <td><%= quantity %></td>
+            <td><%= sprintf("$%2.2f", product.price) %></td>
+            <td class='btns'><%= link_to " + Add Quantity", add_to_cart_path(product.id), method: :patch, class: "btn btn-info inline btn-sm" %>
+            <%= link_to " - Decrease Quantity", remove_from_cart_path(product.id), method: :patch, class: "btn btn-info inline btn-sm" %>
+            <%= link_to " Remove from Cart", delete_from_cart_path(product.id), method: :patch, class: "btn btn-info inline btn-sm" %></td>
+          </tr>
+      </tbody>
+    </table>
+<%end%>
 </div>
 
 <div class=container-sm>
   <h1 class='subtitle2 text-right'>Your Order Total: <%= sprintf("$%2.2f", total) %></h1>
 </div>
+
 
 <hr/>
 
