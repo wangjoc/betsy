@@ -10,7 +10,7 @@ class Product < ApplicationRecord
 
   def self.by_merchant(id)
     products = Product.where(merchant_id: id)
-    return products.reject{|product| prodcut.stock<1}
+    return products.reject{|product| product.stock<1}
   end
 
   def self.by_category(id)
