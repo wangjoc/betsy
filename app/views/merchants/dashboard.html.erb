@@ -53,43 +53,43 @@
 
 <% if @merchant.products.count > 0 %>
   <div class="jumbotron">
-      <h2 class='subtitle'>Current Products For Sale</h2>
-      <table class="table table-hover">
-          <thead>
-              <tr>
-                  <th>Name</th>
-                  <th>Description</th>
-                  <th>Price</th>
-                  <th>Stock</th>
-                  <th>Image</th>
-                  <th>Edit</th>
-                  <th>Retire</th>
-              </tr>
-          <thead>
+    <h2 class='subtitle'>Current Products For Sale</h2>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Price</th>
+          <th>Stock</th>
+          <th>Image</th>
+          <th>Edit</th>
+          <th>Retire</th>
+        </tr>
+      </thead>
 
-                <% @merchant.products.each do |product| %>
-                <tr class="clickable-tr">
-                  <td><%= link_to product_path(product.id) do%><%= product.name %><%end%></td>
-                  <td><%= product.description %></td>
-                  <td><%= sprintf("$%2.2f", product.price) %></td>
-                  <td><%= product.stock %></td>
-                  <td><%= link_to image_tag(product.photo_url, :size => "260x180"), product_path(product.id) %></td>
-                  <td>
-                      <%= link_to "Edit", edit_product_path(product.id), method: :get, class: "btn btn-info" %>
-                  </td>
-                  <td><%= link_to "Retire", retire_path(product.id), method: :patch,class: "btn btn-info" %>
-                  </td>
-                </tr>
-              <% end %>
-            
-          </tbody>
-      </table>
-    <% end %>
+      <tbody>
+        <% @merchant.products.each do |product| %>
+          <tr class="clickable-tr">
+            <td><%= link_to product_path(product.id) do%><%= product.name %><%end%></td>
+            <td><%= product.description %></td>
+            <td><%= sprintf("$%2.2f", product.price) %></td>
+            <td><%= product.stock %></td>
+            <td><%= link_to image_tag(product.photo_url, :size => "260x180"), product_path(product.id) %></td>
+            <td>
+                <%= link_to "Edit", edit_product_path(product.id), method: :get, class: "btn btn-info" %>
+            </td>
+            <td><%= link_to "Retire", retire_path(product.id), method: :patch,class: "btn btn-info" %>
+            </td>
+          </tr>
+        <% end %>  
+      </tbody>
+    </table>
+<% end %>
       
-      <div class='btn-container'>
-        <%= link_to "Go To My Store", merchant_path(@merchant.id), class: "btn btn-info btn-lg" %>
-        <%= link_to "Add New Product", new_product_path, class: "btn btn-info btn-lg" %>
-        <%= link_to "Add New Category", new_category_path, class: "btn btn-info btn-lg" %>
-      </div>
+    <div class='btn-container'>
+      <%= link_to "Go To My Store", merchant_path(@merchant.id), class: "btn btn-info btn-lg" %>
+      <%= link_to "Add New Product", new_product_path, class: "btn btn-info btn-lg" %>
+      <%= link_to "Add New Category", new_category_path, class: "btn btn-info btn-lg" %>
+    </div>
   </div>
 
