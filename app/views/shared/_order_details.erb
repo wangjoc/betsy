@@ -1,8 +1,7 @@
-<div class='card-deck'>
-  <div class="card" style="width: 18rem;">
+<div class='container-lg d-flex flex-column justify-content-center'>
+  <div class="card details" style="width: 70rem;">
     <div class="card-body">
         <h5 class="card-title subtitle3">Customer Details:</h5>
-        
     </div>
     <ul class="list-group list-group-flush">
       <li class="list-group-item"><strong>Customer Name: </strong><%= @order.buyer_name %></li>
@@ -12,10 +11,9 @@
       <li class="list-group-item"><strong>Credit Card Expiration: </strong><%= "#{@order.cc_exp[0..1]}/#{@order.cc_exp[2..3]}" %></li>
     </ul>
   </div>
-</div>
 
-<div class='card-deck'>
-  <div class="card" style="width: 18rem;">
+
+  <div class="card details" style="width: 70rem">
     <div class="card-body">
         <h5 class="card-title subtitle3">Order Details:</h5>
         
@@ -27,10 +25,8 @@
       <li class="list-group-item"><strong>Shipping Status: </strong><%= ship_status ? "Shipped" : "Not Shipped" %></li>
     </ul>
   </div>
-</div>
 
-<div class="card-deck details">
-  <div class="card details" style="width: 18rem;">
+  <div class="card details" style="width: 70rem">
     <h2 class='subtitle3'>Product Details</h2>
     <table class="table table-hover">
       <thead>

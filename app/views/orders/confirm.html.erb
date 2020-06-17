@@ -7,5 +7,7 @@
 
 <%= render partial: "shared/order_details", locals: { item_set: @order.order_items, ship_status: @order.order_items[0].is_shipped } %>
 
-<%= link_to "Purchase Order", purchase_path, method: :patch, class: "btn btn-info" %>
-<%= link_to "Cancel Order", cancel_path(@order.id), method: :patch, class: "btn btn-info" %>
+<div class='btn-container'>
+  <%= link_to "Purchase Order", purchase_path, method: :patch, class: "btn btn-info btn-lg" %>
+  <%= link_to "Cancel Order", cancel_path(@order.id), method: :patch, class: "btn btn-info btn-lg" %>
+</div>
