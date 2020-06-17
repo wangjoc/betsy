@@ -25,10 +25,8 @@ class ReviewsController < ApplicationController
       flash[:success] = "Thanks for leaving a review for #{@review.product.name}"
       return
     else
-      # TODO - figure out a way to do it with render and bad request instead
       redirect_to new_product_review_path(review_params[:product_id])
       flash[:warning] = "Must enter a rating to create a review"
-      # render :new_product_review_path(review_params[:product_id]), status: :bad_request
       return
     end
   end

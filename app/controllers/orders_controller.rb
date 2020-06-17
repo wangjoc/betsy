@@ -144,7 +144,6 @@ class OrdersController < ApplicationController
     end
 
     @order = Order.find_by(id: session[:order_id])
-    # TODO move to helper method?
 
     @order_revenue = 0
     @order.order_items.each do |order_item|

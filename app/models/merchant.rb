@@ -1,7 +1,6 @@
 class Merchant < ApplicationRecord
   has_many :products
 
-  # TODO - if we were to allow more than OAuth method, might need to verify that uid + provider is the unique value (ie. two diff account from google and github might have same uid)
   validates :provider, presence: true
   validates :uid, presence: true, uniqueness: true
   validates :name, presence: true
@@ -42,9 +41,6 @@ class Merchant < ApplicationRecord
   def self.featured_merchants
     # Sorts by order_item count (most order_items at the top)
     return Merchant.joins(:products => :order_items).group(:id).order("COUNT(order_items.id) DESC")[0..[Merchant.all.length, 2].min]
-
-    # TODO - If we have time, try to figure out how to sort by orderitem quantity instead, and by paid orders
-    # Merchant.joins(:products => :order_items).group(:id).order('COUNT(quantity) DESC')
   end
 
   def self.newest_merchants

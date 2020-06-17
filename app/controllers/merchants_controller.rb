@@ -3,7 +3,6 @@ class MerchantsController < ApplicationController
   before_action :require_login, only: [:dashboard]
 
   def show
-    # TODO - create helper/control filter for finding merchnat?
     @merchant = Merchant.find_by(id: params[:id])
 
     if @merchant.nil?
