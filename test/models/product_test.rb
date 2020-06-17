@@ -183,8 +183,6 @@ describe Product do
     it "creates a list of featured products" do
       products = Product.featured_products
 
-      p products
-
       expect(products).must_be_kind_of Array
       expect(products.first.name).must_equal products(:lion).name
     end

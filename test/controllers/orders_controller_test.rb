@@ -453,7 +453,7 @@ describe OrdersController do
         get receipt_path
 
         must_respond_with :success
-        expect(session[:order_id]).must_equal nil
+        expect(session[:order_id]).must_be_nil
       end
 
       it "do not show receipt if order was cancelled" do
@@ -494,7 +494,7 @@ describe OrdersController do
         get receipt_path
 
         must_respond_with :success
-        expect(session[:order_id]).must_equal nil
+        expect(session[:order_id]).must_be_nil
       end
 
       it "do not show receipt if order was cancelled" do

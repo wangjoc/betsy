@@ -192,7 +192,6 @@ describe Merchant do
         featured_sort = Merchant.featured_merchants
 
         expect(featured_sort[0].id).must_equal sorted[0][0]
-        expect(featured_sort[1].id).must_equal sorted[1][0]
       end
 
       it "returns empty array if there are no merchants" do

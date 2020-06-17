@@ -146,7 +146,7 @@ describe ProductsController do
 
       it "do not add product to cart if stock is zero" do
         patch add_to_cart_path(@product_zero_stock.id)
-        expect(session[:shopping_cart][@product_zero_stock.id.to_s]).must_equal nil
+        expect(session[:shopping_cart][@product_zero_stock.id.to_s]).must_be_nil
 
         must_respond_with :redirect
         must_redirect_to products_path
@@ -214,7 +214,7 @@ describe ProductsController do
 
       it "do not add product to cart if stock is zero" do
         patch add_to_cart_path(@product_zero_stock.id)
-        expect(session[:shopping_cart][@product_zero_stock.id.to_s]).must_equal nil
+        expect(session[:shopping_cart][@product_zero_stock.id.to_s]).must_be_nil
 
         must_respond_with :redirect
         must_redirect_to products_path
@@ -277,16 +277,16 @@ describe ProductsController do
 
       it "remove key/value from cart, if reduced to 0" do
         patch remove_from_cart_path(@product_toilet.id)
-        expect(session[:shopping_cart][@product_toilet.id.to_s]).must_equal nil
+        expect(session[:shopping_cart][@product_toilet.id.to_s]).must_be_nil
 
         must_respond_with :redirect
         must_redirect_to new_order_path
       end
 
       it "no change to shopping cart if item not in cart" do
-        expect(session[:shopping_cart][@product_diaper.id.to_s]).must_equal nil
+        expect(session[:shopping_cart][@product_diaper.id.to_s]).must_be_nil
         patch remove_from_cart_path(@product_diaper.id)
-        expect(session[:shopping_cart][@product_diaper.id.to_s]).must_equal nil
+        expect(session[:shopping_cart][@product_diaper.id.to_s]).must_be_nil
 
         must_respond_with :redirect
         must_redirect_to new_order_path
@@ -315,16 +315,16 @@ describe ProductsController do
 
       it "remove key/value from cart, if reduced to 0" do
         patch remove_from_cart_path(@product_toilet.id)
-        expect(session[:shopping_cart][@product_toilet.id.to_s]).must_equal nil
+        expect(session[:shopping_cart][@product_toilet.id.to_s]).must_be_nil
 
         must_respond_with :redirect
         must_redirect_to new_order_path
       end
 
       it "no change to shopping cart if item not in cart" do
-        expect(session[:shopping_cart][@product_diaper.id.to_s]).must_equal nil
+        expect(session[:shopping_cart][@product_diaper.id.to_s]).must_be_nil
         patch remove_from_cart_path(@product_diaper.id)
-        expect(session[:shopping_cart][@product_diaper.id.to_s]).must_equal nil
+        expect(session[:shopping_cart][@product_diaper.id.to_s]).must_be_nil
 
         must_respond_with :redirect
         must_redirect_to new_order_path
@@ -358,16 +358,16 @@ describe ProductsController do
       it "remove all type of product from cart, if in cart" do
         expect(session[:shopping_cart][@product_lion.id.to_s]).must_equal 2
         patch delete_from_cart_path(@product_lion.id)
-        expect(session[:shopping_cart][@product_lion.id.to_s]).must_equal nil
+        expect(session[:shopping_cart][@product_lion.id.to_s]).must_be_nil
 
         must_respond_with :redirect
         must_redirect_to new_order_path
       end
 
       it "no change to shopping cart if item not in cart" do
-        expect(session[:shopping_cart][@product_diaper.id.to_s]).must_equal nil
+        expect(session[:shopping_cart][@product_diaper.id.to_s]).must_be_nil
         patch remove_from_cart_path(@product_diaper.id)
-        expect(session[:shopping_cart][@product_diaper.id.to_s]).must_equal nil
+        expect(session[:shopping_cart][@product_diaper.id.to_s]).must_be_nil
 
         must_respond_with :redirect
         must_redirect_to new_order_path
@@ -387,16 +387,16 @@ describe ProductsController do
       it "remove all type of product from cart, if in cart" do
         expect(session[:shopping_cart][@product_lion.id.to_s]).must_equal 2
         patch delete_from_cart_path(@product_lion.id)
-        expect(session[:shopping_cart][@product_lion.id.to_s]).must_equal nil
+        expect(session[:shopping_cart][@product_lion.id.to_s]).must_be_nil
 
         must_respond_with :redirect
         must_redirect_to new_order_path
       end
 
       it "no change to shopping cart if item not in cart" do
-        expect(session[:shopping_cart][@product_diaper.id.to_s]).must_equal nil
+        expect(session[:shopping_cart][@product_diaper.id.to_s]).must_be_nil
         patch remove_from_cart_path(@product_diaper.id)
-        expect(session[:shopping_cart][@product_diaper.id.to_s]).must_equal nil
+        expect(session[:shopping_cart][@product_diaper.id.to_s]).must_be_nil
 
         must_respond_with :redirect
         must_redirect_to new_order_path
