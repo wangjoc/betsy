@@ -10,7 +10,7 @@
       <div class="card" style="width: 18rem;">
         <div class="card-body">
             <h5 class="card-title">Total Revenue</h5>
-            <p class="card-text">Total Overall Revenue: <%= sprintf("$%2.2f", 100)%></p>
+            <p class="card-text">Total Overall Revenue: <%= sprintf("$%2.2f", @merchant.total_revenue)%></p>
         </div>
         <ul class="list-group list-group-flush">
           <li class="list-group-item">Pending: <%= sprintf("$%2.2f", @merchant.revenue_of_status('pending'))%></li>
