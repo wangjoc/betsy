@@ -13,7 +13,11 @@
             <ul class="list-group list-group-flush">
                 <li class="list-group-item"><strong>Name: </strong><%= @merchant.name %></li>
                 <li class="list-group-item"><strong>Products Sold: </strong><%= @merchant.products.count %></li>
-                <li class="list-group-item"><strong>Average Rating: </strong><%= @merchant.avgs_rating %></li>
+                <li class="list-group-item"><strong>Average Rating:
+                        <tr>
+                            <td><%= render_rating(@merchant.avgs_rating) %></td>
+                        </tr>
+                </li>
             </ul>
             <div class="card-body">
                 <small class="text-muted">Joined <%= @merchant.created_at.strftime("%B %d, %Y") %></small>
