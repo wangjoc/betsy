@@ -18,7 +18,7 @@ class Product < ApplicationRecord
 
   def self.by_category(id)
     category = Category.find_by(id: id)
-    return category.products
+    return category.products.reject { |product| product.stock < 1 }
   end
 
   def self.featured_products
@@ -29,7 +29,7 @@ class Product < ApplicationRecord
         products << product
       end
     end
-    featured = products.sort_by { |product| -product.avg_rating }
+    featured = products.reject { |product| product.stock < 1 }.sort_by { |product| -product.avg_rating }
     return featured[0..[4, featured.length].min]
   end
 
