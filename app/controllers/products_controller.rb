@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :find_product, only: [:show, :edit, :update, :add_to_cart, :remove_from_cart, :delete_from_cart]
+  before_action :find_product, only: [:show, :edit, :update, :retire, :add_to_cart, :remove_from_cart, :delete_from_cart]
   before_action :require_login, only: [:new, :create, :edit, :update]
 
   def index
@@ -60,6 +60,16 @@ class ProductsController < ApplicationController
     else
       render :edit, status: :bad_request
       return
+    end
+  end
+
+  def retire
+    if @product.update(stock: 0)
+      flash[:success] = "Successfully retired product"
+      redirect_to dashboard_path
+    else
+      flash[:failure] = "Couldn't retire product!"
+      redirect_to dashboard_path
     end
   end
 

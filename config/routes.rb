@@ -19,6 +19,9 @@ Rails.application.routes.draw do
   patch "/products/:id/remove_from_cart", to: "products#remove_from_cart", as: "remove_from_cart"
   patch "/products/:id/delete_from_cart", to: "products#delete_from_cart", as: "delete_from_cart"
 
+  # Custom product routes
+  patch "/products/:id/retire", to: "products#retire", as: "retire"
+  
   # Github authorization
   get "/auth/github", as: "github_login"
   get "/auth/:provider/callback", to: "merchants#create", as: "omniauth_callback"
