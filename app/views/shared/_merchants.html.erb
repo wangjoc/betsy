@@ -1,6 +1,6 @@
 <div class='card-deck'>
     <% merchant_set.each do |merchant| %>
-    <div class="card" style="width: 18rem;">
+    <div class="card border-dark" style="width: 18rem;">
         <div class='image-container'>
             <%= image_tag(merchant.avatar, class: "card-img-top profile") %>
         </div>
@@ -15,8 +15,8 @@
                 </tr>
             </li>
         </ul>
-        <div class="card-body">
-            <small class="text-muted">Joined <%= merchant.created_at.strftime("%B %d, %Y") %></small>
+        <div class="card-body bg-secondary">
+            <small class="text-light">Joined <%= merchant.created_at.strftime("%B %d, %Y") %></small>
         </div>
     </div>
     <% end %>

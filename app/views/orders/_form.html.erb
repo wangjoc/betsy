@@ -30,8 +30,8 @@
       <thead>
       <tbody class='text-center'>
           <tr class="clickable-tr" >
-            <td><%= image_tag(product.photo_url, class: "img-thumbnail", size: "200x200") %></td>
-            <td><%= product.name %></td>
+            <td><%= link_to image_tag(product.photo_url, class: 'img-thumbnail', size: '200x200'), product_path(product.id) %></td>
+            <td><%= link_to product.name, product_path(product.id) %></td>
             <td><%= quantity %></td>
             <td><%= sprintf("$%2.2f", product.price) %></td>
             <td class='btns'><%= link_to " + Add Quantity", add_to_cart_path(product.id), method: :patch, class: "btn btn-info inline btn-sm" %>
@@ -94,6 +94,6 @@
       <%= f.select :year, [""] + (20..25).to_a, class: "form-control" %>
     </div>
 
-    <%= f.submit action_name == "New" ? "Review Order" : "Update Order", class: "order-button" %>
+    <%= f.submit action_name == "New" ? "Review Order" : "Update Order", class: "btn btn-info btn-lg" %>
   <% end %>
 </div>
