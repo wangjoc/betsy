@@ -39,3 +39,12 @@
     padding-bottom: 60px;
 }
 
+.img {
+    float: left;
+    width:  262px;
+    height: 262px;
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: cover;
+}
+
