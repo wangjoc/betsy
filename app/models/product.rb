@@ -9,7 +9,8 @@ class Product < ApplicationRecord
   validates :price, presence: true, numericality: { greater_than: 0 }, format: { with: /^[0-9]*\.?[0-9]*/, multiline: true, message: "Please enter a price using numbers" }
 
   def self.by_merchant(id)
-    return Product.where(merchant_id: id)
+    products = Product.where(merchant_id: id)
+    return products.reject{|product| product.stock<1}
   end
 
   def self.by_category(id)
@@ -35,7 +36,7 @@ class Product < ApplicationRecord
       review.rating
     end
     if ratings.count > 0
-      return (ratings.sum / ratings.count)
+      return (ratings.sum.to_f / ratings.count).round(2)
     end
   end
 
@@ -57,8 +58,4 @@ class Product < ApplicationRecord
     end
   end
 
-  def retire_product(id)
-    product = Product.find_by(id: id)
-    product.stock = 0
-  end
 end

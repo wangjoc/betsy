@@ -4,7 +4,7 @@
   <h1 class="display-4">The Nitty Gritty</h1>
   <p class="lead">Here are some details about your current earnings and orders.</p>
   <hr class="my-4">
-  <%# TODO - replace the 100 placeholders with actual amounts %>
+  
   <div class='btm-bump-down'>
     <div class='card-deck'>
       <div class="card" style="width: 18rem;">
@@ -41,40 +41,42 @@
   </div> <%# end jumbotron 1%>
 
 <div class="jumbotron">
-<h3 class='subtitle'>Current Orders</h3>
-<%= render partial: "shared/order", locals: { order_set: @merchant_orders } %>
+    <h3 class='subtitle'>Current Orders</h3>
+    <%= render partial: "shared/order", locals: { order_set: @merchant_orders } %>
 </div>
 
 <div class="jumbotron">
-  <h2 class='subtitle'>Current Products For Sale</h2>
+    <h2 class='subtitle'>Current Products For Sale</h2>
     <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Description</th>
-          <th>Price</th>
-          <th>Stock</th>
-          <th>Image</th>
-          <th>Edit</th>
-          <th>Retire</th>
-        </tr>
-      <thead>
-      <tbody>
-        <% @merchant.products.each do |product| %>
-          <tr class="clickable-tr" >
-            <td><%= link_to product_path(product.id) do%><%= product.name %><%end%></td>
-            <td><%= product.description %></td>
-            <td><%= sprintf("$%2.2f", product.price) %></td>
-            <td><%= product.stock %></td>
-            <td><%= image_tag(product.photo_url, :size => "260x180") %></td>
-            <td>
-              <%= link_to "Edit", edit_product_path(product.id), method: :get, class: "btn btn-info" %>
-              </td>
-              <%# TODO - put in retire product path after Hala has made it %>
-              <td><%= link_to "Retire", product_path(product.id), method: :destroy, class: "btn btn-info" %>
-              </td>
-          </tr>
-        <% end %>
-      </tbody>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Image</th>
+                <th>Edit</th>
+                <th>Retire</th>
+            </tr>
+            <thead>
+            <tbody>
+
+                <% @merchant.products.each do |product| %>
+                <% if product.stock>0 %>
+                <tr class="clickable-tr">
+                    <td><%= link_to product_path(product.id) do%><%= product.name %><%end%></td>
+                    <td><%= product.description %></td>
+                    <td><%= sprintf("$%2.2f", product.price) %></td>
+                    <td><%= product.stock %></td>
+                    <td><%= image_tag(product.photo_url, :size => "260x180") %></td>
+                    <td>
+                        <%= link_to "Edit", edit_product_path(product.id), method: :get, class: "btn btn-info" %>
+                    </td>
+                    <td><%= link_to "Retire", retire_path(product.id), method: :patch,class: "btn btn-info" %>
+                    </td>
+                </tr>
+                <% end %>
+                <% end %>
+            </tbody>
     </table>
 </div>
