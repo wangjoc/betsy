@@ -60,5 +60,4 @@ class Product < ApplicationRecord
       return false
     end
   end
-
 end

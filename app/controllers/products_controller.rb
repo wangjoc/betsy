@@ -42,11 +42,11 @@ class ProductsController < ApplicationController
       return
     end
 
-    # if session[:merchant_id] != @product.merchant.id
-    #   flash[:warning] = "Cannot edit another merchant's products"
-    #   redirect_to dashboard_path
-    #   return
-    # end
+    if session[:merchant_id] != @product.merchant.id
+      flash[:warning] = "Cannot edit another merchant's products"
+      redirect_to dashboard_path
+      return
+    end
   end
 
   def update
@@ -83,8 +83,12 @@ class ProductsController < ApplicationController
       session[:shopping_cart] = Hash.new()
     end
 
-    # TODO - JW to clean this up and make it more manageable
-    if session[:shopping_cart][@product.id.to_s]
+    if @product.stock <= 0
+      flash[:warning] = "Sorry, no more stock for #{view_context.link_to "#{@product.name}", product_path(@product.id)}!"
+      return 
+    end
+
+    if session[:shopping_cart][@product.id.to_s] 
       if session[:shopping_cart][@product.id.to_s] < @product.stock
         session[:shopping_cart][@product.id.to_s] += 1
         flash[:success] = "You have added a #{view_context.link_to "#{@product.name}", product_path(@product.id)} to the cart!"
@@ -92,12 +96,8 @@ class ProductsController < ApplicationController
         flash[:warning] = "Sorry, no more stock for #{view_context.link_to "#{@product.name}", product_path(@product.id)}!"
       end
     else
-      if @product.stock > 0
-        session[:shopping_cart][@product.id.to_s] = 1
-        flash[:success] = "You have added a #{view_context.link_to "#{@product.name}", product_path(@product.id)} to the cart!"
-      else
-        flash[:warning] = "Sorry, no more stock for #{view_context.link_to "#{@product.name}", product_path(@product.id)}!"
-      end
+      session[:shopping_cart][@product.id.to_s] = 1
+      flash[:success] = "You have added a #{view_context.link_to "#{@product.name}", product_path(@product.id)} to the cart!"
     end
 
     redirect_to session.delete(:return_to)
