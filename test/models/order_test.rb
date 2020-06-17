@@ -241,9 +241,9 @@ describe Order do
       it "properly calculate total price for given merchant" do
         test_order = orders(:the_order_total_order)
         merchant_1 = merchants(:order_total_merchant_1)
-        merchant_2 = merchants(:faker)
-        expect(test_order.total_price_for_merchant(merchant_1.id)).must_equal(194)
-        expect(test_order.total_price_for_merchant(merchant_2.id)).must_equal(90)
+        merchant_2 = merchants(:order_total_merchant_2)
+        expect(test_order.total_price_for_merchant(merchant_1.id)).must_equal(5*18+2*52)
+        expect(test_order.total_price_for_merchant(merchant_2.id)).must_equal(50*1+10*4)
       end
     end
   end

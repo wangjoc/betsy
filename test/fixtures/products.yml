@@ -48,3 +48,17 @@ order_status_product:
   price: 5
   photo_url: https://imgur.com/paTfP93.jpg
   stock: 10
+order_total_item_3:
+  name: order_total_item_3
+  description: State of the art diaper, guaranteed to smell!
+  price: 10.00
+  photo_url: https://i.imgur.com/JWfZcrG.jpg
+  stock: 5
+  merchant: order_total_merchant_2
+order_total_item_4:
+  name: order_total_item_4
+  description: Sharing is caring
+  price: 50.00
+  photo_url: https://imgur.com/paTfP93.jpg
+  stock: 1
+  merchant: order_total_merchant_2

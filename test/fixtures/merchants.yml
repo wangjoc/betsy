@@ -17,7 +17,7 @@ dancingrain:
   email: dancingrain@lol.com
   avatar: https://i.imgur.com/JWfZcrG.jpg
 order_total_merchant_1:
-  name: mary
+  name: order_total_merchant_1
   uid: 03171989
   provider: github
   email: mary@icloud.com
@@ -27,4 +27,10 @@ order_status_merchant:
   uid: 08052005
   provider: github
   email: liya@icloud.com
+  avatar: https://i.imgur.com/JWfZcrG.jpg
+order_total_merchant_2:
+  name: order_total_merchant_2
+  uid: 1111187
+  provider: github
+  email: youwish@lol.com
   avatar: https://i.imgur.com/JWfZcrG.jpg

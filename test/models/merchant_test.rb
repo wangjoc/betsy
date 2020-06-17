@@ -280,31 +280,60 @@ describe Merchant do
     describe "revenue of status" do
       it "count the total price of :pending order" do
         pending_revenue = @merchant.revenue_of_status(:pending)
-        pending_revenue.must_equal() #do the math
+        expect(pending_revenue).must_equal(1 * 5) 
+      end
+
+      it "count the total price of :cancel order" do
+        pending_revenue = @merchant.revenue_of_status(:cancel)
+        expect(pending_revenue).must_equal(4 * 5)
       end
 
       it "counts the total price of :shipped order" do
         shipped_revenue = @merchant.revenue_of_status(:shipped)
-        shipped_revenue.must_equal() #do math
+        expect(shipped_revenue).must_equal(2 * 5)
+      end
+
+      it "counts the total price of :paid order" do
+        shipped_revenue = @merchant.revenue_of_status(:paid)
+        expect(shipped_revenue).must_equal(3 * 5)
       end
     end
 
     describe "order count" do
       it "return the correct count of :pending orders" do
         pending_orders = @merchant.order_count(:pending)
-        pending_orders.must_equal() # do the math
+        expect(pending_orders).must_equal(1) 
       end
 
       it "return the correct count of :shipped orders" do
         shipped_orders = @merchant.order_count(:shipped)
-        shipped_orders.must_equal 0
+        expect(shipped_orders).must_equal(1)
+      end
+
+      it "return the correct count of :cancel orders" do
+        shipped_orders = @merchant.order_count(:cancel)
+        expect(shipped_orders).must_equal(1)
+      end
+
+      it "return the correct count of :paid orders" do
+        shipped_orders = @merchant.order_count(:paid)
+        expect(shipped_orders).must_equal(1)
       end
     end
 
     describe "total revenue" do
       it "return the correct amount of total revnue" do
-        total_revneue = @merchant.total_revneue
-        total_revneue.must_equal() # do math
+        total_revenue = @merchant.total_revenue
+        expect(total_revenue).must_equal(2 * 5 + 3 * 5) 
+      end
+    end
+
+    describe 'total order' do
+     
+      it 'return the correct amount of total count for each merchant' do
+        total_orders = @merchant.total_orders
+        expect(total_orders).must_equal(1 + 1)
+
       end
     end
   end

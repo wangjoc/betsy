@@ -69,7 +69,7 @@ class Merchant < ApplicationRecord
 
   def total_orders
     # this does not include cancelled orders - those should not count towards a merchant's total order count, in my opinion :) -Leah
-    return order_count(:paid) + order_count(:shipped) + order_count(:complete)
+    return order_count(:paid) + order_count(:shipped) 
   end
 
   def total_revenue
