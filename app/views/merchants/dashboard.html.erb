@@ -80,13 +80,16 @@
                   <td><%= link_to "Retire", retire_path(product.id), method: :patch,class: "btn btn-info" %>
                   </td>
                 </tr>
-                <% end %>
-            </tbody>
-    </table>
-
-    <div class='btn-container'>
+              <% end %>
+            
+          </tbody>
+      </table>
+    <% end %>
+      
+      <div class='btn-container'>
         <%= link_to "Go To My Store", merchant_path(@merchant.id), class: "btn btn-info btn-lg" %>
         <%= link_to "Add New Product", new_product_path, class: "btn btn-info btn-lg" %>
         <%= link_to "Add New Category", new_category_path, class: "btn btn-info btn-lg" %>
-    </div>
-</div>
+      </div>
+  </div>
+
