@@ -70,9 +70,9 @@ CSV.foreach(PRODUCT_FILE, :headers => true) do |row|
     puts "Failed to save product: #{product.inspect}"
   else
     puts "Created product: #{product.inspect}"
-    row['tags'].split(":").each do |category|
+    row["tags"].split(":").each do |category|
       binding.pry if category.nil? || Category.find_by(category: category.strip).nil?
-      product.categories<< Category.find_by(category: category.strip)
+      product.categories << Category.find_by(category: category.strip)
     end
   end
 end

@@ -590,7 +590,7 @@ describe OrdersController do
       it "redirect if order is not pending" do
         populate_cart
         post orders_path, params: customer_info
-        patch purchase_path 
+        patch purchase_path
         get confirm_path
 
         must_respond_with :redirect

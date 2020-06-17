@@ -8,12 +8,12 @@ class Product < ApplicationRecord
   validates :photo_url, presence: true, format: { with: /https:\/\/.*/, message: "Please enter a photo url beginning with 'https://'" }
   validates :price, presence: true, numericality: { greater_than: 0 }, format: { with: /^[0-9]*\.?[0-9]*/, multiline: true, message: "Please enter a price using numbers" }
   validates :description, presence: true
-  validates :stock, presence: true, numericality: {only_integer: true}
+  validates :stock, presence: true, numericality: { only_integer: true }
   validates :merchant_id, presence: true
 
   def self.by_merchant(id)
     products = Product.where(merchant_id: id)
-    return products.reject{|product| product.stock<1}
+    return products.reject { |product| product.stock < 1 }
   end
 
   def self.by_category(id)

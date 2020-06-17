@@ -30,7 +30,7 @@
       <thead>
       <tbody class='text-center'>
           <tr class="clickable-tr" >
-            <td><%= image_tag(product.photo_url, class: 'img-thumbnail', size: '200x200') %></td>
+            <td><%= image_tag(product.photo_url, class: "img-thumbnail", size: "200x200") %></td>
             <td><%= product.name %></td>
             <td><%= quantity %></td>
             <td><%= sprintf("$%2.2f", product.price) %></td>
@@ -40,7 +40,7 @@
           </tr>
       </tbody>
     </table>
-<%end%>
+<% end %>
 </div>
 
 <div class=container-sm>

@@ -23,7 +23,6 @@ describe OrderItem do
   }
 
   before do
-
     @item_one = order_items(:item_one)
     @item_two = order_items(:item_two)
     @order_one = orders(:order_one)
@@ -75,7 +74,7 @@ describe OrderItem do
 
       expect(order_item.valid?).must_equal false
       expect(order_item.errors.messages).must_include :order
-      expect(order_item.errors.messages[:order]).must_equal ["must exist","can't be blank"]
+      expect(order_item.errors.messages[:order]).must_equal ["must exist", "can't be blank"]
     end
 
     it "must have a product" do

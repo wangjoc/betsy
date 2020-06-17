@@ -279,7 +279,7 @@ describe Merchant do
     describe "revenue of status" do
       it "count the total price of :pending order" do
         pending_revenue = @merchant.revenue_of_status(:pending)
-        expect(pending_revenue).must_equal(1 * 5) 
+        expect(pending_revenue).must_equal(1 * 5)
       end
 
       it "count the total price of :cancel order" do
@@ -301,7 +301,7 @@ describe Merchant do
     describe "order count" do
       it "return the correct count of :pending orders" do
         pending_orders = @merchant.order_count(:pending)
-        expect(pending_orders).must_equal(1) 
+        expect(pending_orders).must_equal(1)
       end
 
       it "return the correct count of :shipped orders" do
@@ -323,16 +323,14 @@ describe Merchant do
     describe "total revenue" do
       it "return the correct amount of total revnue" do
         total_revenue = @merchant.total_revenue
-        expect(total_revenue).must_equal(2 * 5 + 3 * 5) 
+        expect(total_revenue).must_equal(2 * 5 + 3 * 5)
       end
     end
 
-    describe 'total order' do
-     
-      it 'return the correct amount of total count for each merchant' do
+    describe "total order" do
+      it "return the correct amount of total count for each merchant" do
         total_orders = @merchant.total_orders
         expect(total_orders).must_equal(1 + 1)
-
       end
     end
   end

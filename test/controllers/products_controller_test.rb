@@ -74,7 +74,7 @@ describe ProductsController do
     describe "not logged in users" do
       it "responds with success" do
         get new_product_path
-  
+
         must_respond_with :redirect
         must_redirect_to root_path
       end
@@ -92,15 +92,15 @@ describe ProductsController do
             description: "Best-selling product! Especially known for it's special fragrance.",
             price: 99.99,
             photo_url: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ2WjvkDEuH0p5E24TITgJkjV-szXPIvxXT1La-nd7PcbFPxsre&usqp=CAU",
-            stock: 10
-          }
+            stock: 10,
+          },
         }
       }
 
       it "can create a new product with valid information accurately, and redirect" do
         expect {
           post products_path, params: product_hash
-        }.must_differ 'Product.count', 1
+        }.must_differ "Product.count", 1
 
         must_respond_with :redirect
         must_redirect_to product_path(Product.last.id)
@@ -215,13 +215,13 @@ describe ProductsController do
 
       it "can't add to an order that's not in cart mode" do
         # will create a new cart instead of adding to an existing one once the cart has already created an order (passed cart phase)
-    
+
         patch add_to_cart_path(@product_lion.id)
         expect(session[:shopping_cart][@product_lion.id.to_s]).must_equal 1
 
         post orders_path, params: customer_info
         expect(session[:shopping_cart]).must_be_nil
-        
+
         patch add_to_cart_path(@product_lion.id)
         expect(session[:shopping_cart][@product_lion.id.to_s]).must_equal 1
       end
