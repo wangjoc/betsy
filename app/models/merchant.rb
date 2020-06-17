@@ -23,6 +23,17 @@ class Merchant < ApplicationRecord
     return OrderItem.joins(:product).where(:products => { :merchant_id => id })
   end
 
+  def avgs_rating
+    #merchant = Merchant.where(merchant_id: self.id)
+    
+    ratings = self.products.map{|product| product.avg_rating}.reject{|rating| rating.nil?}
+    if ratings.length > 0 
+      return (ratings.sum.to_f / ratings.length).round(2)
+    else 
+      return 0
+    end
+  end
+
   # https://stackoverflow.com/questions/19527177/rails-triple-join
   def self.get_merchant_orders(id)
     return Order.order("id").joins(:order_items => :product).where(:products => { :merchant_id => id }).uniq
@@ -54,6 +65,11 @@ class Merchant < ApplicationRecord
 
   def order_count(status)
     orders_of_status(status).count
+  end
+
+  def total_orders
+    # this does not include cancelled orders - those should not count towards a merchant's total order count, in my opinion :) -Leah
+    return order_count(:paid) + order_count(:shipped) + order_count(:complete)
   end
 
   def total_revenue

@@ -1,30 +1,30 @@
 <div class='total-home-container'>
-  <div class='homepage-container'>
-      <%= image_tag("https://i.imgur.com/gHHtd3m.jpg", class: "homepage-img", alt: "a dog with his head through a pink lougechair") %> 
-    
-    <div class='text-container'>
-      <div class='centered'>
-        <h1 class='logo'>regrEtsy</h1>
-      </div>
-    </div>
-  </div>
+    <div class='homepage-container'>
+        <%= image_tag("https://i.imgur.com/gHHtd3m.jpg", class: "homepage-img", alt: "a dog with his head through a pink lougechair") %>
 
-  <% # TODO: logic for choosing featured products is not complete, need to replace with actual logic later on :( %>
-  <div class='feature-products'>
-  <hr/>
-      <h1 class='subtitle2'>Featured Regrets:</h1>
-      <h3 class='subtitle3'>Most Recent Regrets!</h3>
-        <%= render partial: "shared/card", locals: { product_set: @featured_products } if !@featured_products.empty? %>
-        <hr/>
-      <h3 class='subtitle3'>Top Reviewed Regrets!</h3>
-        <%= render partial: "shared/card", locals: { product_set: @featured_products } if !@featured_products.empty? %>
-        <hr/>
-      <h3 class='subtitle3'>Featured Merchants!</h3>
-      <% #TODO Optional refactor - add photo, change to top selling item - THIS IS PIE IN THE SKY NOT NECESSARY %>
-        <%= render partial: "shared/merchants", locals: { merchant_set: @featured_merchants } if !@featured_merchants.empty? %>
-        <hr/>
-      <h3 class='subtitle3'>Support our Newest Merchants!</h3>
-        <%= render partial: "shared/merchants", locals: { merchant_set: @newest_merchants } if !@newest_merchants.empty? %>
-        <hr/>
+        <div class='text-container'>
+            <div class='centered'>
+                <h1 class='logo'>regrEtsy</h1>
+            </div>
+        </div>
     </div>
-  </div>
+
+    <% # TODO: logic for choosing featured products is not complete, need to replace with actual logic later on :( %>
+    <div class='feature-products'>
+        <hr />
+        <h1 class='subtitle2'>Featured Regrets:</h1>
+        <h3 class='subtitle3'>Most Recent Regrets!</h3>
+        <%= render partial: "shared/card", locals: { product_set: @featured_products } if !@featured_products.empty? %>
+        <hr />
+        <h3 class='subtitle3'>Top Reviewed Regrets!</h3>
+        <%= render partial: "shared/card", locals: { product_set: Product.most_recent } if !@featured_products.empty? %>
+        <hr />
+        <h3 class='subtitle3'>Featured Merchants!</h3>
+        <% #TODO Optional refactor - add photo, change to top selling item - THIS IS PIE IN THE SKY NOT NECESSARY %>
+        <%= render partial: "shared/merchants", locals: { merchant_set: @featured_merchants } if !@featured_merchants.empty? %>
+        <hr />
+        <h3 class='subtitle3'>Support our Newest Merchants!</h3>
+        <%= render partial: "shared/merchants", locals: { merchant_set: @newest_merchants } if !@newest_merchants.empty? %>
+        <hr />
+    </div>
+</div>
