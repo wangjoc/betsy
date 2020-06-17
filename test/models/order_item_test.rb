@@ -27,7 +27,10 @@ describe OrderItem do
     @item_one = order_items(:item_one)
     @item_two = order_items(:item_two)
     @order_one = orders(:order_one)
+    @order_two = orders(:order_two)
     @merchant_faker = merchants(:faker)
+    @product_lion = products(:lion)
+    @product_toilet = products(:toilet)
   end
 
   describe "instantiation" do
@@ -108,4 +111,39 @@ describe OrderItem do
     end
   end
 
+  describe "custom tests" do
+    describe "items_by_order_merchant" do
+      it "get order items by order and merchant" do
+        order_items_faker = OrderItem.items_by_order_merchant(@order_one.id, @merchant_faker.id)
+        order_items_faker.each do |order_item|
+          expect(order_item).must_be_kind_of OrderItem
+          expect(order_item.order).must_equal @order_one
+        end
+      end
+
+      it "return empty array if no order items by order and merchant" do
+        order_items_faker = OrderItem.items_by_order_merchant(@order_two.id, @merchant_faker.id)
+        expect(order_items_faker).must_be_empty
+      end
+    end
+
+    describe "order_revenue" do
+      it "calculate order revenue by order and merchant" do
+        order_items_faker = OrderItem.items_by_order_merchant(@order_one.id, @merchant_faker.id)
+
+        check_revenue = 0
+        order_items_faker.each do |order_item|
+          check_revenue = order_item.quantity * order_item.product.price
+        end
+
+        order_rev_faker = OrderItem.order_revenue(@order_one.id, @merchant_faker.id)
+        expect(order_rev_faker).must_equal check_revenue
+      end
+
+      it "return 0 if no combination of that order and merchant" do
+        order_rev_faker = OrderItem.order_revenue(@order_two.id, @merchant_faker.id)
+        expect(order_rev_faker).must_equal 0
+      end
+    end
+  end
 end
