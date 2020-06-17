@@ -7,76 +7,90 @@
   
   <div class='btm-bump-down'>
     <div class='card-deck'>
-      <div class="card" style="width: 18rem;">
+      <div class="card" style="width: 25rem;">
         <div class="card-body">
-            <h5 class="card-title">Total Revenue</h5>
-            <p class="card-text">Total Overall Revenue: <%= sprintf("$%2.2f", @merchant.total_revenue)%></p>
+            <h3 class="card-title">Total Orders</h3>
+            <h4 class="card-text">Total Overall Orders: <%= @merchant.total_orders %></h4>
         </div>
+
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">Pending: <%= sprintf("$%2.2f", @merchant.revenue_of_status('pending'))%></li>
-          <li class="list-group-item">Paid: <%= sprintf("$%2.2f", @merchant.revenue_of_status('paid'))%></li>
-          <li class="list-group-item">Complete: <%= sprintf("$%2.2f", @merchant.revenue_of_status('complete'))%></li>
-          <li class="list-group-item">Cancelled: <%= sprintf("$%2.2f", @merchant.revenue_of_status('cancelled'))%></li>
+          <li class="list-group-item"><strong>Pending: </strong><%= @merchant.order_count('pending') %> </li>
+          <li class="list-group-item"><strong>Paid: </strong><%= @merchant.order_count('paid') %> </li>
+          <li class="list-group-item"><strong>Complete: </strong><%= @merchant.order_count('complete') %> </li>
+          <li class="list-group-item"><strong>Cancelled: </strong><%= @merchant.order_count('cancelled') %> </li>
         </ul>
       </div>
-      <div class="card" style="width: 18rem;">
+
+      <div class="card" style="width: 25rem;">
         <div class="card-body">
-            <h5 class="card-title">Total Orders</h5>
-            <p class="card-text">Total Overall Orders: <%= @merchant.total_orders %></p>
+            <h3 class="card-title">Total Revenue</h3>
+            <h4 class="card-text">Total Overall Revenue: <%= sprintf("$%2.2f", @merchant.total_revenue)%></h4>
         </div>
+
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">Pending: <%= @merchant.order_count('pending') %> </li>
-          <li class="list-group-item">Paid: <%= @merchant.order_count('paid') %> </li>
-          <li class="list-group-item">Complete: <%= @merchant.order_count('complete') %> </li>
-          <li class="list-group-item">Cancelled: <%= @merchant.order_count('cancelled') %> </li>
+          <li class="list-group-item"><strong>Pending: </strong><%= sprintf("$%2.2f", @merchant.revenue_of_status('pending'))%></li>
+          <li class="list-group-item"><strong>Paid: </strong><%= sprintf("$%2.2f", @merchant.revenue_of_status('paid'))%></li>
+          <li class="list-group-item"><strong>Complete: </strong><%= sprintf("$%2.2f", @merchant.revenue_of_status('complete'))%></li>
+          <li class="list-group-item"><strong>Cancelled: </strong><%= sprintf("$%2.2f", @merchant.revenue_of_status('cancelled'))%></li>
         </ul>
       </div>
     </div> <%# end deck %>
   </div>
+
   <div class='btn-container'>
     <%= link_to "Go To My Store", merchant_path(@merchant.id), class: "btn btn-info btn-lg" %>
     <%= link_to "Add New Product", new_product_path, class: "btn btn-info btn-lg" %>
     <%= link_to "Add New Category", new_category_path, class: "btn btn-info btn-lg" %>
   </div>
-  </div> <%# end jumbotron 1%>
+</div> <%# end jumbotron 1%>
 
-<div class="jumbotron">
-    <h3 class='subtitle'>Current Orders</h3>
-    <%= render partial: "shared/order", locals: { order_set: @merchant_orders } %>
-</div>
+<% if !@merchant_orders.empty? %>
+  <div class="jumbotron">
+      <h3 class='subtitle'>Current Orders</h3>
+      <%= render partial: "shared/order", locals: { order_set: @merchant_orders } %>
+  </div>
+<% end %>
 
-<div class="jumbotron">
-    <h2 class='subtitle'>Current Products For Sale</h2>
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Stock</th>
-                <th>Image</th>
-                <th>Edit</th>
-                <th>Retire</th>
-            </tr>
-            <thead>
-            <tbody>
+<% if @merchant.products.count > 0 %>
+  <div class="jumbotron">
+      <h2 class='subtitle'>Current Products For Sale</h2>
+      <table class="table table-hover">
+          <thead>
+              <tr>
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th>Price</th>
+                  <th>Stock</th>
+                  <th>Image</th>
+                  <th>Edit</th>
+                  <th>Retire</th>
+              </tr>
+          <thead>
 
-                <% @merchant.products.each do |product| %>
-                <% if product.stock>0 %>
+          <tbody>
+            <% @merchant.products.each do |product| %>
+              <% if product.stock>0 %>
                 <tr class="clickable-tr">
-                    <td><%= link_to product_path(product.id) do%><%= product.name %><%end%></td>
-                    <td><%= product.description %></td>
-                    <td><%= sprintf("$%2.2f", product.price) %></td>
-                    <td><%= product.stock %></td>
-                    <td><%= image_tag(product.photo_url, :size => "260x180") %></td>
-                    <td>
-                        <%= link_to "Edit", edit_product_path(product.id), method: :get, class: "btn btn-info" %>
-                    </td>
-                    <td><%= link_to "Retire", retire_path(product.id), method: :patch,class: "btn btn-info" %>
-                    </td>
+                  <td><%= link_to product_path(product.id) do%><%= product.name %><%end%></td>
+                  <td><%= product.description %></td>
+                  <td><%= sprintf("$%2.2f", product.price) %></td>
+                  <td><%= product.stock %></td>
+                  <td><%= link_to image_tag(product.photo_url, :size => "260x180"), product_path(product.id) %></td>
+                  <td>
+                      <%= link_to "Edit", edit_product_path(product.id), method: :get, class: "btn btn-info" %>
+                  </td>
+                  <td><%= link_to "Retire", retire_path(product.id), method: :patch,class: "btn btn-info" %>
+                  </td>
                 </tr>
-                <% end %>
-                <% end %>
-            </tbody>
-    </table>
-</div>
+              <% end %>
+            <% end %>
+          </tbody>
+      </table>
+      
+      <div class='btn-container'>
+        <%= link_to "Go To My Store", merchant_path(@merchant.id), class: "btn btn-info btn-lg" %>
+        <%= link_to "Add New Product", new_product_path, class: "btn btn-info btn-lg" %>
+        <%= link_to "Add New Category", new_category_path, class: "btn btn-info btn-lg" %>
+      </div>
+  </div>
+<% end %>

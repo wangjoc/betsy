@@ -4,10 +4,10 @@
   <h1 class="display-4">Order Details (Order #<%= @order.id %>)</h1>
   <hr class="my-4">
 
-<%= button_to "Return to Dashboard", dashboard_path, method: :get, class: "btn btn-info" %>
+<%= link_to "Return to Dashboard", dashboard_path, method: :get, class: "btn btn-info" %>
 <% order_items = OrderItem.items_by_order_merchant(@order.id, session[:merchant_id]) %>
 <% if !order_items[0].is_shipped && @order.status == "paid" %>
-  <%= button_to "Ship Products", ship_path(@order.id), method: :patch, class: "btn btn-info" %>
+  <%= link_to "Ship Products", ship_path(@order.id), method: :patch, class: "btn btn-info" %>
 <% end %>
 
 <%= render partial: "shared/order_details", locals: { item_set: @order_items, ship_status: order_items[0].is_shipped } %>

@@ -3,5 +3,7 @@
 <% @products_by_category.each do |category_id, products| %>
   <% category = Category.find_by(id: category_id) %>
   <h3 class='subtitle'>Category: <%= link_to category.category, category_path(category.id) %></h3>
-  <%= render partial: "shared/card", locals: { product_set: products } %>
+  <div class='card-columns'>
+    <%= render partial: "shared/card", locals: { product_set: products } %>
+  </div>
 <% end %>

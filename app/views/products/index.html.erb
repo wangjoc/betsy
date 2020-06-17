@@ -2,5 +2,7 @@
 
 <h1 class='title'>All regrEtsy Products</h1>
 <div class='all-prods-container'>
-  <%= render partial: "shared/card", locals: { product_set: @products } %>
+  <div class='card-columns'>
+    <%= render partial: "shared/card", locals: { product_set: @products } %>
+  </div>
 </div>
