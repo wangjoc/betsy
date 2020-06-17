@@ -67,18 +67,6 @@ describe MerchantsController do
       must_redirect_to root_path
       expect(session[:merchant_id]).must_equal Merchant.last.id
     end
-
-    # # TODO - not sure if this is something we can test, might have more to do with the gem itself
-    # # TODO - this might not be necessary because I think OAuth will just switch to the new user, Leah thoughts?
-    # it 'cannot login a user if another is already logged in' do
-    #   perform_login(merchants(:faker))
-    #   perform_login(merchants(:greentye))
-
-    #   expect(session[:merchant_id]).must_equal merchants(:faker).id
-    #   must_respond_with :redirect
-    #   must_redirect_to root_path
-    #   # expect(session[:merchant_id]).must_equal merchants(:greentye).id
-    # end
   end
 
   describe "logout" do
@@ -114,18 +102,4 @@ describe MerchantsController do
       must_redirect_to root_path
     end
   end
-
-  # describe "confirmation" do
-  #   it "can get to a confirmation page" do
-  #     merchant = merchants(:hannah)
-  #     op = OrderProduct.first
-  #     perform_login(merchant)
-
-  #     get merchant_confirmation_path(op.order_id)
-  #     must_respond_with :success
-  #   end
-
-  #   it "should not get into a confirmation page if not logged in" do
-
-  # end
 end

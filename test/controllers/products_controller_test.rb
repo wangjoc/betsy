@@ -54,58 +54,76 @@ describe ProductsController do
     end
   end
 
-  # describe "new" do
-  #   it "responds with success" do
-  #     get new_product_path
+  describe "new" do
+    it "responds with success" do
+      get new_product_path
 
-  #     must_respond_with :success
-  #   end
-  # end
+      must_respond_with :redirect
+      must_redirect_to root_path
+    end
 
-  # describe "create" do
-  #   describe "Logged in users" do
-  #     before do
-  #       perform_login
-  #     end
+    it "responds with success if logged in" do
+      perform_login
+      get new_product_path
 
-  #     let (:product_hash) {
-  #       {
-  #         product: {
-  #           name: "Soiled Diapers",
-  #           description: "Best-selling product! Especially known for it's special fragrance.",
-  #           price: 99.99,
-  #           photo_url: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ2WjvkDEuH0p5E24TITgJkjV-szXPIvxXT1La-nd7PcbFPxsre&usqp=CAU",
-  #           stock: 10
-  #         }
-  #       }
-  #     }
+      must_respond_with :success
+    end
+  end
 
-  #     it "can create a new product with valid information accurately, and redirect" do
-  #       perform_login
-  #       expect {
-  #         post products_path, params: product_hash[:product]
-  #       }.must_differ 'Product.count', 1
+  describe "create" do
+    describe "not logged in users" do
+      it "responds with success" do
+        get new_product_path
+  
+        must_respond_with :redirect
+        must_redirect_to root_path
+      end
+    end
 
-  #       must_respond_with :redirect
-  #       must_redirect_to product_path(Product.last.id)
+    describe "Logged in users" do
+      before do
+        perform_login
+      end
 
-  #       expect(Product.last.name).must_equal product_params[:product][:name]
-  #       expect(Product.last.description).must_equal product_params[:product][:description]
-  #     end
+      let (:product_hash) {
+        {
+          product: {
+            name: "Soiled Diapers",
+            description: "Best-selling product! Especially known for it's special fragrance.",
+            price: 99.99,
+            photo_url: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ2WjvkDEuH0p5E24TITgJkjV-szXPIvxXT1La-nd7PcbFPxsre&usqp=CAU",
+            stock: 10
+          }
+        }
+      }
 
-  #     it "does not create a driver if the form data violates Driver validations, and responds with a redirect" do
-  #       driver_hash[:driver][:name] = nil
+      it "can create a new product with valid information accurately, and redirect" do
+        expect {
+          post products_path, params: product_hash
+        }.must_differ 'Product.count', 1
 
-  #       expect {
-  #         post drivers_path, params: driver_hash
-  #       }.must_differ "Driver.count", 0
+        must_respond_with :redirect
+        must_redirect_to product_path(Product.last.id)
 
-  #       must_respond_with :bad_request
-  #     end
-  #   end
-  # end
+        expect(Product.last.name).must_equal product_hash[:product][:name]
+        expect(Product.last.description).must_equal product_hash[:product][:description]
+        expect(Product.last.price).must_equal product_hash[:product][:price]
+        expect(Product.last.photo_url).must_equal product_hash[:product][:photo_url]
+        expect(Product.last.stock).must_equal product_hash[:product][:stock]
+        expect(Product.last.merchant_id).must_equal session[:merchant_id]
+      end
 
-  # TODO - Hala, JW put in tests for the custom paths for products since they are related to the shopping cart. Please feel free to add more as needed
+      it "does not create a product if the form data violates product validations, and responds with a redirect" do
+        product_hash[:product][:name] = nil
+
+        expect {
+          post products_path, params: product_hash
+        }.must_differ "Product.count", 0
+
+        must_respond_with :bad_request
+      end
+    end
+  end
 
   describe "add_to_cart" do
     before do
@@ -128,8 +146,6 @@ describe ProductsController do
 
         must_respond_with :redirect
         must_redirect_to products_path
-
-        # TODO - cart_num_items should increase by 1 is add is successful in application test
       end
 
       it "do not add product to cart if not enough stock" do
@@ -181,7 +197,6 @@ describe ProductsController do
     end
 
     describe "add_to_cart login as master" do
-      # TODO - consider adding logic to prevent merchant from buying own product? (similar to how they can't review own product)
       before do
         perform_login
       end
@@ -196,8 +211,6 @@ describe ProductsController do
 
         must_respond_with :redirect
         must_redirect_to products_path
-
-        # TODO - cart_num_items should increase by 1 is add is successful in application test
       end
 
       it "do not add product to cart if not enough stock" do
