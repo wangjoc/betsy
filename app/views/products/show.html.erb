@@ -47,8 +47,10 @@
 
 <div class='reviews'>
 <h1 class='subtitle2'>Other Products You May Regret Buying!</h1>
-  <div class='reviews-container mx-auto'>
-  <%= render partial: "shared/card", locals: { product_set: @featured_products } %>
+  <div class='reviews-container'>
+    <div class='card-columns'>
+      <%= render partial: "shared/card", locals: { product_set: @featured_products } %>
+    </div>
   </div>
 </div>
 

@@ -20,6 +20,7 @@
             </div>
         </div>
     </div>
-
-    <%= render partial: "shared/card", locals: { product_set: @products } %>
+    <div class='card-deck'>
+        <%= render partial: "shared/card", locals: { product_set: @products } %>
+    </div>
 </div>

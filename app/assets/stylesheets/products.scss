@@ -3,9 +3,39 @@
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
 // all products - product index
+
+// from https://stackoverflow.com/questions/36487389/bootstrap-4-card-deck-table-cell-columns-responsive-based-on-viewport
 .card-deck {
-    padding: 20px;
-}
+    margin: 0 -15px;
+    justify-content: space-around;
+  }
+  
+  .card-deck .card {
+    margin: 0 0 1rem;
+  }
+  
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .card-deck .card {
+      -ms-flex: 0 0 48.7%;
+      flex: 0 0 48.7%;
+    }
+  }
+  
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .card-deck .card {
+      -ms-flex: 0 0 32%;
+      flex: 0 0 32%;
+    }
+  }
+  
+  @media (min-width: 992px)
+  {
+    .card-deck .card {
+      -ms-flex: 0 0 24%;
+      flex: 0 0 24%;
+    }
+  }
+
 
 // individual product - product show
 
@@ -13,12 +43,7 @@
     margin: 30px auto
 }
 
- 
 .card-columns {
-    column-count: 5;
-}
-
-.card-deck {
     column-count: 5;
 }
 
@@ -39,12 +64,16 @@
     padding-bottom: 60px;
 }
 
+// .img {
+//     float: left;
+//     width:  262px;
+//     height: 262px;
+//     max-height: 100%;
+//     max-width: 100%;
+//     object-fit: fill;
+// }
+
 .img {
-    float: left;
-    width:  262px;
-    height: 262px;
-    max-height: 100%;
-    max-width: 100%;
-    object-fit: fill;
+    box-shadow: 0 8px 6px -6px black;
 }
 

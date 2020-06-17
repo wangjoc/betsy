@@ -1,5 +1,7 @@
 <% # DISPLAYS ONLY ONE CATEGORY PRODUCTS %>
 <h1 class='title'>Products by Category: <%= @category.category %></h1>
 <div class='all-prods-container'>
-  <%= render partial: "shared/card", locals: { product_set: @products } %>
+  <div class='card-columns'>
+    <%= render partial: "shared/card", locals: { product_set: @products } %>
+  </div>
 </div>
