@@ -1,0 +1,24 @@
+<% # DISPLAYS ALL PRODUCTS, REGARDLESS OF MERCHANT %>
+
+<h1 class='title'>Products Results</h1>
+<div class='all-prods-container'>
+    <div class='card-columns'>
+        <%= render partial: "shared/searchproducts", locals: { product_set: @search_products } %>
+    </div>
+</div>
+
+
+<h1 class='title'>Category Results</h1>
+<div class='all-prods-container'>
+    <div class='card-columns'>
+        <%= render partial: "shared/searchcategories", locals: { category_set: @search_categories } %>
+    </div>
+</div>
+
+
+<h1 class='title'>Merchant Results</h1>
+<div class='all-prods-container'>
+    <div class='card-columns'>
+        <%= render partial: "shared/searchmerchants", locals: { merchant_set: @search_merchants } %>
+    </div>
+</div>

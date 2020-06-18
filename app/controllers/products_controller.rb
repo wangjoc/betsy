@@ -1,11 +1,18 @@
 class ProductsController < ApplicationController
-  before_action :find_product, only: [:show, :edit, :update, :retire, :add_to_cart, :remove_from_cart, :delete_from_cart]
+  before_action :find_product, only: [:show, :edit, :update, :retire, :add_to_cart, :remove_from_cart, :delete_from_cart, :search]
   before_action :require_login, only: [:new, :create, :edit, :update]
 
   def index
     @products = Product.where("stock > ?", 0)
     session[:return_to] = products_path
   end
+
+  def search
+    @search_products = Product.search(params[:search])
+    @search_categories = Product.search_categories(params[:search])
+    @search_merchants = Product.search_merchants(params[:search])
+  end 
+
 
   def show
     if @product.nil?
@@ -145,7 +152,7 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-    complete_params = params.require(:product).permit(:name, :description, :price, :stock, :photo_url, category_ids: [])
+    complete_params = params.require(:product).permit(:name, :description, :price, :stock, :photo_url, :search, category_ids: [])
     complete_params[:merchant_id] = session[:merchant_id]
     return complete_params
   end

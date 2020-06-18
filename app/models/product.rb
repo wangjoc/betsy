@@ -33,6 +33,33 @@ class Product < ApplicationRecord
     return featured[0..[4, featured.length].min]
   end
 
+  def self.search(search)
+    if search
+      @search_products = Product.where('lower(name) LIKE ?', "%#{search}%")
+      if @search_products
+        return @search_products
+      end
+    end
+  end
+
+  def self.search_categories(search)
+    if search
+      @search_categories = Category.where('lower(category) LIKE ?', "%#{search}%")
+      if @search_categories
+        return @search_categories
+      end
+    end
+  end
+
+  def self.search_merchants(search)
+    if search
+      @search_merchants = Merchant.where('lower(name) LIKE ?', "%#{search}%")
+      if @search_merchants
+        return @search_merchants
+      end
+    end
+  end
+
   def avg_rating
     reviews = Review.where(product_id: self.id)
     ratings = reviews.map do |review|

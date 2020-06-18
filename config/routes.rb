@@ -21,6 +21,7 @@ Rails.application.routes.draw do
 
   # Custom product routes
   patch "/products/:id/retire", to: "products#retire", as: "retire"
+  get "products/search", to: "products#search", as: "search"
 
   # Github authorization
   get "/auth/github", as: "github_login"
