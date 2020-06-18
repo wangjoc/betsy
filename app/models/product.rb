@@ -35,7 +35,7 @@ class Product < ApplicationRecord
 
   def self.search(search)
     if search
-      @search_products = Product.where('lower(name) LIKE ?', "%#{search}%")
+      @search_products = Product.where('lower(name) LIKE ?', "%#{search.downcase}%")
       if @search_products
         return @search_products
       end
@@ -44,7 +44,7 @@ class Product < ApplicationRecord
 
   def self.search_categories(search)
     if search
-      @search_categories = Category.where('lower(category) LIKE ?', "%#{search}%")
+      @search_categories = Category.where('lower(category) LIKE ?', "%#{search.downcase}%")
       if @search_categories
         return @search_categories
       end
@@ -53,7 +53,7 @@ class Product < ApplicationRecord
 
   def self.search_merchants(search)
     if search
-      @search_merchants = Merchant.where('lower(name) LIKE ?', "%#{search}%")
+      @search_merchants = Merchant.where('lower(name) LIKE ?', "%#{search.downcase}%")
       if @search_merchants
         return @search_merchants
       end

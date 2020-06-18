@@ -13,7 +13,6 @@ class ProductsController < ApplicationController
     @search_merchants = Product.search_merchants(params[:search])
   end 
 
-
   def show
     if @product.nil?
       redirect_to products_path
