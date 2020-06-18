@@ -5,7 +5,7 @@
     <div class='card-columns'>
         <%= render partial: "shared/searchproducts", locals: { product_set: @search_products } %>
     </div>
-    <% if @search_categories.empty? %>
+    <% if @search_products.empty? %>
         <div class="alert alert-info" role="alert">
             <h4 class="alert-heading">We regret to inform you:</h4>
             <p>There are no products matching your search term.</p>
