@@ -1,14 +1,7 @@
-<% category_set.each do |category| %>
-<div>
-    <div>
-        <ul>
-            <% if category.category %>
-            <li><%= link_to category.category, category_path(category.id), method: :get %></li>
-            <% else %>
-            <li> NO SEARCH RESULTS</li>
-            <% end %>
-        </ul>
-    </div>
-</div>
-</div>
-<% end %>
+<ul class='list-group'>
+    <% category_set.each do |category| %>
+        <% if category.category %>
+            <li class='list-group-item'><%= link_to category.category, category_path(category.id), method: :get %></li>
+        <% end %>    
+    <% end %>
+</ul>

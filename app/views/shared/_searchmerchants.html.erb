@@ -1,14 +1,7 @@
-<% merchant_set.each do |merchant| %>
-<div>
-    <div>
-        <ul>
-            <% if merchant.name %>
-            <li><%= link_to merchant.name, merchant_path(merchant.id) %></li>
-            <% else %>
-            <li> NO SEARCH RESULTS</li>
-            <% end %>
-        </ul>
-    </div>
-</div>
-</div>
-<% end %>
+<ul class='list-group'>
+    <% merchant_set.each do |merchant| %>
+        <% if merchant.name %>
+            <li class='list-group-item'><%= link_to merchant.name, merchant_path(merchant.id) %></li>
+        <% end %>    
+    <% end %>
+</ul>

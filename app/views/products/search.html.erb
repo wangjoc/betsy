@@ -5,20 +5,45 @@
     <div class='card-columns'>
         <%= render partial: "shared/searchproducts", locals: { product_set: @search_products } %>
     </div>
+    <% if @search_categories.empty? %>
+        <div class="alert alert-info" role="alert">
+            <h4 class="alert-heading">We regret to inform you:</h4>
+            <p>There are no products matching your search term.</p>
+            <p>Might you be interested in <%= link_to 'this product', product_path(1) %> instead?</p>  
+            <hr>
+            <p class="mb-0">You won't regret it!</p>
+        </div>
+    <%end%>
 </div>
 
 
 <h1 class='title'>Category Results</h1>
 <div class='all-prods-container'>
-    <div class='card-columns'>
-        <%= render partial: "shared/searchcategories", locals: { category_set: @search_categories } %>
-    </div>
+    <%= render partial: "shared/searchcategories", locals: { category_set: @search_categories } %>
+    
+    <% if @search_categories.empty? %>
+        <div class="alert alert-info" role="alert">
+            <h4 class="alert-heading">We regret to inform you:</h4>
+            <p>There are no categories matching your search term.</p>
+            <p>Might you be interested in <%= link_to 'this category', category_path(1) %> instead?</p>            
+            <hr>
+            <p class="mb-0">You won't regret it!</p>
+        </div>
+    <%end%>
 </div>
 
 
 <h1 class='title'>Merchant Results</h1>
 <div class='all-prods-container'>
-    <div class='card-columns'>
         <%= render partial: "shared/searchmerchants", locals: { merchant_set: @search_merchants } %>
-    </div>
+    <% if @search_merchants.empty? %>
+        <div class="alert alert-info" role="alert">
+            <h4 class="alert-heading">We regret to inform you:</h4>
+            <p>There are no merchants matching your search term.</p>
+            <p>Do you have regrets to pawn off on others?</p>  
+            <p><%= link_to 'Become a merchant for regrEtsy!', github_login_path %> </p>
+            <hr>
+            <p class="mb-0">You won't regret it!</p>
+        </div>
+    <%end%>
 </div>
